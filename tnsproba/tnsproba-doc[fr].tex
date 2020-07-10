@@ -1,0 +1,576 @@
+%\documentclass[12pt,a4paper]{scrartcl}
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter % Technical doc - START
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ucs}
+
+\usepackage[french]{babel,varioref}
+
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{enumitem}
+
+\usepackage{multicol}
+
+\usepackage{makecell}
+
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\usepackage{amsthm}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+
+\usepackage{ifplatform}
+
+\usepackage{ifthen}
+
+\usepackage{cbdevtool}
+
+
+
+% MISC
+
+\newtcblisting{latexex}{%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing side text
+}
+
+\newtcblisting{latexex-flat}{%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+}
+
+\newtcblisting{latexex-alone}{%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing only
+}
+
+
+\newcommand\env[1]{\texttt{#1}}
+\newcommand\macro[1]{\env{\textbackslash{}#1}}
+
+
+
+\setlength{\parindent}{0cm}
+\setlist{noitemsep}
+
+\theoremstyle{definition}
+\newtheorem*{remark}{Remarque}
+
+\usepackage[raggedright]{titlesec}
+
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{0.5em}
+
+
+\newcommand\separation{
+	\medskip
+	\hfill\rule{0.5\textwidth}{0.75pt}\hfill
+	\medskip
+}
+
+
+\newcommand\extraspace{
+	\vspace{0.25em}
+}
+
+
+\newcommand\whyprefix[2]{%
+	\textbf{\prefix{#1}}-#2%
+}
+
+\newcommand\mwhyprefix[2]{%
+	\texttt{#1 = #1-#2}%
+}
+
+\newcommand\prefix[1]{%
+	\texttt{#1}%
+}
+
+
+\newcommand\inenglish{\@ifstar{\@inenglish@star}{\@inenglish@no@star}}
+
+\newcommand\@inenglish@star[1]{%
+	\emph{\og #1 \fg}%
+}
+
+\newcommand\@inenglish@no@star[1]{%
+	\@inenglish@star{#1} en anglais%
+}
+
+
+\newcommand\ascii{\texttt{ASCII}}
+
+
+% Example
+\newcounter{paraexample}[subsubsection]
+
+\newcommand\@newexample@abstract[2]{%
+	\paragraph{%
+		#1%
+		\if\relax\detokenize{#2}\relax\else {} -- #2\fi%
+	}%
+}
+
+
+
+\newcommand\newparaexample{\@ifstar{\@newparaexample@star}{\@newparaexample@no@star}}
+
+\newcommand\@newparaexample@no@star[1]{%
+	\refstepcounter{paraexample}%
+	\@newexample@abstract{Exemple \theparaexample}{#1}%
+}
+
+\newcommand\@newparaexample@star[1]{%
+	\@newexample@abstract{Exemple}{#1}%
+}
+
+
+% Change log
+\newcommand\topic{\@ifstar{\@topic@star}{\@topic@no@star}}
+
+\newcommand\@topic@no@star[1]{%
+	\textbf{\textsc{#1}.}%
+}
+
+\newcommand\@topic@star[1]{%
+	\textbf{\textsc{#1} :}%
+}
+
+\makeatother % Technical doc - END
+
+
+\usepackage{ tnsproba }
+
+
+\begin{document}
+
+\renewcommand\labelitemi{\raisebox{0.125em}{\tiny\textbullet}}
+\renewcommand{\labelitemii}{---}
+
+\title{   %
+	Le package \texttt{ tnsproba }\\%
+	{\footnotesize Code source disponible sur \url{ https://github.com/typensee-latex/tnstools.git }.}\\%
+{\footnotesize Version \texttt{0.0.0-beta} développée et testée sur \macosxname{}.}%
+}
+\author{Christophe BAL}
+\date{2020-07-10}{{{
+
+\maketitle
+
+
+\vspace{2em}
+
+\hrule
+
+\tableofcontents
+
+\vspace{1.5em}
+
+\hrule
+
+\newpage
+
+\section{Introduction}
+
+Le package \verb+tnsproba+ propose des macros utiles quand l'on parle de probailités.
+\section{Probabilité}
+
+\subsection{Probabilité \og simple \fg}
+
+\newparaexample{}
+
+\begin{latexex}
+$\proba{A}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Choisir le nom de la probabilité}
+
+\begin{latexex}
+$\proba[P]{A}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsection{Probabilité conditionnelle}
+
+\newparaexample{Les deux écritures classiques}
+
+La 1\iere{} notation, qui est devenue standard, permet de comprendre l'ordre des arguments.
+\begin{latexex}
+ $\probacond {B}{A}
+= \probacond*{B}{A}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Obtenir la formule de définition}
+
+Le suffixe \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développer}
+\footnote{
+	Pour ne pas alourdir l'utilisation de \macro{probacond}, il a été choisi d'utiliser un suffixe au lieu d'un système de multi-options.
+}.
+
+\begin{latexex}
+ $\probacondexp {B}{A}
+= \probacondexp*{B}{A}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Choisir le nom de la probabilité}
+
+\begin{latexex}
+ $\probacond    [P]{B}{A}
+= \probacond*   [P]{B}{A}
+= \probacondexp*[P]{B}{A}
+= \probacondexp [P]{B}{A}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsection{Espérance}
+
+\newparaexample*{}
+
+\prefix{expval} vient de \whyprefix{exp}{ected} \whyprefix{val}{ue} soit \inenglish{espérance}.
+\begin{latexex}
+$\expval{X}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\paragraph{Choisir le nom de l'espérance}
+
+\begin{latexex}
+$\expval[E_1]{X}$
+\end{latexex}
+
+
+% ---------------------- %
+\section{Arbres pondérés}
+
+\subsection{Que se passe-t-il en coulisse ?}
+
+Le gros du travail est fait par le package \verb+forest+ qui utilise \verb+TiKz+. Ceci permet de faire des choses sympathiques comme dans le 2\ieme{} exemple ci-dessous.
+
+
+% ---------------------- %
+
+
+\subsection{Sans cadre}
+
+\newparaexample{Le cas type}
+
+Dans le code suivant l'environnement \verb+probatree+ utilise en coulisse celui nommé \verb+forest+ du package \verb+forest+. Des réglages spécifiques sont faits pour obtenir le résultat ci-après.
+À cela s'ajoutent les styles spéciaux \verb+pweight+, \verb+apweight+ et \verb+bpweight+ qui facilitent l'écriture des pondérations sur les branches
+\footnote{
+    \texttt{pweight} vient de \emph{\og probability \fg} et \emph{\og weight\fg} soit \emph{\og probabilité \fg} et \emph{\og poids\fg} en anglais.
+    Quant à \texttt{a} et \texttt{b} au début de \texttt{apweight} et \texttt{bpweight} respectivement, ils viennent de \emph{\og above \fg} et \emph{\og below\fg} soit \emph{\og dessus \fg} et \emph{\og dessous\fg} en anglais.
+}.
+
+\begin{latexex}
+\begin{probatree}
+    [
+        [$A$, pweight = $a$
+            [$B$, pweight = $b$]
+            [$C$, pweight = $c$]
+        ]
+        [$D$, bpweight = $d$
+            [$E$, apweight = $e$]
+            [$F$, bpweight = $f$]
+        ]
+    ]
+\end{probatree}
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Des poids cachés partout}
+
+On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ sans avoir à retaper un arbre où les pondérations ont déjà été indiquées.
+
+\begin{latexex}
+\begin{probatree*}
+    [$A$, pweight = $a$
+        [$B$, pweight = $b$]
+        [$C$, pweight = $c$]
+    ]
+\end{probatree*}
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Des poids cachés localement}
+
+Pour ne cacher que certains poids, il faudra utiliser, à la main, le style \verb+pweight*+ comme dans l'exemple ci-dessous.
+
+\begin{latexex}
+\begin{probatree}
+    [
+        [$A$, pweight = $a$
+            [$B$, pweight* = $b$]
+            [$C$, pweight  = $c$]
+        ]
+        [$D$, pweight* = $d$]
+    ]
+\end{probatree}
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
+
+Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches. L'astuce pour contourner cette limitation consiste juste à mettre le contenu de l'étiquette dans des accolades.
+
+\begin{latexex}
+\begin{probatree}
+    [
+        [$A$, apweight = {$a = 0,1$}]
+        [$B$, bpweight = $b$]
+    ]
+\end{probatree}
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsection{Avec des cadres}
+
+\newparaexample{Des cadres facilement}
+
+Via la clé \verb+frame+, il est très aisé d'encadrer un sous-arbre comme le montre l'exemple suivant. Dans l'exemple ci-après nous utilisons la bidouille \verb+{},s sep = 1.3cm+ qui évite que les cadres se superposent.
+
+\begin{latexex}
+\begin{probatree}
+    [{}, s sep = 1.3cm 
+     % Astuce pour espacer les cadres.
+        [$A$, pweight = $a$,
+              frame   = red
+            [$B$, pweight = $b$]
+            [$C$, pweight = $c$]
+        ]
+        [$D$, pweight = $d$,
+              frame   = blue
+            [$E$, pweight = $e$
+                [$F$, pweight = $f$]
+                [$G$, pweight = $g$]
+            ]
+            [$H$, pweight = $h$
+                [$I$, pweight = $i$]
+                [$J$, pweight = $j$]
+            ]
+        ]
+    ]
+\end{probatree}
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Des cadres faits à la main}
+
+En utilisant la machinerie de \verb+TiKz+ il est facile de décorer un arbre de probabilité comme ci-dessous où le cadre s'appuie sur trois noeuds nommés. Notons que cet exemple est tout simplement infaisable avec la clé \verb+frame+.
+
+\begin{latexex}
+\begin{probatree}
+    [
+        [$A$, pweight = $a$,
+              name    = nA
+            [$B$, pweight = $b$,
+                  name    = nB
+                [$C$, pweight = $c$]
+                [$D$, pweight = $d$]
+               ]
+            [$F$, pweight = $f$,
+                  name    = nF]
+        ]
+        [$G$, pweight = $g$]
+    ]
+    \node[draw = orange,
+          thick,
+          rounded corners,
+          fit = (nA)(nB)(nF)] {};
+\end{probatree}
+\end{latexex}
+
+
+
+
+
+
+
+% ---------------------- %
+
+
+%\paragraph{Exemple 7 -- Indiquer un chemin}
+%
+%L'exemple suivant demande un peu plus d'implication mais de nouveau tout est obtenu via la machinerie de \verb+TiKz+.
+%
+%\begin{latexex}
+%\begin{probatree}
+%    [{}, name = start
+%        [$A$, pweight = $a$, 
+%              name    = nA
+%            [$B$, pweight = $b$]
+%            [$C$, pweight = $c$,
+%                  name    = nC]
+%        ]
+%        [$D$, pweight = $d$,
+%            [$E$, pweight = $e$]    
+%            [$F$, pweight = $f$]
+%        ]
+%    ]
+%    \draw[blue,
+%          rounded corners,
+%          dashed,
+%          line width=0.7pt]          
+%    (start.90) --
+%    (nA.135) --
+%    (nA.45) --
+%    (nC.45) --
+%    (nC.315) --
+%    (nC.225) --
+%    (nA.315) --
+%    (nA.225) --
+%    (start.315) --
+%    (start.180) --
+%    (start.90);
+%\end{probatree}
+%\end{latexex}
+
+
+% ---------------------- %
+\newpage
+
+\section{Historique}
+
+Nous ne donnons ici qu'un très bref historique récent
+\footnote{
+	On ne va pas au-delà de un an depuis la dernière version.
+}
+de \verb+tnsproba+ à destination de l'utilisateur principalement.
+Tous les changements sont disponibles uniquement en anglais dans le dossier \verb+change-log+ : voir le code source de \verb+tnsproba+ sur \verb+github+.
+
+\begin{description}
+% Changes shown - START
+
+    \medskip
+    \item[2020-07-10] Première version \verb+0.0.0-beta+.
+% ------------------------ %
+
+% Changes shown - END 
+\end{description}
+
+
+\newpage
+\section{Toutes les fiches techniques} \label{techincal-ids}
+
+
+\subsection{Probabilité}
+
+\subsubsection{Probabilité \og simple \fg}
+
+\IDmacro{proba}{1}{1}
+
+\IDoption{} le nom de la probabilité. La valeur par défaut est \verb+p+.
+
+\IDarg{} l'ensemble dont on veut calculer la probabilité.
+
+
+% ---------------------- %
+
+
+
+\subsubsection{Probabilité conditionnelle}
+
+\IDmacro{probacond}{1}{2}
+
+\IDmacro{probacond*}{1}{2}
+
+\extraspace
+
+\IDmacro{probacondexp}{1}{2}
+
+\IDmacro{probacondexp*}{1}{2}
+
+
+\IDoption{} le nom de la probabilité. La valeur par défaut est \verb+p+.
+
+\IDarg{1} l'ensemble qui donne la condition.
+
+\IDarg{2} l'ensemble dont on veut calculer la probabilité.
+
+
+% ---------------------- %
+
+
+
+\subsubsection{Probabilité -- Espérance}
+
+\IDmacro{expval}{1}{1}
+
+\IDoption{} le nom de la fonction espérance. La valeur par défaut est \verb+E+.
+
+\IDarg{} la variable aléatoire dont on veut calculer l'espérance.
+\subsection{Arbres pondérés}
+
+\subsubsection{Probabilité -- Arbres pondérés}
+
+\IDenv*{probatree}
+
+\IDenv*{probatree*}
+
+\Content{} un arbre codé en utilisant la syntaxe supportée par le package \verb+forest+.
+
+\IDkey{pweight} pour écrire un poids sur le milieu d'une branche.
+
+\IDkey{apweight} pour écrire un poids au-dessus le milieu d'une branche.
+
+\IDkey{bpweight} pour écrire un poids en-dessous du milieu d'une branche.
+
+\IDkey{frame} pour encadrer un sous-arbre depuis un noeud vers toutes les feuilles de celui-ci.
+
+
+\end{document}
