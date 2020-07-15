@@ -19,7 +19,7 @@
 %    * ???? (all settings)
 %    * https://tex.stackexchange.com/a/511763/6880 (hide/show the weights)
 
-\newcommand\@proba@tree[1]{
+\newcommand\tnsproba@tree[1]{
     \begin{forest}
         for tree = {%
             sn edges,
@@ -80,7 +80,7 @@
 
 % Source: https://stackoverflow.com/a/1873617/4589608
 \newenvironment{probatree}{\startprobatree}{}
-\def\startprobatree#1\end{\@proba@tree{#1}\end}
+\def\startprobatree#1\end{\tnsproba@tree{#1}\end}
 
 \newenvironment{probatree*}{
     \forestset{pweight/.style={}}
