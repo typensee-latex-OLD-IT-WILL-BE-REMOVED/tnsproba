@@ -1,4 +1,17 @@
 ==========
+2020-07-22
+==========
+
+**New minor version version::``0.1.0-beta`` of ¨tnsproba:** see the new feature below.
+
+
+**Change of ¨api:**  ``\probacondexp`` has been renamed  ``\eprobacond``.
+
+
+**Contrary events, variance and standard deviation:** macros ``\nevent``, ``\var`` and ``\stddev`` have been added.
+
+
+==========
 2020-07-21
 ==========
 

@@ -225,10 +225,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.0.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.1.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-10}
+\date{2020-07-22}
 
 \maketitle
 
@@ -248,7 +248,11 @@
 \section{Introduction}
 
 Le package \verb+tnsproba+ propose des macros utiles quand l'on parle de probabilités. La saisie se veut sémantique et simple.
-\section{Probabilité}
+\section{Ensembles probabilistes}
+
+Le package \verb+tnssets+ propose le macro \macro{setproba} pour indiquer des ensembles de type probabiliste.
+Se rendre sur \url{https://github.com/typensee-latex/tnssets.git} si cela vous intéresse.
+\section{Généralités}
 
 \subsection{Probabilité \og simple \fg}
 
@@ -288,14 +292,14 @@ La 1\iere{} notation, qui est devenue standard, permet de comprendre l'ordre des
 
 \newparaexample{Obtenir la formule de définition}
 
-Le suffixe \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développer}
+Le préfixe \prefix{e} est pour \whyprefix{e}{xpand} soit \inenglish{développer}
 \footnote{
-	Pour ne pas alourdir l'utilisation de \macro{probacond}, il a été choisi d'utiliser un suffixe au lieu d'un système de multi-options.
+	Pour ne pas alourdir l'utilisation de \macro{probacond}, il a été choisi d'utiliser un préfixe au lieu d'un système de multi-options.
 }.
 
 \begin{latexex}
- $\probacondexp {B}{A}
-= \probacondexp*{B}{A}$
+ $\eprobacond {B}{A}
+= \eprobacond*{B}{A}$
 \end{latexex}
 
 
@@ -305,21 +309,32 @@ Le suffixe \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développe
 \newparaexample{Choisir le nom de la probabilité}
 
 \begin{latexex}
- $\probacond    [P]{B}{A}
-= \probacond*   [P]{B}{A}
-= \probacondexp*[P]{B}{A}
-= \probacondexp [P]{B}{A}$
+ $\probacond  [P]{B}{A}
+= \probacond* [P]{B}{A}
+= \eprobacond*[P]{B}{A}
+= \eprobacond [P]{B}{A}$
 \end{latexex}
 
 
 % ---------------------- %
+%\section{Généralités}
+
+\subsection{Évènement contraire}
+
+\macro{nevent} vient de \whyprefix{n}{ot} \prefix{event} qui est une pseudo-traduction de \inenglish{évènement contraire}.
+\begin{latexex}
+$\nevent{A}$
+\end{latexex}
 
 
-\subsection{Espérance}
+% ---------------------- %
+%\section{Généralités}
 
-\newparaexample{}
+\subsection{Espérance, variance et écart-type}
 
-\prefix{expval} vient de \whyprefix{exp}{ected} \whyprefix{val}{ue} soit \inenglish{espérance}.
+\newparaexample{Espérance}
+
+\macro{expval} vient de \whyprefix{exp}{ected} \whyprefix{val}{ue} soit \inenglish{espérance}.
 \begin{latexex}
 $\expval{X}$
 \end{latexex}
@@ -332,6 +347,29 @@ $\expval{X}$
 
 \begin{latexex}
 $\expval[E_1]{X}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Variance}
+
+\begin{latexex}
+$\var   {X}$ ou
+$\var[v]{X}$
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Écart-type}
+
+\macro{stddev} vient de \whyprefix{st}{andar-}\prefix{d} \whyprefix{dev}{iation} soit \inenglish{écart-type}.
+\begin{latexex}
+$\stddev   {X}$ ou
+$\stddev[s]{X}$
 \end{latexex}
 
 
@@ -552,6 +590,34 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-07-22] Nouvelle version mineure \verb+0.1.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Probabilité conditionnelle}
+              \macro{probacondexp} renommée en  \macro{eprobacond}.
+    
+    % ------------------------ %
+    
+        \separation
+    
+        \item \topic*{Évènement contraire}
+              ajout de \macro{nevent}.
+    
+    % ------------------------ %
+    
+        \separation
+    
+        \item \topic*{variance et écart-type}
+              ajout de \macro{var} et \macro{stddev}.
+    
+    % ------------------------ %
+    
+        \separation
+    
+    \end{itemize}
+% ------------------------ %
+
+    \medskip
     \item[2020-07-10] Première version \verb+0.0.0-beta+.
 % ------------------------ %
 
@@ -563,14 +629,15 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
 
-\subsection{Probabilité}
+
+\subsection{Généralités}
 
 \subsubsection{Probabilité \og simple \fg}
 
 
 \IDmacro{proba}{1}{1}
 
-\IDoption{} le nom de la probabilité. La valeur par défaut est \verb+p+.
+\IDoption{} le nom de la probabilité. La valeur par défaut est $p$.
 
 \IDarg{} l'ensemble dont on veut calculer la probabilité.
 
@@ -581,35 +648,56 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \subsubsection{Probabilité conditionnelle}
 
 
-\IDmacro{probacond   }{1}{2}
+\IDmacro{probacond  }{1}{2}
 
-\IDmacro{probacond*  }{1}{2}
+\IDmacro{probacond* }{1}{2}
 
 \extraspace
 
-\IDmacro{probacondexp}{1}{2}
+\IDmacro{eprobacond }{1}{2}
 
-\IDmacro{probacondexp*}{1}{2}
+\IDmacro{eprobacond*}{1}{2}
 
 
-\IDoption{} le nom de la probabilité. La valeur par défaut est \verb+p+.
+\IDoption{} le nom de la probabilité. La valeur par défaut est $p$.
 
 \IDarg{1} l'ensemble qui donne la condition.
 
 \IDarg{2} l'ensemble dont on veut calculer la probabilité.
+\subsubsection{Évènement contraire}
 
 
-% ---------------------- %
+\IDmacro*{nevent}{1}
 
-
-\subsubsection{Espérance}
+\IDarg{} l'ensemble dont on veut indiquer le contraire.
+\subsubsection{Espérance, variance et écart-type}
 
 
 \IDmacro{expval}{1}{1}
 
-\IDoption{} le nom de la fonction espérance. La valeur par défaut est \verb+E+.
+\IDoption{} le nom de la fonction espérance. La valeur par défaut est $\mathrm{E}$ obtenue via \verb#\mathrm{E}#.
 
 \IDarg{} la variable aléatoire dont on veut calculer l'espérance.
+
+
+\separation
+
+
+\IDmacro{var}{1}{1}
+
+\IDoption{} le nom de la fonction variance. La valeur par défaut est $\mathrm{V}$ obtenue via \verb#\mathrm{V}#.
+
+\IDarg{} la variable aléatoire dont on veut calculer la variance.
+
+
+\separation
+
+
+\IDmacro{stddev}{1}{1}
+
+\IDoption{} le nom de la fonction écart-type. La valeur par défaut est $\sigma$ obtenue via \verb#\sigma#.
+
+\IDarg{} la variable aléatoire dont on veut calculer l'écart-type.
 \subsection{Arbres pondérés}
 
 
