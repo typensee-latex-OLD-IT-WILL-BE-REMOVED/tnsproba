@@ -1,4 +1,11 @@
 ==========
+2020-07-23
+==========
+
+**New minor version version::``0.2.0-beta`` of ¨tnsproba:** the macro ``\ptreeFrame`` simplifies the draw of a frame on a non final subtree.
+
+
+==========
 2020-07-22
 ==========
 
