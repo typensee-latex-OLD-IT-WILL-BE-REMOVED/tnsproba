@@ -38,6 +38,12 @@
 \usepackage{cbdevtool}
 
 
+% Sections numbering
+
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\alph{subsection}.}
+\renewcommand\thesubsubsection{\roman{subsubsection}.}
+
 
 % MISC
 
@@ -630,9 +636,16 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
+
+
+
 \subsection{Généralités}
 
 \subsubsection{Probabilité \og simple \fg}
+
 
 
 \IDmacro{proba}{1}{1}
@@ -646,6 +659,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 \subsubsection{Probabilité conditionnelle}
+
 
 
 \IDmacro{probacond  }{1}{2}
@@ -664,13 +678,19 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{1} l'ensemble qui donne la condition.
 
 \IDarg{2} l'ensemble dont on veut calculer la probabilité.
+
+
 \subsubsection{Évènement contraire}
+
 
 
 \IDmacro*{nevent}{1}
 
 \IDarg{} l'ensemble dont on veut indiquer le contraire.
+
+
 \subsubsection{Espérance, variance et écart-type}
+
 
 
 \IDmacro{expval}{1}{1}
@@ -698,7 +718,10 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDoption{} le nom de la fonction écart-type. La valeur par défaut est $\sigma$ obtenue via \verb#\sigma#.
 
 \IDarg{} la variable aléatoire dont on veut calculer l'écart-type.
+
+
 \subsection{Arbres pondérés}
+
 
 
 \IDenv*{probatree }
@@ -714,6 +737,8 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDkey{bpweight} pour écrire un poids en-dessous du milieu d'une branche.
 
 \IDkey{frame} pour encadrer un sous-arbre depuis un noeud vers toutes les feuilles de celui-ci.
+
+
 
 
 \end{document}
