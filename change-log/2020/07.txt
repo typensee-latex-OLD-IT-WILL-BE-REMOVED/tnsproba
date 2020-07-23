@@ -4,6 +4,7 @@
 
 **New minor version version::``0.2.0-beta`` of ¨tnsproba:** the macro ``\ptreeFrame`` simplifies the draw of a frame on a non final subtree.
 
+
 **Internal machinery for the technical ¨infos:** the printing uses now ¨macroenvsign the new version of ¨cbdevtools (this tool is still in alpha version).
 
 
