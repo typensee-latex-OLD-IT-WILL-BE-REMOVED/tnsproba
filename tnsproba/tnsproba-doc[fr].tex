@@ -12,6 +12,8 @@
 \usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
 \usepackage{enumitem}
 
+\usepackage{pgffor}
+
 \usepackage{multicol}
 
 \usepackage{makecell}
@@ -35,7 +37,7 @@
 
 \usepackage{ifthen}
 
-\usepackage{cbdevtool}
+\usepackage{macroenvsign}
 
 
 % Sections numbering
@@ -749,7 +751,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \separation
 
 
-\IDmacro{ptreeFrame}{1}{3}  où \quad \mwhyprefix{p}{robabilty}
+\IDmacro{ptreeFrame}{1}{3} \hfill \mwhyprefix{p}{robabilty}
 
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
