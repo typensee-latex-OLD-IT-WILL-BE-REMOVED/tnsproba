@@ -1,4 +1,11 @@
 ==========
+2020-07-29
+==========
+
+**Documentation for the probabilistic trees :** a undecorated tree has been added to explain the general syntax of ¨forest package.
+
+
+==========
 2020-07-25
 ==========
 
