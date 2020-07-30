@@ -1,15 +1,19 @@
 \begin{probatree}
-    [{}
+    [{}, name = nU
         [$A$, pweight  = $a$,
               pframe   = blue,
               pcomment = \textcolor{blue}%
                                    {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
-            [$B$, apweight = $b$]
-            [$C$, bpweight = $c$]
+            [$B$, pweight = $b$]
+            [$C$, pweight = $c$]
         ]
-        [$D$, pweight = $d$
-            [$E$, apweight = $e$]
+        [$D$, name     = nD,
+              bpweight = $d$
+            [$E$, name     = nE,
+                  apweight = $e$]
             [$F$, bpweight = $f$]
         ]
     ]
+    \ptreeFocus*[red]{nU}{nD}
+    \ptreeFocus*[red]{nD}{nE}
 \end{probatree}

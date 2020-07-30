@@ -1,0 +1,35 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \usepackage{01-tree}
+\makeatother
+
+
+% == EXTRAS == %
+
+
+\begin{document}
+
+%\section{Arbres pondérés}
+
+\subsection{Mettre en valeur des chemins}
+
+Il est relativement aisé de mettre en valeur un chemin particulier comme dans l'exemple ci-après qui est une simple démo. montrant les différences entre \macro{ptreeFocus},  \macro{ptreeFocus*} et \macro{ptreeFocus**}.
+
+\inputlatexex{tikz/probatree-focus-edge.tkz}
+
+Voici ce qu'il faut retenir.
+
+\begin{enumerate}
+	\item \macro{ptreeFocus} encadre les noeuds initial et final.
+
+	\item \macro{ptreeFocus*} encadre juste le noeud final.
+
+	\item \macro{ptreeFocus**} n'encadre aucun des deux noeuds.
+	
+	\item La couleur peut être changée via l'argument optionnel. Par défaut le bleu est utilisé.
+\end{enumerate}
+
+\end{document}
