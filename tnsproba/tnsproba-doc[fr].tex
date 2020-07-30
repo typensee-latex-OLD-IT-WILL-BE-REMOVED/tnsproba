@@ -233,10 +233,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.3.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.4.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-25}
+\date{2020-07-31}
 
 \maketitle
 
@@ -256,6 +256,25 @@
 \section{Introduction}
 
 Le package \verb+tnsproba+ propose des macros utiles quand l'on parle de probabilités. La saisie se veut sémantique et simple.
+
+
+% tnscom used - START
+\section{Beta-dépendance}
+
+\verb#\tnscom# qui est disponible sur \url{https://github.com/typensee-latex/tnscom.git} est un package utilisé en coulisse.
+% tnscom used - END
+% List of packages - START
+\section{Packages utilisés}
+
+La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les packages suivants sans aucun scrupule.
+
+\begin{multicols}{4}
+    \begin{itemize}
+        \item \verb#amsmath#
+        \item \verb#forest#
+    \end{itemize}
+\end{multicols}
+% List of packages - END
 \section{Ensembles probabilistes}
 
 Le package \verb+tnssets+ propose le macro \macro{setproba} pour indiquer des ensembles de type probabiliste.
@@ -388,7 +407,7 @@ $\stddev[s]{X}$
 
 Le gros du travail est fait par le package \verb+forest+ qui utilise \verb+TiKz+. On peut donc faire appel à la machinerie de ce dernier et obtenir des choses sympathiques comme ci-dessous à moindre coût neuronal.
 
-\inputlatexexcodeafter{tikz/showcase.tkz}
+\inputlatexexcodeafter{tikz/probatree-showcase.tkz}
 
 
 % ---------------------- %
@@ -398,14 +417,24 @@ Le gros du travail est fait par le package \verb+forest+ qui utilise \verb+TiKz+
 
 \newparaexample{Le cas type}
 
-Dans le code suivant l'environnement \verb+probatree+ utilise en coulisse celui nommé \verb+forest+ du package \verb+forest+. Des réglages spécifiques sont faits pour obtenir le résultat ci-après.
-À cela s'ajoutent les styles spéciaux \verb+pweight+, \verb+apweight+ et \verb+bpweight+ qui facilitent l'écriture des pondérations sur les branches
+Commençons par un arbre nu pour voir comment utiliser l'environnement \verb+probatree+ qui s'appuie en coulisse sur celui nommé \verb+forest+ du package éponyme.
+L'exemple qui suit utilise juste les réglages spécifiques de mise en forme de l'arbre qui sont propres à \verb+probatree+.
+
+\inputlatexex{tikz/probatree-undecorated.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Ajouter des pondérations}
+
+Dans le code suivant, ce sont les styles spéciaux supplémentaires \verb+pweight+, \verb+apweight+ et \verb+bpweight+ qui facilitent l'écriture des pondérations sur les branches
 \footnote{
-    \texttt{pweight} vient de \emph{\og probability \fg} et \emph{\og weight\fg} soit \emph{\og probabilité \fg} et \emph{\og poids\fg} en anglais.
-    Quant à \texttt{a} et \texttt{b} au début de \texttt{apweight} et \texttt{bpweight} respectivement, ils viennent de \emph{\og above \fg} et \emph{\og below\fg} soit \emph{\og dessus \fg} et \emph{\og dessous\fg} en anglais.
+    \prefix{pweight} vient de \whyprefix{p}{robability} et \prefix{weight} soit \inenglish*{probabilité} et \inenglish{poids}.
+    Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{bpweight} respectivement, ils viennent de \whyprefix{a}{bove} et \whyprefix{b}{elow} soit \inenglish*{dessus} et \inenglish{dessous}.
 }.
 
-\inputlatexex{tikz/weight-placement.tkz}
+\inputlatexex{tikz/probatree-weight-placement.tkz}
 
 
 % ---------------------- %
@@ -413,9 +442,9 @@ Dans le code suivant l'environnement \verb+probatree+ utilise en coulisse celui 
 
 \newparaexample{Des poids cachés partout}
 
-On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ sans avoir à les effacer partout dans le code \LaTeX.
+On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ sans avoir à les effacer partout dans le code \LaTeX{} \emph{(ceci peut être utile lors de la rédaction d'exercices)}.
 
-\inputlatexex{tikz/weight-hide-all.tkz}
+\inputlatexex{tikz/probatree-weight-hide-all.tkz}
 
 
 % ---------------------- %
@@ -423,9 +452,9 @@ On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ san
 
 \newparaexample{Des poids cachés localement}
 
-Pour ne cacher que certains poids, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous.
+Pour ne cacher que certains poids afin de produire par exemple un arbre à compléter, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous.
 
-\inputlatexex{tikz/weight-hide-locally.tkz}
+\inputlatexex{tikz/probatree-weight-hide-locally.tkz}
 
 
 % ---------------------- %
@@ -433,19 +462,22 @@ Pour ne cacher que certains poids, il faudra utiliser localement le style \verb+
 
 \newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
 
-Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches.
-Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette dans des accolades.
+Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
+\footnote{
+	Ces deux symboles font partie de la syntaxe TikZ.
+}.
+Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
 
-\inputlatexex{tikz/weight-coma-equal.tkz}
+\inputlatexex{tikz/probatree-weight-coma-equal.tkz}
 %\section{Arbres pondérés}
 
 \subsection{Commenter les racines}
 
-Que ce soit pour expliquer un arbre de probabilité  ou raisonner dessus, l'effet suivant est très utile.
+Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur ce dernier, l'effet suivant est très utile.
 Noter qu'ici il a fallu utiliser des accolades pour cacher à TikZ les signes $=$ dans les commentaires.
 
 
-\inputlatexexflat{tikz/comment.tkz}
+\inputlatexexflat{tikz/probatree-comment.tkz}
 
 
 \begin{remark}
@@ -458,13 +490,13 @@ Noter qu'ici il a fallu utiliser des accolades pour cacher à TikZ les signes $=
 
 \newparaexample{Des cadres finaux}
 
-Via la clé \verb+pframe+, il est très aisé d'encadrer un sous-arbre final
-\footnote{
+Via la clé \verb#pframe# il est très aisé d'encadrer un sous-arbre final
+\footnote{ 
 	Un sous-arbre sera dit final si toutes ses feuilles correspondent à des feuilles de l'arbre initial. 
 }
 comme le montre l'exemple suivant. Dans l'exemple ci-après nous utilisons la bidouille \verb+{},s sep = 1.3cm+ qui évite que les cadres se superposent.
 
-\inputlatexex{tikz/frame-final.tkz}
+\inputlatexex{tikz/probatree-frame-final.tkz}
 
 
 % ---------------------- %
@@ -475,9 +507,28 @@ comme le montre l'exemple suivant. Dans l'exemple ci-après nous utilisons la bi
 
 La macro \macro{ptreeFrame} permet facilement d'encadrer un sous-arbre non final.
 Ceci nécessite de nommer les noeuds mais c'est facile à faire.
-Voici un exemple où la macro \macro{ptreeFrame} attend les noms de la racine via \verb#{}, name = nU#, et des deux noeuds finaux le plus haut et le plus bas de façon similaire.
+Voici un exemple où la macro \macro{ptreeFrame} attend les noms de la racine et des deux noeuds finaux le plus haut et le plus bas qui sont ajoutés via \verb#name = ...# dans le code de l'arbre.
 
-\inputlatexex{tikz/frame-not-final.tkz}
+\inputlatexex{tikz/probatree-frame-not-final.tkz}
+%\section{Arbres pondérés}
+
+\subsection{Mettre en valeur des chemins}
+
+Il est relativement aisé de mettre en valeur un chemin particulier comme dans l'exemple ci-après qui est une simple démo. montrant les différences entre \macro{ptreeFocus},  \macro{ptreeFocus*} et \macro{ptreeFocus**}.
+
+\inputlatexex{tikz/probatree-focus-edge.tkz}
+
+Voici ce qu'il faut retenir.
+
+\begin{enumerate}
+	\item \macro{ptreeFocus} encadre les noeuds initial et final.
+
+	\item \macro{ptreeFocus*} encadre juste le noeud final.
+
+	\item \macro{ptreeFocus**} n'encadre aucun des deux noeuds.
+	
+	\item La couleur peut être changée via l'argument optionnel. Par défaut le bleu est utilisé.
+\end{enumerate}
 %\section{Arbres pondérés}
 \newpage
 
@@ -494,6 +545,17 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-07-31] Nouvelle version mineure \verb+0.4.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Arbre}
+        	  possibilité de mettre en valeur un chemin via \macro{ptreeFocus},  \macro{ptreeFocus*} ou \macro{ptreeFocus**}.
+    \end{itemize}
+    
+    \separation
+% ------------------------ %
+
+    \medskip
     \item[2020-07-25] Nouvelle version mineure \verb+0.3.0-beta+.
     
     \begin{itemize}[itemsep=.5em]
@@ -503,9 +565,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
     
             \item Le style \prefix{frame} a été renommé \prefix{pframe}.
         \end{itemize}
-    
-        \separation
     \end{itemize}
+    
+    \separation
 % ------------------------ %
 
     \medskip
@@ -514,9 +576,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
     \begin{itemize}[itemsep=.5em]
         \item \topic*{Arbre}
               ajout de la macro \macro{ptreeFrame} pour tracer facilement des sous cadres non \og finaux \fg.
-    
-        \separation
     \end{itemize}
+    
+    \separation
 % ------------------------ %
 
     \medskip
@@ -555,6 +617,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
 \subsection{Généralités}
 
 \subsubsection{Probabilité \og simple \fg}
@@ -575,15 +640,15 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-\IDmacro[2]{probacond}{1}{2}
+\IDmacro{probacond  }{1}{2}
 
-\IDmacro[1]{probacond*}{1}{2}
+\IDmacro{probacond* }{1}{2}
 
 \extraspace
 
-\IDmacro[1]{eprobacond}{1}{2}
+\IDmacro{eprobacond }{1}{2}
 
-\IDmacro   {eprobacond*}{1}{2}
+\IDmacro{eprobacond*}{1}{2}
 
 
 \IDoption{} le nom de la probabilité. La valeur par défaut est $p$.
@@ -597,7 +662,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-\IDmacro*{nevent}{1}
+\IDmacro[a]{nevent}{1}
 
 \IDarg{} l'ensemble dont on veut indiquer le contraire.
 
@@ -642,13 +707,16 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
 \subsection{Arbres pondérés}
 
 
 
-\IDenv*{probatree}
+\IDenv[n]{probatree}
 
-\IDenv*{probatree*}
+\IDenv[n]{probatree*}
 
 \Content{} un arbre codé en utilisant la syntaxe supportée par le package \verb+forest+.
 
@@ -677,6 +745,22 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
 \IDargs{1..3} noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite). Ici l'ordre n'est pas important.
+
+
+\separation
+
+
+\IDmacro{ptreeFocus  }{1}{2}
+
+\IDmacro{ptreeFocus* }{1}{2}
+
+\IDmacro{ptreeFocus**}{1}{2}
+
+\IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
+
+\IDarg{1} nom du noeud initial.
+
+\IDarg{2} nom du noeud final.
 
 
 

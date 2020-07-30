@@ -16,9 +16,9 @@
 
 \section{Fiches techniques}
 
-\IDenv*{probatree}
+\IDenv[n]{probatree}
 
-\IDenv*{probatree*}
+\IDenv[n]{probatree*}
 
 \Content{} un arbre codé en utilisant la syntaxe supportée par le package \verb+forest+.
 
@@ -47,5 +47,21 @@
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
 \IDargs{1..3} noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite). Ici l'ordre n'est pas important.
+
+
+\separation
+
+
+\IDmacro{ptreeFocus  }{1}{2}
+
+\IDmacro{ptreeFocus* }{1}{2}
+
+\IDmacro{ptreeFocus**}{1}{2}
+
+\IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
+
+\IDarg{1} nom du noeud initial.
+
+\IDarg{2} nom du noeud final.
 
 \end{document}

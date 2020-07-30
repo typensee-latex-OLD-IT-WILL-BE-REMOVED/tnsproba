@@ -8,6 +8,7 @@
 \RequirePackage{forest}
 
 % TikZ libraries
+\usetikzlibrary{babel}
 \usetikzlibrary{calc}
 
 
@@ -210,4 +211,54 @@
           thick,
           rounded corners,
           fit = (#2)(#3)(#4)] {};
+}
+
+
+
+\newcommand\ptreeFocus{\@ifstar{\tnsproba@ptree@focus@star}{\tnsproba@ptree@focus@no@star}}
+
+\newcommand\tnsproba@ptree@focus@star{\@ifstar{\tnsproba@ptree@focus@star@star}{\tnsproba@ptree@focus@star@no@star}}
+
+
+% #1 : color
+% #2 : start
+% #3 : end
+\newcommand\tnsproba@ptree@focus@abstract@edge[3]{
+    \draw[#1,
+          line cap   = round,
+          line width = 2.5pt] 
+    	(#2.parent anchor)
+	 -- (#3.child anchor);
+}
+
+
+% #1 : color
+% #2 : node
+\newcommand\tnsproba@ptree@focus@abstract@node[2]{
+	\node[draw       = #1,
+          line width = 2pt,
+          inner sep  = 0pt,
+          rounded corners,
+          fit = (#2)(#2)(#2)] {};
+}
+
+
+% #1 : color
+% #2 : start
+% #3 : end
+\newcommand\tnsproba@ptree@focus@no@star[3][blue]{
+    \tnsproba@ptree@focus@abstract@edge{#1}{#2}{#3}
+    \tnsproba@ptree@focus@abstract@node{#1}{#2}
+    \tnsproba@ptree@focus@abstract@node{#1}{#3}
+}
+
+
+\newcommand\tnsproba@ptree@focus@star@no@star[3][blue]{
+    \tnsproba@ptree@focus@abstract@edge{#1}{#2}{#3}
+    \tnsproba@ptree@focus@abstract@node{#1}{#3}
+}
+
+
+\newcommand\tnsproba@ptree@focus@star@star[3][blue]{
+    \tnsproba@ptree@focus@abstract@edge{#1}{#2}{#3}
 }
