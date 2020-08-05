@@ -6,17 +6,22 @@
 \RequirePackage{amsmath}
 % F
 \RequirePackage{forest}
+% T
+\RequirePackage{tnscom}
+\RequirePackage{trimspaces}
+% X
+\RequirePackage{xstring}
 
 % TikZ libraries
-\usetikzlibrary{babel}
 \usetikzlibrary{calc}
+\usetikzlibrary{babel}
 
 
 % ------------- %
 % -- GENERAL -- %
 % ------------- %
 
-% Semantic probability
+% -- Semantic probability -- %
 
 \newcommand\proba[2][p]{%
     \mathchoice{% * Display style
@@ -31,7 +36,7 @@
 }
 
 
-% Conditional probability
+% -- Conditional probability -- %
 
 \newcommand\tnsproba@abstract@proba@cond[4]{%
     #1{\proba[#2]{#3 \cap #4}}{\proba[#2]{#4}}%
@@ -60,14 +65,14 @@
 }
 
 
-% "Not" event
+% -- "Not" event -- %
 
 \newcommand\nevent[1]{%
     \overline{\kern.15ex#1\vphantom{#1^{x}}\kern.15ex}%
 }
 
 
-% Expected value - Variance - Standard deviation
+% -- Expected value - Variance - Standard deviation -- %
 
 \newcommand\expval[2][\mathrm{E}]{%
     \proba[#1]{#2}%
@@ -88,7 +93,8 @@
 
 \useforestlibrary{linguistics}
 
-% Global settings
+
+% -- Global settings -- %
 
 \forestset{
     declare count = {connections}{1}, 
@@ -112,12 +118,22 @@
 }
 
 
+
 % Sources
+%    * https://stackoverflow.com/a/1873617/4589608
 %    * ???? (all settings)
 %    * https://tex.stackexchange.com/a/511763/6880 (hide/show the weights)
 %    * https://tex.stackexchange.com/questions/554843/tikz-forest-align-pcomment*-contents-added-on-the-right-of-the-final-nodes/554855#554855
 
+\newenvironment{probatree}{%
+	\startprobatree%
+}{}
+
+\def\startprobatree#1\end{\tnsproba@tree{#1}\end}
+
+
 \newcommand\tnsproba@tree[1]{
+% Into the tree...
     \begin{forest}
         for tree = {%
             sn edges,
@@ -178,29 +194,58 @@
 				\node [draw, ##1, thick, rounded corners,fit to=tree]{};
 			}
 		},
-		pcomment/.style={
-		    tikz+={
-		        \node [anchor=mid west, xshift=.4cm] at (.mid -| pcomment coord) {##1};
-	    	},
-		},
+%		pcomment/.style={
+%		    tikz+={
+%		        \node [anchor=mid west, xshift=.4cm] at (.mid -| pcomment coord) {##1};
+%	    	},
+%		},
 		tikz+={
-    		\coordinate (pcomment coord) at (current bounding box.east);
-		}
+    		\coordinate (ptreecomment coord) at (current bounding box.east);
+		},
         #1
     \end{forest}
 }
 
-% Source: https://stackoverflow.com/a/1873617/4589608
-\newenvironment{probatree}{\startprobatree}{}
-\def\startprobatree#1\end{\tnsproba@tree{#1}\end}
+
 
 \newenvironment{probatree*}{
-    \forestset{pweight/.style={}}
+    \forestset{
+    	pweight/.style={},
+    	apweight/.style={},
+    	bpweight/.style={},
+	}
     \begin{probatree}
 }{
     \end{probatree}
 }
 
+
+
+% -- Comments -- %
+
+% #1 : color
+%
+% #2 : node
+% #3 : comment
+\newcommand\ptreeComment{\@ifstar{\ptree@comment@star}{\ptree@comment@no@star}}
+
+\newcommand\ptree@comment@no@star[3][black]{
+	\node [anchor=mid west, xshift=.5cm, yshift=0cm] at (#2.mid -| ptreecomment coord) {%
+		\textcolor{#1}{#3}%
+	};
+}
+
+
+
+\newcommand\ptree@comment@star[3][black]{
+	\node [anchor=mid west, xshift=.75cm, yshift=0cm] at (#2.mid) {%
+		\textcolor{#1}{#3}%
+	};
+}
+
+
+
+% -- Frames -- %
 
 % #1 : color
 % #2 : left start corner
@@ -215,50 +260,94 @@
 
 
 
+% -- Focus -- %
+
 \newcommand\ptreeFocus{\@ifstar{\tnsproba@ptree@focus@star}{\tnsproba@ptree@focus@no@star}}
 
 \newcommand\tnsproba@ptree@focus@star{\@ifstar{\tnsproba@ptree@focus@star@star}{\tnsproba@ptree@focus@star@no@star}}
 
 
-% #1 : color
-% #2 : start
-% #3 : end
-\newcommand\tnsproba@ptree@focus@abstract@edge[3]{
-    \draw[#1,
-          line cap   = round,
-          line width = 2.5pt] 
-    	(#2.parent anchor)
-	 -- (#3.child anchor);
-}
+\newcommand\tnsproba@ptree@focus@color{blue}
 
 
-% #1 : color
-% #2 : node
-\newcommand\tnsproba@ptree@focus@abstract@node[2]{
-	\node[draw       = #1,
+% #1 : node
+\newcommand\tnsproba@ptree@focus@abstract@node[1]{
+	\node[draw       = \tnsproba@ptree@focus@color,
           line width = 2pt,
           inner sep  = 0pt,
           rounded corners,
-          fit = (#2)(#2)(#2)] {};
+          fit = (\trim@spaces{#1})(\trim@spaces{#1})(\trim@spaces{#1})] {};
 }
+
+
+% #1 : node
+\newcommand\tnsproba@ptree@focus@abstract@node@nostart[1]{
+	\ifnum\value{tns@multi@apply@each@position}=1\else
+    	\tnsproba@ptree@focus@abstract@node{#1}
+    \fi
+}
+
+
+% #1 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@abstract@multi@nodes[1]{
+% Note
+%
+%    #1 : macro to apply
+%    #2 : multi-args
+	\tns@multi@apply@each{\tnsproba@ptree@focus@abstract@node}%
+		                 {#1}
+}
+
+
+\newcommand\tnsproba@ptree@focus@abstract@multi@nodes@nostart[1]{
+	\tns@multi@apply@each{\tnsproba@ptree@focus@abstract@node@nostart}%
+		                 {#1}
+}
+
+
+
+% #1 : start of the edge
+% #2 : end   of the edge
+\newcommand\tnsproba@ptree@focus@abstract@edge[2]{
+    \draw[\tnsproba@ptree@focus@color,
+          line cap   = round,
+          line width = 2.5pt] 
+    	(\trim@spaces{#1}.parent anchor)
+	 -- (\trim@spaces{#2}.child anchor);
+}
+
+
+% #1 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@abstract@multi@edges[1]{
+% Note
+%
+%    #1 : macro to apply
+%    #2 : multi-args
+	\tns@multi@apply@couple{\tnsproba@ptree@focus@abstract@edge}%
+	                       {#1}
+}
+
 
 
 % #1 : color
-% #2 : start
-% #3 : end
-\newcommand\tnsproba@ptree@focus@no@star[3][blue]{
-    \tnsproba@ptree@focus@abstract@edge{#1}{#2}{#3}
-    \tnsproba@ptree@focus@abstract@node{#1}{#2}
-    \tnsproba@ptree@focus@abstract@node{#1}{#3}
+% #2 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@star@no@star[2][blue]{
+	\renewcommand\tnsproba@ptree@focus@color{#1}
+	\tnsproba@ptree@focus@abstract@multi@edges{#2}
+	\tnsproba@ptree@focus@abstract@multi@nodes@nostart{#2}
 }
 
-
-\newcommand\tnsproba@ptree@focus@star@no@star[3][blue]{
-    \tnsproba@ptree@focus@abstract@edge{#1}{#2}{#3}
-    \tnsproba@ptree@focus@abstract@node{#1}{#3}
+% #1 : color
+% #2 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@no@star[2][blue]{
+	\renewcommand\tnsproba@ptree@focus@color{#1}
+	\tnsproba@ptree@focus@abstract@multi@edges{#2}
+	\tnsproba@ptree@focus@abstract@multi@nodes{#2}
 }
 
-
-\newcommand\tnsproba@ptree@focus@star@star[3][blue]{
-    \tnsproba@ptree@focus@abstract@edge{#1}{#2}{#3}
+% #1 : color
+% #2 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@star@star[2][blue]{
+	\renewcommand\tnsproba@ptree@focus@color{#1}
+	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 }
