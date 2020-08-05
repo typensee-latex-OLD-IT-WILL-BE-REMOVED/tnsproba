@@ -233,10 +233,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.4.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.5.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-31}
+\date{2020-08-05}
 
 \maketitle
 
@@ -261,7 +261,7 @@ Le package \verb+tnsproba+ propose des macros utiles quand l'on parle de probabi
 % tnscom used - START
 \section{Beta-dépendance}
 
-\verb#\tnscom# qui est disponible sur \url{https://github.com/typensee-latex/tnscom.git} est un package utilisé en coulisse.
+\verb#tnscom# qui est disponible sur \url{https://github.com/typensee-latex/tnscom.git} est un package utilisé en coulisse.
 % tnscom used - END
 % List of packages - START
 \section{Packages utilisés}
@@ -272,6 +272,8 @@ La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les 
     \begin{itemize}
         \item \verb#amsmath#
         \item \verb#forest#
+        \item \verb#trimspaces#
+        \item \verb#xstring#
     \end{itemize}
 \end{multicols}
 % List of packages - END
@@ -403,11 +405,18 @@ $\stddev[s]{X}$
 % ---------------------- %
 \section{Arbres pondérés}
 
-\subsection{Que se passe-t-il en coulisse ?}
+\subsection{Au commencement était la forêt...}
 
-Le gros du travail est fait par le package \verb+forest+ qui utilise \verb+TiKz+. On peut donc faire appel à la machinerie de ce dernier et obtenir des choses sympathiques comme ci-dessous à moindre coût neuronal.
+Le gros du travail est fait par le package \verb+forest+ qui s'appuie \verb+TikZ+ dont on peut utiliser toute la machinerie afin d'obtenir des choses sympathiques comme ci-dessous et ceci à moindre coût neuronal comme vont le montrer les explications données dans les sections suivantes.
 
-\inputlatexexcodeafter{tikz/probatree-showcase.tkz}
+\inputlatexexcodeafter{TikZ/probatree-showcase.tkz}
+
+
+\begin{remark}
+	Jusqu'à la section \ref{tnsproba-autonum-forest} page \pageref{tnsproba-autonum-forest}, nous nommerons à la main les noeuds des arbres via \verb#name = ...# lorsque cela sera nécessaire.
+	Dans la section indiquée nous verrons comment utiliser les noms automatiques donnés par le package \verb#forest#.
+\end{remark}
+
 
 
 % ---------------------- %
@@ -420,7 +429,7 @@ Le gros du travail est fait par le package \verb+forest+ qui utilise \verb+TiKz+
 Commençons par un arbre nu pour voir comment utiliser l'environnement \verb+probatree+ qui s'appuie en coulisse sur celui nommé \verb+forest+ du package éponyme.
 L'exemple qui suit utilise juste les réglages spécifiques de mise en forme de l'arbre qui sont propres à \verb+probatree+.
 
-\inputlatexex{tikz/probatree-undecorated.tkz}
+\inputlatexex{TikZ/probatree-undecorated.tkz}
 
 
 % ---------------------- %
@@ -428,13 +437,16 @@ L'exemple qui suit utilise juste les réglages spécifiques de mise en forme de 
 
 \newparaexample{Ajouter des pondérations}
 
-Dans le code suivant, ce sont les styles spéciaux supplémentaires \verb+pweight+, \verb+apweight+ et \verb+bpweight+ qui facilitent l'écriture des pondérations sur les branches
+Dans le code suivant, ce sont les clés
 \footnote{
-    \prefix{pweight} vient de \whyprefix{p}{robability} et \prefix{weight} soit \inenglish*{probabilité} et \inenglish{poids}.
-    Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{bpweight} respectivement, ils viennent de \whyprefix{a}{bove} et \whyprefix{b}{elow} soit \inenglish*{dessus} et \inenglish{dessous}.
-}.
+	En fait du point de vue de TikZ, ce sont des styles.
+}
+\verb+pweight+, \verb+apweight+ et \verb+bpweight+ qui facilitent l'écriture des pondérations sur les branches.
+Indiquons que \prefix{pweight} vient de \whyprefix{p}{robability} et \prefix{weight} soit \inenglish*{probabilité} et \inenglish{poids}.
+Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{bpweight} respectivement, ils viennent de \whyprefix{a}{bove} et \whyprefix{b}{elow} soit \inenglish*{dessus} et \inenglish{dessous}.
 
-\inputlatexex{tikz/probatree-weight-placement.tkz}
+
+\inputlatexex{TikZ/probatree-weight-placement.tkz}
 
 
 % ---------------------- %
@@ -444,7 +456,7 @@ Dans le code suivant, ce sont les styles spéciaux supplémentaires \verb+pweigh
 
 On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ sans avoir à les effacer partout dans le code \LaTeX{} \emph{(ceci peut être utile lors de la rédaction d'exercices)}.
 
-\inputlatexex{tikz/probatree-weight-hide-all.tkz}
+\inputlatexex{TikZ/probatree-weight-hide-all.tkz}
 
 
 % ---------------------- %
@@ -452,38 +464,56 @@ On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ san
 
 \newparaexample{Des poids cachés localement}
 
-Pour ne cacher que certains poids afin de produire par exemple un arbre à compléter, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous.
+Pour ne cacher que certains poids afin de produire par exemple un arbre à compléter, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous \emph{(ceci aussi peut servir à rédiger des exercices)}.
 
-\inputlatexex{tikz/probatree-weight-hide-locally.tkz}
-
-
-% ---------------------- %
+\inputlatexex{TikZ/probatree-weight-hide-locally.tkz}
 
 
-\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
-
-Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
-\footnote{
-	Ces deux symboles font partie de la syntaxe TikZ.
-}.
-Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
-
-\inputlatexex{tikz/probatree-weight-coma-equal.tkz}
+%% ---------------------- %
+%
+%
+%\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
+%
+%Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
+%\footnote{
+%	Ces deux symboles font partie de la syntaxe TikZ.
+%}.
+%Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
+%
+%\inputlatexex{TikZ/probatree-weight-coma-equal.tkz}
+%
 %\section{Arbres pondérés}
 
 \subsection{Commenter les racines}
 
-Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur ce dernier, l'effet suivant est très utile.
-Noter qu'ici il a fallu utiliser des accolades pour cacher à TikZ les signes $=$ dans les commentaires.
+\newparaexample{Tout aligner}
+
+Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur ce dernier, l'effet suivant est très utile
+\footnote{
+	Le package \texttt{forest} permet d'indiquer directement des mises en forme dans le code de l'arbre.
+	L'auteur du présent package trouve bien plus efficace à l'usage de ne pas toucher au code minimal d'un arbre.
+	Ceci explique donc le choix retenu de donner les décorations supplémentaires après le code de l'arbre.
+}.
 
 
 \inputlatexexflat{tikz/probatree-comment.tkz}
 
 
 \begin{remark}
-	Commenter un noeud interne ne provoquera pas d'erreur même si \verb#pcomment# n'a pas été conçu pour ceci.
+	Commenter un noeud interne ne provoquera pas d'erreur même si \macro{ptreeComment} n'a pas été conçu pour ceci.
 	Ceci a été utilisé dans l'exemple d'introduction mais ça reste un petit hack.
 \end{remark}
+
+
+
+\newparaexample{Coller au plus près}
+
+En utilisant \macro{ptreeComment*} au lieu de \macro{ptreeComment}, les commentaires seront proches des noeuds et donc non alignés verticalement. 
+Avec l'exemple précédent on obtient la mise en forme qui suit.
+
+\medskip
+
+\input{tikz/probatree-comment-leftmost.tkz}
 %\section{Arbres pondérés}
 
 \subsection{Avec des cadres}
@@ -494,9 +524,18 @@ Via la clé \verb#pframe# il est très aisé d'encadrer un sous-arbre final
 \footnote{ 
 	Un sous-arbre sera dit final si toutes ses feuilles correspondent à des feuilles de l'arbre initial. 
 }
-comme le montre l'exemple suivant. Dans l'exemple ci-après nous utilisons la bidouille \verb+{},s sep = 1.3cm+ qui évite que les cadres se superposent.
+comme le montre l'exemple suivant
+\footnote{ 
+	Ce type de cadre est très utile d'un point de vue pédagogique. 
+}.
+Dans l'exemple ci-après nous utilisons la bidouille \verb+{},s sep = 1.3cm+ qui évite que les cadres se superposent.
 
 \inputlatexex{tikz/probatree-frame-final.tkz}
+
+
+\begin{remark}
+	La clé \verb#pframe# est un cas particulier car tous les autres décorations se font en dehors de la définition de l'arbre
+\end{remark}
 
 
 % ---------------------- %
@@ -504,31 +543,121 @@ comme le montre l'exemple suivant. Dans l'exemple ci-après nous utilisons la bi
 
 \newparaexample{Des cadres non finaux}
 
-
 La macro \macro{ptreeFrame} permet facilement d'encadrer un sous-arbre non final.
-Ceci nécessite de nommer les noeuds mais c'est facile à faire.
-Voici un exemple où la macro \macro{ptreeFrame} attend les noms de la racine et des deux noeuds finaux le plus haut et le plus bas qui sont ajoutés via \verb#name = ...# dans le code de l'arbre.
+Ceci nécessite d'utiliser des noms de noeuds.
+Voici un exemple où la macro \macro{ptreeFrame} attend les noms de la racine et des deux noeuds finaux le plus haut et le plus bas.
 
 \inputlatexex{tikz/probatree-frame-not-final.tkz}
 %\section{Arbres pondérés}
 
+
+
+
+
+
 \subsection{Mettre en valeur des chemins}
 
+\newparaexample{Juste avec deux noeuds}
+
 Il est relativement aisé de mettre en valeur un chemin particulier comme dans l'exemple ci-après qui est une simple démo. montrant les différences entre \macro{ptreeFocus},  \macro{ptreeFocus*} et \macro{ptreeFocus**}.
+Notez que les noms des noeuds sont séparés par des barres verticales \verb#|# et  qu'il est possible d'utiliser des espaces pour améliorer la lisibilité du code. 
 
 \inputlatexex{tikz/probatree-focus-edge.tkz}
 
 Voici ce qu'il faut retenir.
 
 \begin{enumerate}
-	\item \macro{ptreeFocus} encadre les noeuds initial et final.
+	\item \macro{ptreeFocus} encadre tous les noeuds.
 
-	\item \macro{ptreeFocus*} encadre juste le noeud final.
+	\item \macro{ptreeFocus*} n'encadre pas le tout premier noeud \emph{(typiquement cela est utile pour un chemin partant de la racine de l'arbre si celle-ci n'est pas nommée comme on le fait très souvent)}.
 
-	\item \macro{ptreeFocus**} n'encadre aucun des deux noeuds.
+	\item \macro{ptreeFocus**} n'encadre aucun des noeuds.
 	
-	\item La couleur peut être changée via l'argument optionnel. Par défaut le bleu est utilisé.
+	\item La couleur peut être changée via l'argument optionnel en utilisant les couelurs de type TikZ. Par défaut le bleu est utilisé.
 \end{enumerate}
+
+
+% ---------------------- %
+
+
+\newparaexample{Plusieurs noeuds d'un coup}
+
+Rien de bien compliqué à condition de bien respecter l'ordre de saisie des noeuds.
+
+\inputlatexexflat{tikz/probatree-focus-edge-long-star.tkz}
+
+
+Avec \macro{ptreeFocus} on obtient l'arbre suivant où le mini disque initial
+\footnote{
+	Ce disque est en fait un carré aux coins arrondis autour d'un texte vide.
+	\macro{ptreeFocus} sera utile si l'univers est indiqué au départ de l'arbre.
+}
+n'est pas forcément souhaité.
+
+\input{tikz/probatree-focus-edge-long-no-star.tkz}
+
+
+Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
+
+\input{tikz/probatree-focus-edge-long-star-star.tkz}
+
+
+%% ---------------------- %
+%
+%
+%\newparaexample{De la racine à un noeud}
+%
+%Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposé par le package via les macros \macro{ptreeFocusAll},  \macro{ptreeFocusAll*} et  \macro{ptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
+%\footnote{
+%	Rien n'interdit de prendre un noeud interne au lieu d'u racine même si cela ne semble pas très utile a priori.
+%}
+%indiqué via le nom automatique fourni par \verb#forest#.
+%On peut alors utiliser le code suivant très rapide à taper : voir la section \ref{tnsproba-autonum-forest} page \pageref{tnsproba-autonum-forest} où est expliqué d'où vient le nom \verb#!xxxxx# utilisé ci-après.
+%
+%\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
+
+
+% TESTING !!!
+%\ptreeFocusAll[red]{!1312}
+%\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
+%\section{Arbres pondérés}
+
+\subsection{Utiliser les noms automatiques donnés par \texttt{forest}} \label{tnsproba-autonum-forest}
+
+Voyons comment obtenir le résultat suivant en indiquant tous les noeuds via les noms automatiques fabriqués par \verb@forest@.
+%\footnote{
+%	Le même rendu peut se taper bien plus efficacement via la macro à un argument \macro{ptreeFocusAll*} comme cela est expliqué dans la section précédente.
+%}.
+
+\inputlatexexcodeafter{tikz/probatree-autonum.tkz}
+
+
+On comprend alors la logique utilisée.
+
+\begin{enumerate}
+	\item Chaque nom automatique commence par \texttt{!} .
+
+	\item La racine est nommée \texttt{!} .
+
+	\item Pour voir ce qu'il faut faire pour un noeud autre que la racine, considérons par exemple \texttt{!1321}. On indique en fait le chemin à suivre en partant de la racine \fbox{\texttt{!}} pour arriver au noeud voulu.
+	\begin{itemize}
+		\item Aller d'abord au \fbox{1}\,\ier{} noeud du niveau 1 qui ici est $A$.
+
+		\item Aller ensuite au \fbox{3}\,\ieme{} noeud du niveau 2 qui ici est $D$.
+
+		\item Aller après au \fbox{2}\,\ieme{} noeud du niveau 3 qui ici est $F$.
+		
+		\item Aller enfin au \fbox{1}\,\ier{} noeud du niveau 4 qui ici est $G$. C'est notre noeud nommé \fbox{\texttt{!1321}}.
+	\end{itemize}
+\end{enumerate}
+
+
+\begin{remark}
+	Utilisez de préférence les noms automatiques car cela facilitera la maintenance de vos arbres sur le long terme.
+	Si on reprend le tout premier exemple d'arbre décoré, il est bien plus simple de faire comme suit car on ne touche pas à la structure minimale du code de l'arbre.
+	
+	\inputlatexexflat{tikz/probatree-showcase-autonum.tkz}
+\end{remark}
 %\section{Arbres pondérés}
 \newpage
 
@@ -543,6 +672,24 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-08-05] Nouvelle version mineure \verb+0.5.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic{Arbre de probabilités}
+        \begin{itemize}[itemsep=.5em]
+            \item \macro{ptreeFocus}, \macro{ptreeFocus*} et \macro{ptreeFocus**} fonctionnent avec un multi-argument pour pourvoir indiquer un chemin sur plusieurs noeuds.
+            
+            \item Suppression de la clé \macro{pcomment}.
+            
+            \item Ajout des macros \macro{ptreeComment} et \macro{ptreeComment*} qui simplifient la saisie.
+        \end{itemize}
+    \end{itemize}
+    
+    \separation
+
+% ------------------------ %
 
     \medskip
     \item[2020-07-31] Nouvelle version mineure \verb+0.4.0-beta+.
@@ -710,6 +857,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
 \subsection{Arbres pondérés}
 
 
@@ -730,10 +880,6 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \extraspace
 
-\IDkey{pcomment} pour ajouter un commentaire à la droite d'une feuille en utilisant le même alignement horizontal pour tous les commentaires.
-
-\extraspace
-
 \IDkey{pframe} pour encadrer un sous-arbre depuis un noeud vers toutes les feuilles de celui-ci.
 
 
@@ -744,23 +890,33 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
-\IDargs{1..3} noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite). Ici l'ordre n'est pas important.
+\IDargs{1..3} noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite). En fait l'ordre n'est pas important ici.
 
 
 \separation
 
 
-\IDmacro{ptreeFocus  }{1}{2}
+\IDmacro{ptreeComment}{1}{2}
 
-\IDmacro{ptreeFocus* }{1}{2}
+\IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#black#.
 
-\IDmacro{ptreeFocus**}{1}{2}
+\IDarg{1} le nom de la feuille.
+
+\IDarg{2} le texte du commentaire.
+
+
+\separation
+
+
+\IDmacro{ptreeFocus  }{1}{1}
+
+\IDmacro{ptreeFocus* }{1}{1}
+
+\IDmacro{ptreeFocus**}{1}{1}
 
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
-\IDarg{1} nom du noeud initial.
-
-\IDarg{2} nom du noeud final.
+\IDarg{} les noms des noeuds dans le bon ordre et séparés par des barres verticales \verb#|#.
 
 
 

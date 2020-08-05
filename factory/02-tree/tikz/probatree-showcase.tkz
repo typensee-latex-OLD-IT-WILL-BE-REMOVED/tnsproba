@@ -1,19 +1,26 @@
 \begin{probatree}
     [{}, name = nU
-        [$A$, pweight  = $a$,
-              pframe   = blue,
-              pcomment = \textcolor{blue}%
-                                   {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
-            [$B$, pweight = $b$]
-            [$C$, pweight = $c$]
+        [$A$, apweight = $a$,
+              name     = nA,
+              pframe   = blue
+            [$B$, name     = nB,
+                  apweight = $b$]
+            [$C$, bpweight = $c$]
         ]
-        [$D$, name     = nD,
-              bpweight = $d$
-            [$E$, name     = nE,
-                  apweight = $e$]
+        [$D$, bpweight = $d$,
+              name     = nD
+            [$E$, apweight = $e$,
+                  name     = nE]
             [$F$, bpweight = $f$]
         ]
     ]
-    \ptreeFocus*[red]{nU}{nD}
-    \ptreeFocus*[red]{nD}{nE}
+    %
+    \ptreeFocus[gray]{nA | nB}
+    %
+    \ptreeComment[blue]{nA}%
+                       {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
+    %
+    \ptreeFocus*[red]{nU | nD | nE}
+    \ptreeComment[red]{nE}%
+                      {$\leftarrow \proba{D \cap E} = d \cdot e$}
 \end{probatree}

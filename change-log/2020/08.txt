@@ -1,0 +1,18 @@
+==========
+2020-08-05
+==========
+
+**New sub minor version version::``0.5.0-beta`` of ¨tnsproba:** see the new features below.
+
+
+**Probabilistic trees:** two new features.
+
+    1) The macros ``ptreeFocus``, ``ptreeFocus*`` and ``ptreeFocus**`` use now a single multi-argument sucha as to display a path along several nodes.
+
+    1) The key ``pcomment`` has been removed. Instead two new macros ``ptreeComment`` and ``ptreeComment*`` can be used. This simplifies the ¨API.
+
+
+**Small bug:** in the probabiistic trees the weights displayed using ``apweight`` and ``bpweight`` were not hidden when using the environment ``probatree*``.
+
+
+**Documentation of the probabilistic trees:** the autonumbering made by the package ``forest`` is explained in a dedicated section.
