@@ -42,9 +42,11 @@
 
 % Sections numbering
 
-\renewcommand\thesection{\arabic{section}.}
-\renewcommand\thesubsection{\alph{subsection}.}
+%\renewcommand\thechapter{\Alph{chapter}.}
+\renewcommand\thesection{\Roman{section}.}
+\renewcommand\thesubsection{\arabic{subsection}.}
 \renewcommand\thesubsubsection{\roman{subsubsection}.}
+
 
 
 % MISC
@@ -279,7 +281,7 @@ La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les 
 % List of packages - END
 \section{Ensembles probabilistes}
 
-Le package \verb+tnssets+ propose le macro \macro{setproba} pour indiquer des ensembles de type probabiliste.
+Le package \verb+tnssets+ propose la macro \macro{setproba} pour indiquer des ensembles de type probabiliste.
 Se rendre sur \url{https://github.com/typensee-latex/tnssets.git} si cela vous intéresse.
 \section{Généralités}
 
