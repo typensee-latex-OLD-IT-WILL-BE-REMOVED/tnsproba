@@ -1,13 +1,13 @@
 \begin{probatree}
     [{}, name = nU
         [$A$, name = nA
-            [$B$, name = nB]
+            [$B$]
             [$C$, name = nC
                 [$D$, name = nD
-                    [$E$, name = nE]
+                    [$E$]
                     [$F$, name = nF
                         [$G$, name = nG]
-                        [$H$, name = nH]
+                        [$H$]
                     ]
                 ]
             ]

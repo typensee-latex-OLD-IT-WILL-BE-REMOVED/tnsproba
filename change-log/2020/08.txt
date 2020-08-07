@@ -1,4 +1,23 @@
 ==========
+2020-08-08
+==========
+
+**New sub minor version version::``0.6.0-beta`` of ¨tnsproba:** see the new features below.
+
+
+**New way to work with automatic names::** dedicated macros have been added.
+
+    1) ``\aptreeFocus``, ``\aptreeFocus*`` and ``\aptreeFocus**``.
+
+    1) ``\aptreeComment``.
+
+    1) ``\aptreeFrame``.
+
+
+**Backstage:** update regarding the ¨expl3 chnages of the macros ``tns@multi@apply@each`` and ``tns@multi@apply@couple``.
+
+
+==========
 2020-08-05
 ==========
 

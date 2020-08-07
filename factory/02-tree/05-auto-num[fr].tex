@@ -4,7 +4,11 @@
     \input{../config/header[fr].sty}
     \input{../01-general/01-general.sty}
 
-    \usepackage{01-tree}
+    \usepackage{01-basic}
+    \usepackage{02-coment}
+    \usepackage{03-frame}
+    \usepackage{04-focus-edge}
+    \usepackage{05-auto-num}
 \makeatother
 
 
@@ -25,14 +29,20 @@ Voyons comment obtenir le résultat suivant en indiquant tous les noeuds via les
 \inputlatexexcodeafter{tikz/probatree-autonum.tkz}
 
 
-On comprend alors la logique utilisée.
+Voici comment s'y prendre.
 
 \begin{enumerate}
-	\item Chaque nom automatique commence par \texttt{!} .
+	\item On utilise \macro{aptreeFocus} au lieu de \macro{ptreeFocus} où le préfixe \prefix{a} est pour \whyprefix{a}{uto}.
+	      De façon similaire il existe les macros  \macro{aptreeComment} et  \macro{aptreeFrame}.
 
-	\item La racine est nommée \texttt{!} .
 
-	\item Pour voir ce qu'il faut faire pour un noeud autre que la racine, considérons par exemple \texttt{!1321}. On indique en fait le chemin à suivre en partant de la racine \fbox{\texttt{!}} pour arriver au noeud voulu.
+	\item Chaque nom automatique fabriqué par \verb#forest# commence par \texttt{!} . Ce caractère spécial n'est pas à indiquer car il sera ajouté automatiquement en coulisse.
+
+	
+	\item La racine est nommée \texttt{!} par \verb#forest# d'où le \verb#|# seul au début de l'argument de \macro{aptreeFocus*} ci-dessus afin d'indiquer un texte vide comme tout premier noeud.
+
+	
+	\item Pour voir ce qu'il faut faire pour un noeud autre que la racine, considérons par exemple \texttt{1321}. On indique en fait le chemin à suivre après la racine pour arriver au noeud voulu.
 	\begin{itemize}
 		\item Aller d'abord au \fbox{1}\,\ier{} noeud du niveau 1 qui ici est $A$.
 
@@ -40,7 +50,7 @@ On comprend alors la logique utilisée.
 
 		\item Aller après au \fbox{2}\,\ieme{} noeud du niveau 3 qui ici est $F$.
 		
-		\item Aller enfin au \fbox{1}\,\ier{} noeud du niveau 4 qui ici est $G$. C'est notre noeud nommé \fbox{\texttt{!1321}}.
+		\item Aller enfin au \fbox{1}\,\ier{} noeud du niveau 4 qui ici est $G$. C'est notre noeud nommé \fbox{\texttt{1321}}.
 	\end{itemize}
 \end{enumerate}
 
@@ -48,6 +58,7 @@ On comprend alors la logique utilisée.
 \begin{remark}
 	Utilisez de préférence les noms automatiques car cela facilitera la maintenance de vos arbres sur le long terme.
 	Si on reprend le tout premier exemple d'arbre décoré, il est bien plus simple de faire comme suit car on ne touche pas à la structure minimale du code de l'arbre.
+	A titre illustratif on a utilisé \macro{ptreeFrame} au lieu de la clé \verb#pframe# directement dans l'arbre.
 	
 	\inputlatexexflat{tikz/probatree-showcase-autonum.tkz}
 \end{remark}

@@ -3,7 +3,9 @@
 \makeatletter
     \input{../config/header[fr].sty}
 
-    \usepackage{01-tree}
+    \usepackage{01-basic}
+    \usepackage{04-focus-edge}
+    \usepackage{05-auto-num}
 \makeatother
 
 
@@ -13,11 +15,6 @@
 \begin{document}
 
 %\section{Arbres pondérés}
-
-
-
-
-
 
 \subsection{Mettre en valeur des chemins}
 
@@ -37,8 +34,16 @@ Voici ce qu'il faut retenir.
 
 	\item \macro{ptreeFocus**} n'encadre aucun des noeuds.
 	
-	\item La couleur peut être changée via l'argument optionnel en utilisant les couelurs de type TikZ. Par défaut le bleu est utilisé.
+	\item La couleur peut être changée via l'argument optionnel en utilisant les couleurs de type TikZ. Par défaut le bleu est utilisé.
 \end{enumerate}
+
+
+\begin{remark}
+	Le fonctionnement interne de \verb#forest# empêche une coloration automatique des noeuds.
+	Si vous souhaitez obtenir cet effet, il faudra donc ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
+
+	\inputlatexex{tikz/probatree-focus-edge-color-nodes.tkz}
+\end{remark}
 
 
 % ---------------------- %
@@ -54,7 +59,6 @@ Rien de bien compliqué à condition de bien respecter l'ordre de saisie des noe
 Avec \macro{ptreeFocus} on obtient l'arbre suivant où le mini disque initial
 \footnote{
 	Ce disque est en fait un carré aux coins arrondis autour d'un texte vide.
-	\macro{ptreeFocus} sera utile si l'univers est indiqué au départ de l'arbre.
 }
 n'est pas forcément souhaité.
 
@@ -71,18 +75,15 @@ Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
 %
 %\newparaexample{De la racine à un noeud}
 %
-%Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposé par le package via les macros \macro{ptreeFocusAll},  \macro{ptreeFocusAll*} et  \macro{ptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
+%Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposée par le package via les macros \macro{aptreeFocusAll},  \macro{aptreeFocusAll*} et \macro{aptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
 %\footnote{
 %	Rien n'interdit de prendre un noeud interne au lieu d'u racine même si cela ne semble pas très utile a priori.
 %}
 %indiqué via le nom automatique fourni par \verb#forest#.
 %On peut alors utiliser le code suivant très rapide à taper : voir la section \ref{tnsproba-autonum-forest} page \pageref{tnsproba-autonum-forest} où est expliqué d'où vient le nom \verb#!xxxxx# utilisé ci-après.
 %
-%\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
 
-
-% TESTING !!!
-%\ptreeFocusAll[red]{!1312}
 %\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
+%\splitit{1312}
 
 \end{document}

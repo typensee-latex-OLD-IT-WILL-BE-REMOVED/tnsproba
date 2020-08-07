@@ -1,7 +1,6 @@
 \begin{probatree}
     [
-        [$A$, apweight = $a$,
-              pframe   = blue
+        [$A$, apweight = $a$
             [$B$, apweight = $b$]
             [$C$, bpweight = $c$]
         ]
@@ -11,12 +10,13 @@
         ]
     ]
     %
-    \ptreeFocus[gray]{!1 | !11}
+    \aptreeFocus[gray]{1 | 11}
     %
-    \ptreeComment[blue]{!1}%
-                       {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
+    \aptreeFrame{1}{11}{12}
+    \aptreeComment[blue]{1}%
+                        {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
     %
-    \ptreeFocus*[red]{! | !2 | !21}
-    \ptreeComment[red]{!21}%
-                      {$\leftarrow \proba{D \cap E} = d \cdot e$}
+    \aptreeFocus*[red]{ | 2 | 21}
+    \aptreeComment[red]{21}%
+                       {$\leftarrow \proba{D \cap E} = d \cdot e$}
 \end{probatree}

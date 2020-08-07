@@ -1,0 +1,95 @@
+% == PACKAGES USED == %
+
+
+% == DEFINITIONS == %
+
+% -- Focus -- %
+
+\newcommand\ptreeFocus{\@ifstar{\tnsproba@ptree@focus@star}{\tnsproba@ptree@focus@no@star}}
+
+\newcommand\tnsproba@ptree@focus@star{\@ifstar{\tnsproba@ptree@focus@star@star}{\tnsproba@ptree@focus@star@no@star}}
+
+
+\newcommand\tnsproba@ptree@focus@color{blue}
+
+
+% #1 : one node
+\newcommand\tnsproba@ptree@focus@abstract@node[2]{
+	\node[draw       = \tnsproba@ptree@focus@color,
+          line width = 2pt,
+          inner sep  = 0pt,
+          rounded corners,
+          fit = (#2)(#2)(#2)] {};
+}
+
+
+% #1 : one node
+\newcommand\tnsproba@ptree@focus@abstract@node@nostart[2]{
+	\ifnum#1=1\else
+    	\tnsproba@ptree@focus@abstract@node{#1}{#2}
+    \fi
+}
+
+
+% #1 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@abstract@multi@nodes[1]{
+% Note
+%
+%    #1 : macro to apply
+%    #2 : multi-args
+	\tns@multi@apply@each{\tnsproba@ptree@focus@abstract@node}%
+		                 {#1}
+}
+
+
+\newcommand\tnsproba@ptree@focus@abstract@multi@nodes@nostart[1]{
+	\tns@multi@apply@each{\tnsproba@ptree@focus@abstract@node@nostart}%
+		                 {#1}
+}
+
+
+
+% #1 : start of the edge
+% #2 : end   of the edge
+\newcommand\tnsproba@ptree@focus@abstract@edge[3]{
+    \draw[\tnsproba@ptree@focus@color,
+          line cap   = round,
+          line width = 2.5pt] 
+    	 (#2.parent anchor) -- (#3.child anchor);
+}
+
+
+% #1 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@abstract@multi@edges[1]{
+% Note
+%
+%    #1 : macro to apply
+%    #2 : multi-args
+	\tns@multi@apply@couple{\tnsproba@ptree@focus@abstract@edge}%
+	                       {#1}
+}
+
+
+
+% #1 : color
+% #2 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@star@no@star[2][blue]{
+	\renewcommand\tnsproba@ptree@focus@color{#1}
+	\tnsproba@ptree@focus@abstract@multi@edges{#2}
+	\tnsproba@ptree@focus@abstract@multi@nodes@nostart{#2}
+}
+
+% #1 : color
+% #2 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@no@star[2][blue]{
+	\renewcommand\tnsproba@ptree@focus@color{#1}
+	\tnsproba@ptree@focus@abstract@multi@edges{#2}
+	\tnsproba@ptree@focus@abstract@multi@nodes{#2}
+}
+
+% #1 : color
+% #2 : node1 | node2 | ...
+\newcommand\tnsproba@ptree@focus@star@star[2][blue]{
+	\renewcommand\tnsproba@ptree@focus@color{#1}
+	\tnsproba@ptree@focus@abstract@multi@edges{#2}
+}
