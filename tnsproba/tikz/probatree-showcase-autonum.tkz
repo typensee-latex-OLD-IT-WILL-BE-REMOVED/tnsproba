@@ -1,0 +1,22 @@
+\begin{probatree}
+    [
+        [$A$, apweight = $a$
+            [$B$, apweight = $b$]
+            [$C$, bpweight = $c$]
+        ]
+        [$D$, bpweight = $d$
+            [$E$, apweight = $e$]
+            [$F$, bpweight = $f$]
+        ]
+    ]
+    %
+    \aptreeFocus[gray]{1 | 11}
+    %
+    \aptreeFrame{1}{11}{12}
+    \aptreeComment[blue]{1}%
+                        {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
+    %
+    \aptreeFocus*[red]{ | 2 | 21}
+    \aptreeComment[red]{21}%
+                       {$\leftarrow \proba{D \cap E} = d \cdot e$}
+\end{probatree}
