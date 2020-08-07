@@ -235,10 +235,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.5.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.6.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-08-05}
+\date{2020-08-08}
 
 \maketitle
 
@@ -274,7 +274,6 @@ La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les 
     \begin{itemize}
         \item \verb#amsmath#
         \item \verb#forest#
-        \item \verb#trimspaces#
         \item \verb#xstring#
     \end{itemize}
 \end{multicols}
@@ -418,11 +417,7 @@ Le gros du travail est fait par le package \verb+forest+ qui s'appuie \verb+TikZ
 	Jusqu'à la section \ref{tnsproba-autonum-forest} page \pageref{tnsproba-autonum-forest}, nous nommerons à la main les noeuds des arbres via \verb#name = ...# lorsque cela sera nécessaire.
 	Dans la section indiquée nous verrons comment utiliser les noms automatiques donnés par le package \verb#forest#.
 \end{remark}
-
-
-
-% ---------------------- %
-
+%\section{Arbres pondérés}
 
 \subsection{Les bases}
 
@@ -552,11 +547,6 @@ Voici un exemple où la macro \macro{ptreeFrame} attend les noms de la racine et
 \inputlatexex{tikz/probatree-frame-not-final.tkz}
 %\section{Arbres pondérés}
 
-
-
-
-
-
 \subsection{Mettre en valeur des chemins}
 
 \newparaexample{Juste avec deux noeuds}
@@ -575,8 +565,16 @@ Voici ce qu'il faut retenir.
 
 	\item \macro{ptreeFocus**} n'encadre aucun des noeuds.
 	
-	\item La couleur peut être changée via l'argument optionnel en utilisant les couelurs de type TikZ. Par défaut le bleu est utilisé.
+	\item La couleur peut être changée via l'argument optionnel en utilisant les couleurs de type TikZ. Par défaut le bleu est utilisé.
 \end{enumerate}
+
+
+\begin{remark}
+	Le fonctionnement interne de \verb#forest# empêche une coloration automatique des noeuds.
+	Si vous souhaitez obtenir cet effet, il faudra donc ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
+
+	\inputlatexex{tikz/probatree-focus-edge-color-nodes.tkz}
+\end{remark}
 
 
 % ---------------------- %
@@ -592,7 +590,6 @@ Rien de bien compliqué à condition de bien respecter l'ordre de saisie des noe
 Avec \macro{ptreeFocus} on obtient l'arbre suivant où le mini disque initial
 \footnote{
 	Ce disque est en fait un carré aux coins arrondis autour d'un texte vide.
-	\macro{ptreeFocus} sera utile si l'univers est indiqué au départ de l'arbre.
 }
 n'est pas forcément souhaité.
 
@@ -609,19 +606,16 @@ Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
 %
 %\newparaexample{De la racine à un noeud}
 %
-%Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposé par le package via les macros \macro{ptreeFocusAll},  \macro{ptreeFocusAll*} et  \macro{ptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
+%Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposée par le package via les macros \macro{aptreeFocusAll},  \macro{aptreeFocusAll*} et \macro{aptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
 %\footnote{
 %	Rien n'interdit de prendre un noeud interne au lieu d'u racine même si cela ne semble pas très utile a priori.
 %}
 %indiqué via le nom automatique fourni par \verb#forest#.
 %On peut alors utiliser le code suivant très rapide à taper : voir la section \ref{tnsproba-autonum-forest} page \pageref{tnsproba-autonum-forest} où est expliqué d'où vient le nom \verb#!xxxxx# utilisé ci-après.
 %
-%\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
 
-
-% TESTING !!!
-%\ptreeFocusAll[red]{!1312}
 %\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
+%\splitit{1312}
 %\section{Arbres pondérés}
 
 \subsection{Utiliser les noms automatiques donnés par \texttt{forest}} \label{tnsproba-autonum-forest}
@@ -634,14 +628,20 @@ Voyons comment obtenir le résultat suivant en indiquant tous les noeuds via les
 \inputlatexexcodeafter{tikz/probatree-autonum.tkz}
 
 
-On comprend alors la logique utilisée.
+Voici comment s'y prendre.
 
 \begin{enumerate}
-	\item Chaque nom automatique commence par \texttt{!} .
+	\item On utilise \macro{aptreeFocus} au lieu de \macro{ptreeFocus} où le préfixe \prefix{a} est pour \whyprefix{a}{uto}.
+	      De façon similaire il existe les macros  \macro{aptreeComment} et  \macro{aptreeFrame}.
 
-	\item La racine est nommée \texttt{!} .
 
-	\item Pour voir ce qu'il faut faire pour un noeud autre que la racine, considérons par exemple \texttt{!1321}. On indique en fait le chemin à suivre en partant de la racine \fbox{\texttt{!}} pour arriver au noeud voulu.
+	\item Chaque nom automatique fabriqué par \verb#forest# commence par \texttt{!} . Ce caractère spécial n'est pas à indiquer car il sera ajouté automatiquement en coulisse.
+
+	
+	\item La racine est nommée \texttt{!} par \verb#forest# d'où le \verb#|# seul au début de l'argument de \macro{aptreeFocus*} ci-dessus afin d'indiquer un texte vide comme tout premier noeud.
+
+	
+	\item Pour voir ce qu'il faut faire pour un noeud autre que la racine, considérons par exemple \texttt{1321}. On indique en fait le chemin à suivre après la racine pour arriver au noeud voulu.
 	\begin{itemize}
 		\item Aller d'abord au \fbox{1}\,\ier{} noeud du niveau 1 qui ici est $A$.
 
@@ -649,7 +649,7 @@ On comprend alors la logique utilisée.
 
 		\item Aller après au \fbox{2}\,\ieme{} noeud du niveau 3 qui ici est $F$.
 		
-		\item Aller enfin au \fbox{1}\,\ier{} noeud du niveau 4 qui ici est $G$. C'est notre noeud nommé \fbox{\texttt{!1321}}.
+		\item Aller enfin au \fbox{1}\,\ier{} noeud du niveau 4 qui ici est $G$. C'est notre noeud nommé \fbox{\texttt{1321}}.
 	\end{itemize}
 \end{enumerate}
 
@@ -657,6 +657,7 @@ On comprend alors la logique utilisée.
 \begin{remark}
 	Utilisez de préférence les noms automatiques car cela facilitera la maintenance de vos arbres sur le long terme.
 	Si on reprend le tout premier exemple d'arbre décoré, il est bien plus simple de faire comme suit car on ne touche pas à la structure minimale du code de l'arbre.
+	A titre illustratif on a utilisé \macro{ptreeFrame} au lieu de la clé \verb#pframe# directement dans l'arbre.
 	
 	\inputlatexexflat{tikz/probatree-showcase-autonum.tkz}
 \end{remark}
@@ -674,6 +675,22 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-08-08] Nouvelle version mineure \verb+0.6.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic{Arbre de probabilités}
+        \begin{itemize}[itemsep=.5em]
+            \item \macro{aptreeFocus}, \macro{aptreeFocus*} et \macro{aptreeFocus**} permettent d'utiliser le système de nommage automatique des noeuds proposé par \verb#forest#.
+            
+            \item Il en va de même pour \macro{aptreeComment} et \macro{aptreeFrame}.
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \separation
+% ------------------------ %
 
     \medskip
     \item[2020-08-05] Nouvelle version mineure \verb+0.5.0-beta+.
@@ -862,6 +879,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
 \subsection{Arbres pondérés}
 
 
@@ -892,7 +912,18 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
-\IDargs{1..3} noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite). En fait l'ordre n'est pas important ici.
+\IDargs{1..3} les noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite) tous indiqués via \verb#name = ...# \emph{(en fait l'ordre n'est pas important ici)}.
+
+
+\separation
+
+
+\IDmacro{aptreeFrame}{1}{3} \hfill \mwhyprefix{a}{auto}
+
+\extraspace
+\extraspace
+
+Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
 
 
 \separation
@@ -910,6 +941,17 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \separation
 
 
+\IDmacro{aptreeComment}{1}{2}
+
+\extraspace
+\extraspace
+
+Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+
+
+\separation
+
+
 \IDmacro{ptreeFocus  }{1}{1}
 
 \IDmacro{ptreeFocus* }{1}{1}
@@ -918,7 +960,22 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
 
-\IDarg{} les noms des noeuds dans le bon ordre et séparés par des barres verticales \verb#|#.
+\IDarg{} les noms des noeuds indiqués via \verb#name = ...# à fournir dans le bon ordre et à séparer par des barres verticales \verb#|#.
+
+
+\separation
+
+
+\IDmacro{aptreeFocus  }{1}{1}
+
+\IDmacro{aptreeFocus* }{1}{1}
+
+\IDmacro{aptreeFocus**}{1}{1}
+
+\extraspace
+\extraspace
+
+Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
 
 
 
