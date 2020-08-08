@@ -40,7 +40,7 @@ Voici ce qu'il faut retenir.
 
 \begin{remark}
 	Le fonctionnement interne de \verb#forest# empêche une coloration automatique des noeuds.
-	Si vous souhaitez obtenir cet effet, il faudra donc ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
+	Si vous souhaitez obtenir cet effet il faudra ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
 
 	\inputlatexex{tikz/probatree-focus-edge-color-nodes.tkz}
 \end{remark}
@@ -70,11 +70,11 @@ Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
 \input{tikz/probatree-focus-edge-long-star-star.tkz}
 
 
-%% ---------------------- %
-%
-%
+% ---------------------- %
+
+
 %\newparaexample{De la racine à un noeud}
-%
+
 %Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposée par le package via les macros \macro{aptreeFocusAll},  \macro{aptreeFocusAll*} et \macro{aptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
 %\footnote{
 %	Rien n'interdit de prendre un noeud interne au lieu d'u racine même si cela ne semble pas très utile a priori.
@@ -85,5 +85,10 @@ Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
 
 %\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
 %\splitit{1312}
+
+
+%\begin{remark}
+%	La clé \verb#pfocus# est le 2\iem{} cas particulier de décoration avec \verb#pframe# car les autres décorations se font en dehors de la définition de l'arbre.
+%\end{remark}
 
 \end{document}

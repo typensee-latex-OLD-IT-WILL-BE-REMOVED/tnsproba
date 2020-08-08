@@ -13,7 +13,8 @@
 \newcommand\tnsproba@ptree@focus@color{blue}
 
 
-% #1 : one node
+% #1 : number of the node
+% #2 : the node
 \newcommand\tnsproba@ptree@focus@abstract@node[2]{
 	\node[draw       = \tnsproba@ptree@focus@color,
           line width = 2pt,
@@ -23,7 +24,8 @@
 }
 
 
-% #1 : one node
+% #1 : number of the node
+% #2 : the node
 \newcommand\tnsproba@ptree@focus@abstract@node@nostart[2]{
 	\ifnum#1=1\else
     	\tnsproba@ptree@focus@abstract@node{#1}{#2}
@@ -49,8 +51,9 @@
 
 
 
-% #1 : start of the edge
-% #2 : end   of the edge
+% #1 : number of the couple of nodes
+% #2 : start of the edge
+% #3 : end   of the edge
 \newcommand\tnsproba@ptree@focus@abstract@edge[3]{
     \draw[\tnsproba@ptree@focus@color,
           line cap   = round,

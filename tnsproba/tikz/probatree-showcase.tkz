@@ -1,17 +1,17 @@
 \begin{probatree}
-    [{}, name = nU
+    [{}, name = nU                % Noeud racine sans texte via {} mais avec un nom.
         [$A$, apweight = $a$,
               name     = nA,
               pframe   = blue
             [$B$, name     = nB,
                   apweight = $b$]
-            [$C$, bpweight = $c$]
+            [$C$, bpweight = $c$]  % Pas besion de nommer ce noeud.
         ]
         [$D$, bpweight = $d$,
               name     = nD
             [$E$, apweight = $e$,
                   name     = nE]
-            [$F$, bpweight = $f$]
+            [$F$, bpweight = $f$]  % Pas besion de nommer ce noeud.
         ]
     ]
     %

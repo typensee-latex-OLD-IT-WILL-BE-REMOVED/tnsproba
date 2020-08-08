@@ -1,6 +1,6 @@
 \begin{probatree}
     [{}, name = nU
-     % La racine a un texte vide.
+     % La racine a un texte vide {}.
         [$A$, pweight = $a$,
               name    = nA
             [$B$, pweight = $b$,

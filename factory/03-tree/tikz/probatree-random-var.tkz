@@ -1,0 +1,17 @@
+\begin{probatree}
+    [
+        [$A$
+            [$B$, name = nB]
+            [$C$, name = nC]
+        ]
+        [$D$
+            [$E$, name = nE]
+            [$F$, name = nF]
+        ]
+    ]
+    %
+    \ptreeComment{nB}{$X = 1$}
+    \ptreeComment{nC}{$X = 3$}
+    \ptreeComment{nE}{$X = 3$}
+    \ptreeComment{nF}{$X = 5$}
+\end{probatree}

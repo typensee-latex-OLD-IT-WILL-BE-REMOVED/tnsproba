@@ -1,8 +1,18 @@
 ==========
+2020-08-09
+==========
+
+**Documentation:** a basic example of the values of a random variable placed at the right of a probabilistic tree has been added.
+
+
+**Backstage machinery:** the too old changelogs are managed automatically now.
+
+
+==========
 2020-08-08
 ==========
 
-**New sub minor version version::``0.6.0-beta`` of ¨tnsproba:** see the new features below.
+**New minor version version::``0.6.0-beta`` of ¨tnsproba:** see the new features below.
 
 
 **New way to work with automatic names::** dedicated macros have been added.
@@ -14,14 +24,14 @@
     1) ``\aptreeFrame``.
 
 
-**Backstage:** update regarding the ¨expl3 chnages of the macros ``tns@multi@apply@each`` and ``tns@multi@apply@couple``.
+**Backstage:** updates regarding the ¨expl3 changes of the macros ``tns@multi@apply@each`` and ``tns@multi@apply@couple``.
 
 
 ==========
 2020-08-05
 ==========
 
-**New sub minor version version::``0.5.0-beta`` of ¨tnsproba:** see the new features below.
+**New minor version version::``0.5.0-beta`` of ¨tnsproba:** see the new features below.
 
 
 **Probabilistic trees:** two new features.
