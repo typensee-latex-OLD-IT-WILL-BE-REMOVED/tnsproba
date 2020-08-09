@@ -6,14 +6,16 @@
 \RequirePackage{amsmath}
 % F
 \RequirePackage{forest}
+% S
+\RequirePackage{simplekv}
 % T
 \RequirePackage{tnscom}
 % X
 \RequirePackage{xstring}
 
 % TikZ libraries
-\usetikzlibrary{babel}
 \usetikzlibrary{calc}
+\usetikzlibrary{babel}
 
 
 % ------------- %
@@ -103,20 +105,22 @@
 	%
     apweight/.style = {
     	edge label = {
-				node[pos=.5,sloped,above, fill=white]{#1}
-			}
-		},
+			node[pos=.5,sloped,above, fill=white]{#1}
+		}
+	},
     bpweight/.style = {
     	edge label = {
-				node[pos=.5,sloped,below, fill=white]{#1}
-			}
-		},
+			node[pos=.5,sloped,below, fill=white]{#1}
+		}
+	},
     pweight/.style = {
     	edge label={
-				node[midway, fill=white]{#1}
-			}
-		},
+			node[midway, fill=white]{#1}
+		}
+	},
     pweight*/.style = {},
+    apweight*/.style = {},
+    bpweight*/.style = {},
 }
 
 
@@ -193,7 +197,7 @@
         %
         pframe/.style = {
         	tikz = {
-				\node [draw, ##1, thick, rounded corners,fit to=tree]{};
+				\node [draw, ##1, line width = 1.5pt, rounded corners,fit to=tree]{};
 			}
 		},
 		%
@@ -224,11 +228,41 @@
 }
 
 
+\newenvironment{probatree**}{
+    \forestset{
+        apweight*/.style = {
+        	edge label = {
+    			node[pos=.5,sloped,above, fill=white]{##1}
+    		}
+    	},
+        bpweight*/.style = {
+        	edge label = {
+    			node[pos=.5,sloped,below, fill=white]{##1}
+    		}
+    	},
+        pweight*/.style = {
+        	edge label={
+    			node[midway, fill=white]{##1}
+    		}
+    	},
+    }
+    \begin{probatree}
+}{
+    \end{probatree}
+}
+
+
 % ------------ %
 % -- COMENT -- %
 % ------------ %
 
 % -- Comments -- %
+
+\setKVdefault[tnsproba@comment@keys]{%
+    col = black,
+    dx  = 0cm,
+    dy  = 0cm
+}
 
 % #1 : color
 %
@@ -236,17 +270,27 @@
 % #3 : comment
 \newcommand\ptreeComment{\@ifstar{\ptree@comment@star}{\ptree@comment@no@star}}
 
-\newcommand\ptree@comment@no@star[3][black]{
-	\node [anchor=mid west, xshift=.5cm, yshift=0cm] at (#2.mid -| ptreecomment coord) {%
-		\textcolor{#1}{#3}%
+\newcommand\ptree@comment@no@star[3][]{
+    \useKVdefault[tnsproba@comment@keys]%
+    \setKV[tnsproba@comment@keys]{#1}%
+    \edef\col{\useKV[tnsproba@comment@keys]{col}}%
+    \edef\dx{\useKV[tnsproba@comment@keys]{dx}}%
+    \edef\dy{\useKV[tnsproba@comment@keys]{dy}}%
+	\node [anchor=mid west, xshift=.5cm+\dx, yshift=\dy] at (#2.mid -| ptreecomment coord) {%
+		\textcolor{\col}{#3}%
 	};
 }
 
 
 
-\newcommand\ptree@comment@star[3][black]{
-	\node [anchor=mid west, xshift=.75cm, yshift=0cm] at (#2.mid) {%
-		\textcolor{#1}{#3}%
+\newcommand\ptree@comment@star[3][]{
+    \useKVdefault[tnsproba@comment@keys]%
+    \setKV[tnsproba@comment@keys]{#1}%
+    \edef\col{\useKV[tnsproba@comment@keys]{col}}%
+    \edef\dx{\useKV[tnsproba@comment@keys]{dx}}%
+    \edef\dy{\useKV[tnsproba@comment@keys]{dy}}%
+	\node [anchor=mid west, xshift=.825cm, yshift=0cm] at (#2.mid) {%
+		\textcolor{\col}{#3}%
 	};
 }
 
@@ -257,13 +301,21 @@
 
 % -- Frames -- %
 
+\setKVdefault[tnsproba@frame@keys]{%
+    col = blue
+}
+
+
 % #1 : color
 % #2 : left start corner
 % #3 : right up   corner
 % #4 : right down corner
-\newcommand\ptreeFrame[4][blue]{%
-    \node[draw = #1,
-          thick,
+\newcommand\ptreeFrame[4][]{%
+    \useKVdefault[tnsproba@frame@keys]%
+    \setKV[tnsproba@frame@keys]{#1}%
+    \edef\col{\useKV[tnsproba@frame@keys]{col}}%
+    \node[draw = \col,
+          line width = 1.5pt,
           rounded corners,
           fit = (#2)(#3)(#4)] {};
 }
@@ -287,7 +339,7 @@
 % #2 : the node
 \newcommand\tnsproba@ptree@focus@abstract@node[2]{
 	\node[draw       = \tnsproba@ptree@focus@color,
-          line width = 2pt,
+          line width = 1.5pt,
           inner sep  = 0pt,
           rounded corners,
           fit = (#2)(#2)(#2)] {};
@@ -327,7 +379,7 @@
 \newcommand\tnsproba@ptree@focus@abstract@edge[3]{
     \draw[\tnsproba@ptree@focus@color,
           line cap   = round,
-          line width = 2.5pt] 
+          line width = 1.5pt] 
     	 (#2.parent anchor) -- (#3.child anchor);
 }
 
@@ -344,26 +396,39 @@
 
 
 
+\setKVdefault[tnsproba@focus@keys]{%
+    col = blue
+}
+
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@star@no@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@star@no@star[2][]{
+    \useKVdefault[tnsproba@focus@keys]%
+    \setKV[tnsproba@focus@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 	\tnsproba@ptree@focus@abstract@multi@nodes@nostart{#2}
 }
 
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@no@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@no@star[2][]{
+    \useKVdefault[tnsproba@focus@keys]%
+    \setKV[tnsproba@focus@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 	\tnsproba@ptree@focus@abstract@multi@nodes{#2}
 }
 
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@star@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@star@star[2][]{
+    \useKVdefault[tnsproba@focus@keys]%
+    \setKV[tnsproba@focus@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 }
 
@@ -380,13 +445,13 @@
 % #3 : comment
 \newcommand\aptreeComment{\@ifstar{\aptree@comment@star}{\aptree@comment@no@star}}
 
-\newcommand\aptree@comment@no@star[3][black]{
+\newcommand\aptree@comment@no@star[3][]{
 	\ptree@comment@no@star[#1]{!#2}{#3}
 }
 
 
 
-\newcommand\aptree@comment@star[3][black]{
+\newcommand\aptree@comment@star[3][]{
 	\ptree@comment@star[#1]{!#2}{#3}
 }
 
@@ -398,7 +463,7 @@
 % #2 : left start corner
 % #3 : right up   corner
 % #4 : right down corner
-\newcommand\aptreeFrame[4][blue]{%
+\newcommand\aptreeFrame[4][]{%
     \ptreeFrame[#1]{!#2}{!#3}{!#4}%
 }
 
@@ -413,7 +478,7 @@
 % #1 : one node
 \newcommand\tnsproba@ptree@focus@auto@abstract@node[2]{
 	\node[draw       = \tnsproba@ptree@focus@color,
-          line width = 2pt,
+          line width = 1.5pt,
           inner sep  = 0pt,
           rounded corners,
           fit = (!#2)(!#2)(!#2)] {};
@@ -453,7 +518,7 @@
 \newcommand\tnsproba@ptree@focus@auto@abstract@edge[3]{
     \draw[\tnsproba@ptree@focus@color,
           line cap   = round,
-          line width = 2.5pt] 
+          line width = 1.5pt] 
     	 (!#2.parent anchor) -- (!#3.child anchor);
 }
 
@@ -470,25 +535,38 @@
 
 
 
+\setKVdefault[tnsproba@focus@auto@keys]{%
+    col = blue
+}
+
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@auto@star@no@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@auto@star@no@star[2][]{
+    \useKVdefault[tnsproba@focus@auto@keys]%
+    \setKV[tnsproba@focus@auto@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@auto@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@auto@abstract@multi@edges{#2}
 	\tnsproba@ptree@focus@auto@abstract@multi@nodes@nostart{#2}
 }
 
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@auto@no@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@auto@no@star[2][]{
+    \useKVdefault[tnsproba@focus@auto@keys]%
+    \setKV[tnsproba@focus@auto@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@auto@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@auto@abstract@multi@edges{#2}
 	\tnsproba@ptree@focus@auto@abstract@multi@nodes{#2}
 }
 
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@auto@star@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@auto@star@star[2][]{
+    \useKVdefault[tnsproba@focus@auto@keys]%
+    \setKV[tnsproba@focus@auto@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@auto@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@auto@abstract@multi@edges{#2}
 }

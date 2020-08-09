@@ -21,20 +21,22 @@
 	%
     apweight/.style = {
     	edge label = {
-				node[pos=.5,sloped,above, fill=white]{#1}
-			}
-		},
+			node[pos=.5,sloped,above, fill=white]{#1}
+		}
+	},
     bpweight/.style = {
     	edge label = {
-				node[pos=.5,sloped,below, fill=white]{#1}
-			}
-		},
+			node[pos=.5,sloped,below, fill=white]{#1}
+		}
+	},
     pweight/.style = {
     	edge label={
-				node[midway, fill=white]{#1}
-			}
-		},
+			node[midway, fill=white]{#1}
+		}
+	},
     pweight*/.style = {},
+    apweight*/.style = {},
+    bpweight*/.style = {},
 }
 
 
@@ -111,7 +113,7 @@
         %
         pframe/.style = {
         	tikz = {
-				\node [draw, ##1, thick, rounded corners,fit to=tree]{};
+				\node [draw, ##1, line width = 1.5pt, rounded corners,fit to=tree]{};
 			}
 		},
 		%
@@ -136,6 +138,30 @@
     	apweight/.style={},
     	bpweight/.style={},
 	}
+    \begin{probatree}
+}{
+    \end{probatree}
+}
+
+
+\newenvironment{probatree**}{
+    \forestset{
+        apweight*/.style = {
+        	edge label = {
+    			node[pos=.5,sloped,above, fill=white]{##1}
+    		}
+    	},
+        bpweight*/.style = {
+        	edge label = {
+    			node[pos=.5,sloped,below, fill=white]{##1}
+    		}
+    	},
+        pweight*/.style = {
+        	edge label={
+    			node[midway, fill=white]{##1}
+    		}
+    	},
+    }
     \begin{probatree}
 }{
     \end{probatree}

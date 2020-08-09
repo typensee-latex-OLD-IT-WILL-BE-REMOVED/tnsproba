@@ -62,17 +62,28 @@ Pour ne cacher que certains poids afin de produire par exemple un arbre à compl
 \inputlatexex{TikZ/probatree-weight-hide-locally.tkz}
 
 
-%% ---------------------- %
-%
-%
-%\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
-%
-%Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
-%\footnote{
-%	Ces deux symboles font partie de la syntaxe TikZ.
-%}.
-%Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
-%
-%\inputlatexex{TikZ/probatree-weight-coma-equal.tkz}
-%
+% ---------------------- %
+
+
+\newparaexample{Forcer l'affichage des poids cachés localement}
+
+Imaginons que nous voulions donner l'arbre précédent avec tous ses poids.
+Il suffit dans ce cas de passer via l'environnement doublement étoilé \verb+probatree**+ qui affichera absolument tous les poids \emph{(on tape une fois et on réutilise le même code dans deux contextes différents)}.
+
+\inputlatexex{TikZ/probatree-weight-show-all.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
+
+Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
+\footnote{
+	Ces deux symboles font partie de la syntaxe TikZ.
+}.
+Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
+
+\inputlatexex{TikZ/probatree-weight-coma-equal.tkz}
+
 \end{document}

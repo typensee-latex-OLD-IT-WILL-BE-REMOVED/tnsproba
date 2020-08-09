@@ -1,5 +1,7 @@
 % == PACKAGES USED == %
 
+\RequirePackage{simplekv}
+
 
 % == DEFINITIONS == %
 
@@ -17,7 +19,7 @@
 % #2 : the node
 \newcommand\tnsproba@ptree@focus@abstract@node[2]{
 	\node[draw       = \tnsproba@ptree@focus@color,
-          line width = 2pt,
+          line width = 1.5pt,
           inner sep  = 0pt,
           rounded corners,
           fit = (#2)(#2)(#2)] {};
@@ -57,7 +59,7 @@
 \newcommand\tnsproba@ptree@focus@abstract@edge[3]{
     \draw[\tnsproba@ptree@focus@color,
           line cap   = round,
-          line width = 2.5pt] 
+          line width = 1.5pt] 
     	 (#2.parent anchor) -- (#3.child anchor);
 }
 
@@ -74,25 +76,38 @@
 
 
 
+\setKVdefault[tnsproba@focus@keys]{%
+    col = blue
+}
+
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@star@no@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@star@no@star[2][]{
+    \useKVdefault[tnsproba@focus@keys]%
+    \setKV[tnsproba@focus@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 	\tnsproba@ptree@focus@abstract@multi@nodes@nostart{#2}
 }
 
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@no@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@no@star[2][]{
+    \useKVdefault[tnsproba@focus@keys]%
+    \setKV[tnsproba@focus@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 	\tnsproba@ptree@focus@abstract@multi@nodes{#2}
 }
 
 % #1 : color
 % #2 : node1 | node2 | ...
-\newcommand\tnsproba@ptree@focus@star@star[2][blue]{
-	\renewcommand\tnsproba@ptree@focus@color{#1}
+\newcommand\tnsproba@ptree@focus@star@star[2][]{
+    \useKVdefault[tnsproba@focus@keys]%
+    \setKV[tnsproba@focus@keys]{#1}%
+    \edef\col{\useKV[tnsproba@focus@keys]{col}}%
+	\renewcommand\tnsproba@ptree@focus@color{\col}
 	\tnsproba@ptree@focus@abstract@multi@edges{#2}
 }

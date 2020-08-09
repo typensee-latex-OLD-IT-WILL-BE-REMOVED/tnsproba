@@ -14,5 +14,5 @@
         [$I$]
     ]
     %
-    \aptreeFocus*[red]{ | 1 | 13 | 132 | 1321}
+    \aptreeFocus*[col=red]{ | 1 | 13 | 132 | 1321}
 \end{probatree}

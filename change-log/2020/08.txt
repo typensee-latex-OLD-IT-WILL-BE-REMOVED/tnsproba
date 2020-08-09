@@ -2,7 +2,24 @@
 2020-08-09
 ==========
 
-**Documentation:** a basic example of the values of a random variable placed at the right of a probabilistic tree has been added.
+**New minor version version::``0.7.0-beta`` of ¨tnsproba:** see the new features below.
+
+
+**Probabilistic tree:** here are some useful changes.
+
+    1) All decorating macros use the option ``col=...`` to indicate the color.
+
+    1) ``\ptreeComment``, ``\ptreeComment*``, ``\aptreeComment`` and ``\aptreeComment*`` have two optional keys ``dx`` et ``dy`` to give a relative shift.
+
+    1) The new environment ``probatree**`` forces the printing of all the weights.
+
+    1) The same width of `1.5pt` is used for frames and focused edges.
+
+
+**Documentation:** real examples of values of random variables placed at the right of a probabilistic tree have been added (this can be donne using the new keys ``dx`` et ``dy`` of ``\ptreeComment``).
+
+
+**Small bug:** in the probabistic trees the style ``apweight*`` and ``bpweight*`` were not implemented... :-(
 
 
 **Backstage machinery:** the too old changelogs are managed automatically now.
@@ -41,7 +58,7 @@
     1) The key ``pcomment`` has been removed. Instead two new macros ``ptreeComment`` and ``ptreeComment*`` can be used. This simplifies the ¨API.
 
 
-**Small bug:** in the probabiistic trees the weights displayed using ``apweight`` and ``bpweight`` were not hidden when using the environment ``probatree*``.
+**Small bug:** in the probabistic trees the weights displayed using ``apweight`` and ``bpweight`` were not hidden when using the environment ``probatree*``.
 
 
 **Documentation of the probabilistic trees:** the autonumbering made by the package ``forest`` is explained in a dedicated section.

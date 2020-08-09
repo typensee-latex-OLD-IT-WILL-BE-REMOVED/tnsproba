@@ -10,13 +10,13 @@
         ]
     ]
     %
-    \aptreeFocus[gray]{1 | 11}
+    \aptreeFocus[col=gray]{1 | 11}
     %
     \aptreeFrame{1}{11}{12}
-    \aptreeComment[blue]{1}%
-                        {$\leftarrow$ Un sous-arbre \og conditionnel \fg}
+    \aptreeComment[col=blue]%
+                  {1}{$\leftarrow$ Un sous-arbre \og conditionnel \fg}
     %
-    \aptreeFocus*[red]{ | 2 | 21}
-    \aptreeComment[red]{21}%
-                       {$\leftarrow \proba{D \cap E} = d \cdot e$}
+    \aptreeFocus*[col=red]{ | 2 | 21}
+    \aptreeComment[col=red]%
+                  {21}{$\leftarrow \proba{D \cap E} = d \cdot e$}
 \end{probatree}

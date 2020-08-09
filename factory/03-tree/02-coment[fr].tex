@@ -26,6 +26,8 @@ Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur 
 	L'auteur du présent package trouve bien plus efficace à l'usage de ne pas toucher au code minimal d'un arbre.
 	Ceci explique donc le choix retenu de donner les décorations supplémentaires après le code de l'arbre.
 }.
+Noter l'utilisation possible de la clé \verb#col# pour \whyprefix{col}{or} afin d'indiquer une couleur au format TikZ.
+La couleur oar défaut est le noir. 
 
 
 \inputlatexexflat{tikz/probatree-comment.tkz}
@@ -53,11 +55,41 @@ Avec l'exemple précédent on obtient la mise en forme qui suit.
 % ---------------------- %
 
 
-\newparaexample{Indiquer les valeurs d'une variable aléatoire}
+\newparaexample{Décalages horizontal et vertical -- Avec des variables aléatoires}
 
-Les commentaires permettent de faire facilement ce qui suit.
+Grâce aux clés \verb#dx# et \verb#dy# il est possible d'ajouter des décalages horizontal et vertical. Ceci permet d'obtenir ce qui suit sans trop se fatiguer les méninges.
 
-\inputlatexex{tikz/probatree-random-var.tkz}
+\input{tikz/probatree-comment-dx-dy.tkz}
+
+
+Le code utilisé est le suivant.
+Notez qu'ici il y a des réglages à faire au doigt mouillé.
+Dans l'exemple suivant nous allons voir comment se passer des horribles copier-coller.
+
+\inputlatexexalone{tikz/probatree-comment-dx-dy-short.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Commenter via une boucle -- Avec des variables aléatoires}
+
+Dans le code précédent nous avons dû faire des copier-coller. La macro \macro{foreach} de TikZ permet d'éviter cela afin d'obtenir un code très facile à maintenir et à comprendre comme celui ci-après. Ceci étant indiqué, il y a des pièges à éviter comme nous l'expliquons juste après.
+
+% -- DEBUG - TO KEEP ! - START -- %
+%\input{tikz/probatree-comment-foreach.tkz}
+% -- DEBUG - TO KEEP ! - END -- %
+
+\inputlatexexalone{tikz/probatree-comment-foreach-short.tkz}
+
+Voici les pièges à éviter.
+
+\begin{enumerate}
+	\item \macro{foreach} ignore les espace initiaux mais pas les finaux. Si vous utilisez \verb#nb /$1$# au lieu de  \verb#nb/$1$# alors la macro croira que le nom se finit par un espace et \verb#forest# ne pourra rien faire. 
+
+	\item Les noms \macro{color}, \macro{col}, \macro{dx} et \macro{dy} sont utilisés en coulisse donc vous ne pourrez pas les utiliser dans votre boucle.
+\end{enumerate}
+
 \end{document}
 
 
