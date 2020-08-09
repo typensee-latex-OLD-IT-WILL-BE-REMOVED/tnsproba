@@ -1,6 +1,7 @@
 \begin{probatree}
     [{}, s sep = 1.3cm
-     % Astuce pour espacer les cadres.
+     % Espacment pour éviter que
+     % les cadres se superposent.
         [$A$, pweight = $a$,
               pframe  = red
             [$B$, pweight = $b$]

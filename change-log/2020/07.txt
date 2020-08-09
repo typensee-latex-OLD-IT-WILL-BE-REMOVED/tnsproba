@@ -2,7 +2,7 @@
 2020-07-31
 ==========
 
-**New sub minor version version::``0.4.0-beta`` of ¨tnsproba:** see the new feature below.
+**New minor version version::``0.4.0-beta`` of ¨tnsproba:** see the new feature below.
 
 
 **Probabilistic tree :** the macros ``\ptreeFocus``, ``\ptreeFocus*`` and ``\ptreeFocus**`` ease to highlight paths of the tree.
@@ -26,7 +26,7 @@
 2020-07-25
 ==========
 
-**New sub minor version version::``0.3.0-beta`` of ¨tnsproba:** see the changes below.
+**New minor version version::``0.3.0-beta`` of ¨tnsproba:** see the changes below.
 
 
 **Probabilistic tree :** one new feature and a renaming.

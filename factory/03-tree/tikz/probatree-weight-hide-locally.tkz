@@ -1,8 +1,8 @@
 \begin{probatree}
     [
         [$A$, pweight = $a$
-            [$B$, pweight* = $b$]
-            [$C$, pweight  = $c$]
+            [$B$, apweight* = $b$]
+            [$C$, bpweight* = $c$]
         ]
         [$D$, pweight* = $d$]
     ]

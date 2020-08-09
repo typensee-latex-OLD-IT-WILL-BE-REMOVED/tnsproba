@@ -28,6 +28,7 @@
     urlcolor=black
 }
 
+\usepackage[numbered]{bookmark}
 \usepackage{amsthm}
 
 \usepackage{tcolorbox}
@@ -235,10 +236,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.6.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.7.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-08-08}
+\date{2020-08-09}
 
 \maketitle
 
@@ -274,6 +275,7 @@ La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les 
     \begin{itemize}
         \item \verb#amsmath#
         \item \verb#forest#
+        \item \verb#simplekv#
         \item \verb#xstring#
     \end{itemize}
 \end{multicols}
@@ -466,19 +468,29 @@ Pour ne cacher que certains poids afin de produire par exemple un arbre à compl
 \inputlatexex{TikZ/probatree-weight-hide-locally.tkz}
 
 
-%% ---------------------- %
-%
-%
-%\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
-%
-%Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
-%\footnote{
-%	Ces deux symboles font partie de la syntaxe TikZ.
-%}.
-%Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
-%
-%\inputlatexex{TikZ/probatree-weight-coma-equal.tkz}
-%
+% ---------------------- %
+
+
+\newparaexample{Forcer l'affichage des poids cachés localement}
+
+Imaginons que nous voulions donner l'arbre précédent avec tous ses poids.
+Il suffit dans ce cas de passer via l'environnement doublement étoilé \verb+probatree**+ qui affichera absolument tous les poids \emph{(on tape une fois et on réutilise le même code dans deux contextes différents)}.
+
+\inputlatexex{TikZ/probatree-weight-show-all.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Un signe $=$ et/ou une virgule dans les étiquettes}
+
+Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les étiquettes des branches
+\footnote{
+	Ces deux symboles font partie de la syntaxe TikZ.
+}.
+Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
+
+\inputlatexex{TikZ/probatree-weight-coma-equal.tkz}
 %\section{Arbres pondérés}
 
 \subsection{Commenter les racines}
@@ -491,6 +503,8 @@ Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur 
 	L'auteur du présent package trouve bien plus efficace à l'usage de ne pas toucher au code minimal d'un arbre.
 	Ceci explique donc le choix retenu de donner les décorations supplémentaires après le code de l'arbre.
 }.
+Noter l'utilisation possible de la clé \verb#col# pour \whyprefix{col}{or} afin d'indiquer une couleur au format TikZ.
+La couleur oar défaut est le noir. 
 
 
 \inputlatexexflat{tikz/probatree-comment.tkz}
@@ -502,6 +516,8 @@ Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur 
 \end{remark}
 
 
+% ---------------------- %
+
 
 \newparaexample{Coller au plus près}
 
@@ -511,6 +527,45 @@ Avec l'exemple précédent on obtient la mise en forme qui suit.
 \medskip
 
 \input{tikz/probatree-comment-leftmost.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Décalages horizontal et vertical -- Avec des variables aléatoires}
+
+Grâce aux clés \verb#dx# et \verb#dy# il est possible d'ajouter des décalages horizontal et vertical. Ceci permet d'obtenir ce qui suit sans trop se fatiguer les méninges.
+
+\input{tikz/probatree-comment-dx-dy.tkz}
+
+
+Le code utilisé est le suivant.
+Notez qu'ici il y a des réglages à faire au doigt mouillé.
+Dans l'exemple suivant nous allons voir comment se passer des horribles copier-coller.
+
+\inputlatexexalone{tikz/probatree-comment-dx-dy-short.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Commenter via une boucle -- Avec des variables aléatoires}
+
+Dans le code précédent nous avons dû faire des copier-coller. La macro \macro{foreach} de TikZ permet d'éviter cela afin d'obtenir un code très facile à maintenir et à comprendre comme celui ci-après. Ceci étant indiqué, il y a des pièges à éviter comme nous l'expliquons juste après.
+
+% -- DEBUG - TO KEEP ! - START -- %
+%\input{tikz/probatree-comment-foreach.tkz}
+% -- DEBUG - TO KEEP ! - END -- %
+
+\inputlatexexalone{tikz/probatree-comment-foreach-short.tkz}
+
+Voici les pièges à éviter.
+
+\begin{enumerate}
+	\item \macro{foreach} ignore les espace initiaux mais pas les finaux. Si vous utilisez \verb#nb /$1$# au lieu de  \verb#nb/$1$# alors la macro croira que le nom se finit par un espace et \verb#forest# ne pourra rien faire. 
+
+	\item Les noms \macro{color}, \macro{col}, \macro{dx} et \macro{dy} sont utilisés en coulisse donc vous ne pourrez pas les utiliser dans votre boucle.
+\end{enumerate}
 %\section{Arbres pondérés}
 
 \subsection{Avec des cadres}
@@ -531,8 +586,11 @@ Dans l'exemple ci-après nous utilisons la bidouille \verb+{},s sep = 1.3cm+ qui
 
 
 \begin{remark}
-	La clé \verb#pframe# est un cas particulier car tous les autres décorations se font en dehors de la définition de l'arbre
+	La clé \verb#pframe# est un cas particulier de décoration car les autres décorations se font en dehors de la définition de l'arbre
 \end{remark}
+%\begin{remark}
+%	La clé \verb#pframe# est l'un des deux cas particuliers de décoration car la majorité des décorations se font en dehors de la définition de l'arbre
+%\end{remark}
 
 
 % ---------------------- %
@@ -571,7 +629,7 @@ Voici ce qu'il faut retenir.
 
 \begin{remark}
 	Le fonctionnement interne de \verb#forest# empêche une coloration automatique des noeuds.
-	Si vous souhaitez obtenir cet effet, il faudra donc ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
+	Si vous souhaitez obtenir cet effet il faudra ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
 
 	\inputlatexex{tikz/probatree-focus-edge-color-nodes.tkz}
 \end{remark}
@@ -601,11 +659,11 @@ Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
 \input{tikz/probatree-focus-edge-long-star-star.tkz}
 
 
-%% ---------------------- %
-%
-%
+% ---------------------- %
+
+
 %\newparaexample{De la racine à un noeud}
-%
+
 %Comme il est très courant de vouloir indiquer un chemin de la racine à une feuille, cette fonctionnalité est proposée par le package via les macros \macro{aptreeFocusAll},  \macro{aptreeFocusAll*} et \macro{aptreeFocusAll**} qui prennent comme unique argument obligatoire le noeud final du chemin
 %\footnote{
 %	Rien n'interdit de prendre un noeud interne au lieu d'u racine même si cela ne semble pas très utile a priori.
@@ -616,6 +674,11 @@ Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
 
 %\inputlatexexflat{tikz/probatree-focus-edge-all.tkz}
 %\splitit{1312}
+
+
+%\begin{remark}
+%	La clé \verb#pfocus# est le 2\iem{} cas particulier de décoration avec \verb#pframe# car les autres décorations se font en dehors de la définition de l'arbre.
+%\end{remark}
 %\section{Arbres pondérés}
 
 \subsection{Utiliser les noms automatiques donnés par \texttt{forest}} \label{tnsproba-autonum-forest}
@@ -675,6 +738,26 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-08-09] Nouvelle version mineure \verb+0.7.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic{Arbre de probabilités}
+        \begin{itemize}[itemsep=.5em]
+            \item Utilisation obligatoire de \verb#col=...# pour indiquer une couleur à toutes les macros de décoration.
+            
+            \item Les macros \macro{ptreeComment}, \macro{ptreeComment*}, 
+                  \macro{aptreeComment} et \macro{aptreeComment*}
+                  ont deux clés \verb#dx# et \verb#dy# pour indiquer un décalage relatif.
+            
+            \item Ajout de l'environnement \env{probatree**} qui force l'affichage de tous les poids !
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \separation
+% ------------------------ %
 
     \medskip
     \item[2020-08-08] Nouvelle version mineure \verb+0.6.0-beta+.
@@ -890,7 +973,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDenv[n]{probatree*}
 
-\Content{} un arbre codé en utilisant la syntaxe supportée par le package \verb+forest+.
+\IDenv[n]{probatree**}
+
+\Content{} un arbre codé en utilisant la syntaxe supportée par le package \verb#forest#.
 
 \extraspace
 
@@ -902,6 +987,17 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \extraspace
 
+\IDkey{pweight*} pour indiquer un poids sans l'imprimer.
+Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait utilisé \verb#pweight#.
+
+\IDkey{apweight*} pour indiquer un poids sans l'imprimer.
+Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait utilisé \verb#apweight#.
+
+\IDkey{bpweight*} pour indiquer un poids sans l'imprimer.
+Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait utilisé \verb#bpweight#.
+
+\extraspace
+
 \IDkey{pframe} pour encadrer un sous-arbre depuis un noeud vers toutes les feuilles de celui-ci.
 
 
@@ -910,7 +1006,12 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDmacro{ptreeFrame}{1}{3} \hfill \mwhyprefix{p}{robabilty}
 
-\IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
+\IDoption{} un système de type \texttt{clé=valeur}.
+
+\begin{enumerate}
+	\item \verb#col# : une couleur au format TikZ. La valeur par défaut est \verb#blue#.
+\end{enumerate}
+
 
 \IDargs{1..3} les noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite) tous indiqués via \verb#name = ...# \emph{(en fait l'ordre n'est pas important ici)}.
 
@@ -931,7 +1032,15 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 
 \IDmacro{ptreeComment}{1}{2}
 
-\IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#black#.
+\IDoption{} un système de type \texttt{clé=valeur}.
+
+\begin{enumerate}
+	\item \verb#col# : une couleur au format TikZ. La valeur par défaut est \verb#black#.
+
+	\item \verb#dx# : une distance horizontale relative de décalage. La valeur par défaut est \verb#0cm#.
+
+	\item \verb#dy# : une distance verticale relative de décalage. La valeur par défaut est \verb#0cm#.
+\end{enumerate}
 
 \IDarg{1} le nom de la feuille.
 
@@ -958,7 +1067,11 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 
 \IDmacro{ptreeFocus**}{1}{1}
 
-\IDoption{} la couleur au format TikZ. La valeur par défaut est \verb#blue#.
+\IDoption{} un système de type \texttt{clé=valeur}.
+
+\begin{enumerate}
+	\item \verb#col# : une couleur au format TikZ. La valeur par défaut est \verb#blue#.
+\end{enumerate}
 
 \IDarg{} les noms des noeuds indiqués via \verb#name = ...# à fournir dans le bon ordre et à séparer par des barres verticales \verb#|#.
 
