@@ -3,59 +3,48 @@
 
 \makeatletter % Technical doc - START
 
+% ---------------------- %
+% -- GENERAL SETTINGS -- %
+% ---------------------- %
+
+\usepackage[
+	top    = 2cm,
+	bottom = 2cm,
+	left   = 1.5cm,
+	right  = 1.5cm
+]{geometry}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{ucs}
 
 \usepackage[french]{babel,varioref}
 
-\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
-\usepackage{enumitem}
-
-% Source
-%	* https://tex.stackexchange.com/a/558025/6880
-\usepackage{tocbasic}[2020/07/22]% needs KOMA-Script version 3.31
-\DeclareTOCStyleEntries[
-  raggedentrytext,
-  linefill=\hfill,
-  indent=0pt,
-  dynindent,
-  numwidth=0pt,
-  numsep=1ex,
-  dynnumwidth
-]{tocline}{chapter,section,subsection,subsubsection,paragraph,subparagraph}
-\DeclareTOCStyleEntry[indentfollows=chapter]{tocline}{section}
-
-\usepackage{pgffor}
-
-\usepackage{multicol}
-
-\usepackage{makecell}
-
 \usepackage{color}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black
+    citecolor = black,
+    filecolor = black,
+    linkcolor = black,
+    urlcolor  = black
 }
-
 \usepackage[numbered]{bookmark}
-\usepackage{amsthm}
 
-\usepackage{tcolorbox}
-\tcbuselibrary{listingsutf8}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{makecell}
 
-\usepackage{ifplatform}
-
-\usepackage{ifthen}
-
-\usepackage{macroenvsign}
+\setlength{\parindent}{0cm}
+\setlist{noitemsep}
 
 
-% Sections numbering
+
+% --------------- %
+% -- TOC & Co. -- %
+% --------------- %
+
+\usepackage[raggedright]{titlesec}
 
 %\renewcommand\thechapter{\Alph{chapter}.}
 \renewcommand\thesection{\Roman{section}.}
@@ -63,177 +52,227 @@
 \renewcommand\thesubsubsection{\roman{subsubsection}.}
 
 
-
-% MISC
-
-\newtcblisting{latexex}{%
-	sharp corners,%
-	left=1mm, right=1mm,%
-	bottom=1mm, top=1mm,%
-	colupper=red!75!blue,%
-	listing side text
-}
-
-\newtcbinputlisting{\inputlatexex}[2][]{%
-	listing file={#2},%
-	sharp corners,%
-	left=1mm, right=1mm,%
-	bottom=1mm, top=1mm,%
-	colupper=red!75!blue,%
-	listing side text
-}
-
-
-\newtcblisting{latexex-flat}{%
-	sharp corners,%
-	left=1mm, right=1mm,%
-	bottom=1mm, top=1mm,%
-	colupper=red!75!blue,%
-}
-
-\newtcbinputlisting{\inputlatexexflat}[2][]{%
-	listing file={#2},%
-	sharp corners,%
-	left=1mm, right=1mm,%
-	bottom=1mm, top=1mm,%
-	colupper=red!75!blue,%
-}
-
-
-\newtcblisting{latexex-alone}{%
-	sharp corners,%
-	left=1mm, right=1mm,%
-	bottom=1mm, top=1mm,%
-	colupper=red!75!blue,%
-	listing only
-}
-
-\newtcbinputlisting{\inputlatexexalone}[2][]{%
-	listing file={#2},%
-	sharp corners,%
-	left=1mm, right=1mm,%
-	bottom=1mm, top=1mm,%
-	colupper=red!75!blue,%
-	listing only
-}
-
-
-\newcommand\inputlatexexcodeafter[1]{%
-	\begin{center}
-		\input{#1}
-	\end{center}
-
-	\vspace{-.5em}
-	
-	Le rendu précédent a été obtenu via le code suivant.
-	
-	\inputlatexexalone{#1}
-}
-
-
-\newcommand\inputlatexexcodebefore[1]{%
-	\inputlatexexalone{#1}
-	\vspace{-.75em}
-	\begin{center}
-		\textit{\footnotesize Rendu du code précédent}
-		
-		\medskip
-		
-		\input{#1}
-	\end{center}
-}
-
-
-\newcommand\env[1]{\texttt{#1}}
-\newcommand\macro[1]{\env{\textbackslash{}#1}}
-
-
-
-\setlength{\parindent}{0cm}
-\setlist{noitemsep}
-
-\theoremstyle{definition}
-\newtheorem*{remark}{Remarque}
-
-\usepackage[raggedright]{titlesec}
-
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{0.5em}
 
 
+% Source
+%    * https://tex.stackexchange.com/a/558025/6880
+\usepackage{tocbasic}[2020/07/22]% needs KOMA-Script version 3.31
+
+\DeclareTOCStyleEntries[
+    raggedentrytext,
+    linefill = \hfill,
+    indent   = 0pt,
+    dynindent,
+    numwidth = 0pt,
+    numsep   = 1ex,
+    dynnumwidth
+]{tocline}{
+	chapter,
+	section,
+	subsection,
+	subsubsection,
+	paragraph,
+	subparagraph
+}
+
+\DeclareTOCStyleEntry[indentfollows = chapter]{tocline}{section}
+
+
+
+% ----------- %
+% -- TOOLS -- %
+% ----------- %
+
+\usepackage{ifplatform}
+\usepackage{ifthen}
+\usepackage{macroenvsign}
+
+
+
+% ------------------------- %
+% -- SPECIAL FORMATTINGS -- %
+% ------------------------- %
+
+\usepackage{amsthm}
+
+\usepackage{tcolorbox}
+
+
+% -- LISTINGS -- %
+
+%\tcbuselibrary{listingsutf8}
+\tcbuselibrary{minted, breakable}
+
+\newtcblisting{latexex}{%
+    breakable,
+    sharp corners,%
+    left   = 1mm, right = 1mm,%
+    bottom = 1mm, top   = 1mm,%
+    %colupper = red!75!blue,%
+    listing side text
+}
+
+\newtcbinputlisting{\inputlatexex}[2][]{%
+    listing file={#2},%
+    breakable,
+    sharp corners,%
+    left   = 1mm, right = 1mm,%
+    bottom = 1mm, top   = 1mm,%
+    %colupper = red!75!blue,%
+    listing side text
+}
+
+
+\newtcblisting{latexex-flat}{%
+    breakable,
+    sharp corners,%
+    left   = 1mm, right = 1mm,%
+    bottom = 1mm, top   = 1mm,%
+    %colupper = red!75!blue,%
+}
+
+\newtcbinputlisting{\inputlatexexflat}[2][]{%
+    listing file={#2},%
+    breakable,
+    sharp corners,%
+    left   = 1mm, right = 1mm,%
+    bottom = 1mm, top   = 1mm,%
+    %colupper = red!75!blue,%
+}
+
+
+\newtcblisting{latexex-alone}{%
+    breakable,
+    sharp corners,%
+    left   = 1mm, right = 1mm,%
+    bottom = 1mm, top   = 1mm,%
+    %colupper = red!75!blue,%
+    listing only
+}
+
+\newtcbinputlisting{\inputlatexexalone}[2][]{%
+    listing file={#2},%
+    breakable,
+    sharp corners,%
+    left   = 1mm, right = 1mm,%
+    bottom = 1mm, top   = 1mm,%
+    %colupper = red!75!blue,%
+    listing only
+}
+
+
+\newcommand\inputlatexexcodeafter[1]{%
+    \begin{center}
+        \input{#1}
+    \end{center}
+
+    \vspace{-.5em}
+    
+    Le rendu précédent a été obtenu via le code suivant.
+    
+    \inputlatexexalone{#1}
+}
+
+
+\newcommand\inputlatexexcodebefore[1]{%
+    \inputlatexexalone{#1}
+    \vspace{-.75em}
+    \begin{center}
+        \textit{\footnotesize Rendu du code précédent}
+        
+        \medskip
+        
+        \input{#1}
+    \end{center}
+}
+
+
+% -- REMARK -- %
+
+\theoremstyle{definition}
+\newtheorem*{remark}{Remarque}
+
+
+% -- EXAMPLE -- %
+
+\newcounter{paraexample}[subsubsection]
+
+\newcommand\@newexample@abstract[2]{%
+    \paragraph{%
+        #1%
+        \if\relax\detokenize{#2}\relax\else {} -- #2\fi%
+    }%
+}
+
+\newcommand\newparaexample{\@ifstar{\@newparaexample@star}{\@newparaexample@no@star}}
+
+\newcommand\@newparaexample@no@star[1]{%
+    \refstepcounter{paraexample}%
+    \@newexample@abstract{Exemple \theparaexample}{#1}%
+}
+
+\newcommand\@newparaexample@star[1]{%
+    \@newexample@abstract{Exemple}{#1}%
+}
+
+
+% -- CHANGE LOG -- %
+
+\newcommand\topic{\@ifstar{\@topic@star}{\@topic@no@star}}
+
+\newcommand\@topic@no@star[1]{%
+    \textbf{\textsc{#1}.}%
+}
+
+\newcommand\@topic@star[1]{%
+    \textbf{\textsc{#1} :}%
+}
+
+
+% -- ABOUT MACROS & Co. -- %
+
+\newcommand\env[1]{\texttt{#1}}
+\newcommand\macro[1]{\env{\textbackslash{}#1}}
+
 \newcommand\separation{
-	\medskip
-	\hfill\rule{0.5\textwidth}{0.75pt}\hfill
-	\medskip
+    \medskip
+    \hfill\rule{0.5\textwidth}{0.75pt}\hfill
+    \medskip
 }
 
 
 \newcommand\extraspace{
-	\vspace{0.25em}
+    \vspace{0.25em}
 }
 
 
 \newcommand\whyprefix[2]{%
-	\textbf{\prefix{#1}}-#2%
+    \textbf{\prefix{#1}}-#2%
 }
 
 \newcommand\mwhyprefix[2]{%
-	\texttt{#1 = #1-#2}%
+    \texttt{#1 = #1-#2}%
 }
 
 \newcommand\prefix[1]{%
-	\texttt{#1}%
+    \texttt{#1}%
 }
 
 
 \newcommand\inenglish{\@ifstar{\@inenglish@star}{\@inenglish@no@star}}
 
 \newcommand\@inenglish@star[1]{%
-	\emph{\og #1 \fg}%
+    \emph{\og #1 \fg}%
 }
 
 \newcommand\@inenglish@no@star[1]{%
-	\@inenglish@star{#1} en anglais%
+    \@inenglish@star{#1} en anglais%
 }
 
 
 \newcommand\ascii{\texttt{ASCII}}
-
-
-% Example
-\newcounter{paraexample}[subsubsection]
-
-\newcommand\@newexample@abstract[2]{%
-	\paragraph{%
-		#1%
-		\if\relax\detokenize{#2}\relax\else {} -- #2\fi%
-	}%
-}
-
-
-
-\newcommand\newparaexample{\@ifstar{\@newparaexample@star}{\@newparaexample@no@star}}
-
-\newcommand\@newparaexample@no@star[1]{%
-	\refstepcounter{paraexample}%
-	\@newexample@abstract{Exemple \theparaexample}{#1}%
-}
-
-\newcommand\@newparaexample@star[1]{%
-	\@newexample@abstract{Exemple}{#1}%
-}
-
-
-% Change log
-\newcommand\topic{\@ifstar{\@topic@star}{\@topic@no@star}}
-
-\newcommand\@topic@no@star[1]{%
-	\textbf{\textsc{#1}.}%
-}
-
-\newcommand\@topic@star[1]{%
-	\textbf{\textsc{#1} :}%
-}
 
 \makeatother % Technical doc - END
 
@@ -250,10 +289,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.7.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.8.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-08-09}
+\date{2020-08-10}
 
 \maketitle
 
@@ -458,8 +497,14 @@ Dans le code suivant, ce sont les clés
 Indiquons que \prefix{pweight} vient de \whyprefix{p}{robability} et \prefix{weight} soit \inenglish*{probabilité} et \inenglish{poids}.
 Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{bpweight} respectivement, ils viennent de \whyprefix{a}{bove} et \whyprefix{b}{elow} soit \inenglish*{dessus} et \inenglish{dessous}.
 
-
 \inputlatexex{TikZ/probatree-weight-placement.tkz}
+
+
+\begin{remark}
+	Notez que le mode mathématique est activé par défaut pour les noms de noeuds et les poids comme le montre l'exemple improbable ci-dessous.
+
+	\inputlatexex{TikZ/probatree-math-mode.tkz}
+\end{remark}
 
 
 % ---------------------- %
@@ -752,6 +797,18 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-08-10] Nouvelle version mineure \verb+0.8.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Arbre de probabilités}
+              le mode mathématique est activé par défaut pour les noms des noeuds et les poids \emph{(plus besoin de taper de \texttt{\$})}.
+    \end{itemize}
+    
+    
+    \separation
+% ------------------------ %
 
     \medskip
     \item[2020-08-09] Nouvelle version mineure \verb+0.7.0-beta+.

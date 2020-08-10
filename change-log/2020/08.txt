@@ -1,4 +1,14 @@
 ==========
+2020-08-10
+==========
+
+**New minor version version::``0.8.0-beta`` of ¨tnsproba:** there is a little big chnage. See below.
+
+
+**Probabilistic tree:** the mathematical mode is activated by default for all the nodes and weights : this is not longer necessary to use `$...$`.
+
+
+==========
 2020-08-09
 ==========
 

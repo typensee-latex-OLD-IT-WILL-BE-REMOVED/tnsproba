@@ -1,17 +1,17 @@
 \begin{probatree}
     [
-        [$A$
-            [$B$]
-            [$C$]
-            [$D$
-                [$E$
-                    [$G$]
-                    [$H$]
+        [A
+            [B]
+            [C]
+            [D
+                [E
+                    [G]
+                    [H]
                 ]
-                [$F$]
+                [F]
             ]
         ]
-        [$I$]
+        [I]
     ]
     %
     %\ptreeFocusAll*[col=red]{!1312}

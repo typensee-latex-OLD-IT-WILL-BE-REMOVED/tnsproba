@@ -1,10 +1,10 @@
 \begin{probatree}
     [{}, name = nU
-        [$A$, name = nA
-            [$B$, name = nB]
-            [$C$, name = nC]
+        [A, name = nA
+            [B, name = nB]
+            [C, name = nC]
         ]
-        [$D$]
+        [D]
     ]
     %
     \ptreeFocus* [col=red]  {nA | nC}

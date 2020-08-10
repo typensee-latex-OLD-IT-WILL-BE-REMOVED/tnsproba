@@ -1,10 +1,10 @@
 \begin{probatree}
     [
-        [$A$
-            [$B$, name = nB]
-            [$C$, name = nC]
+        [A
+            [B, name = nB]
+            [C, name = nC]
         ]
-        [$D$, name = nD]
+        [D, name = nD]
     ]
     %
     \ptreeComment*{nB}{$\leftarrow \proba{A \cap B} = ...$}
