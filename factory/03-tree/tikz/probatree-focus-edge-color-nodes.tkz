@@ -1,8 +1,8 @@
 \begin{probatree}
     [
-        [$A$, name = nA, red
-            [$B$, name = nB, red]
-            [$C$]
+        [A, name = nA, red
+            [B, name = nB, red]
+            [C]
         ]
     ]
     %
