@@ -6,5 +6,5 @@
         ]
     ]
     %
-    \ptreeFocus[col=red]{nA | nB}
+    \ptreeFocus[col = red]{nA | nB}
 \end{probatree}
