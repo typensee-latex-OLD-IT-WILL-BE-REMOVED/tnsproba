@@ -15,12 +15,12 @@
         ]
     ]
     %
-    \ptreeFocus[col=gray]{nA | nB}
+    \ptreeFocus[col = gray]{nA | nB}
     %
-    \ptreeComment[col=blue]%
+    \ptreeComment[col = blue]%
                  {nA}{$\leftarrow$ Un sous-arbre \og conditionnel \fg}
     %
-    \ptreeFocus*[col=red]{nU | nD | nE}
-    \ptreeComment[col=red]%
+    \ptreeFocus*[col = red]{nU | nD | nE}
+    \ptreeComment[col = red]%
                  {nE}{$\leftarrow \proba{D \cap E} = d \cdot e$}
 \end{probatree}

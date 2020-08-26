@@ -7,7 +7,7 @@
         [D]
     ]
     %
-    \ptreeFocus* [col=red]  {nA | nC}
-    \ptreeFocus**[col=olive]{nU | nA}
-    \ptreeFocus             {nA | nB}
+    \ptreeFocus* [col = red]  {nA | nC}
+    %\ptreeFocus**[col = olive]{nU | nA}
+    %\ptreeFocus               {nA | nB}
 \end{probatree}

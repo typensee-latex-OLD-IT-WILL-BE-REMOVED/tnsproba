@@ -88,6 +88,7 @@
 \usepackage{ifplatform}
 \usepackage{ifthen}
 \usepackage{macroenvsign}
+\usepackage{pgffor}
 
 
 
@@ -501,7 +502,11 @@ Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{b
 
 
 \begin{remark}
-	Notez que le mode mathématique est activé par défaut pour les noms de noeuds et les poids comme le montre l'exemple improbable ci-dessous.
+	Notez que le mode mathématique est activé par défaut pour les noms des noeuds et les poids comme le montre l'exemple improbable
+	\footnote{
+		Quoique...
+	}
+	ci-dessous.
 
 	\inputlatexex{TikZ/probatree-math-mode.tkz}
 \end{remark}
@@ -522,7 +527,7 @@ On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ san
 
 \newparaexample{Des poids cachés localement}
 
-Pour ne cacher que certains poids afin de produire par exemple un arbre à compléter, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous \emph{(ceci aussi peut servir à rédiger des exercices)}.
+Pour ne cacher que certains poids afin de produire par exemple un arbre à compléter, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous.
 
 \inputlatexex{TikZ/probatree-weight-hide-locally.tkz}
 
@@ -621,7 +626,7 @@ Dans le code précédent nous avons dû faire des copier-coller. La macro \macro
 Voici les pièges à éviter.
 
 \begin{enumerate}
-	\item \macro{foreach} ignore les espace initiaux mais pas les finaux. Si vous utilisez \verb#nb /$1$# au lieu de  \verb#nb/$1$# alors la macro croira que le nom se finit par un espace et \verb#forest# ne pourra rien faire. 
+	\item \macro{foreach} ignore les espace initiaux mais pas les finaux. Si vous utilisez \verb#nB /$1$# au lieu de  \verb#nB/$1$# alors la macro croira que le nom se finit par un espace et \verb#forest# ne pourra rien faire. 
 
 	\item Les noms \macro{color}, \macro{col}, \macro{dx} et \macro{dy} sont utilisés en coulisse donc vous ne pourrez pas les utiliser dans votre boucle.
 \end{enumerate}

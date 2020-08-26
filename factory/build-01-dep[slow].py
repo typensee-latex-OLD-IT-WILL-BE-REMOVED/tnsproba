@@ -196,6 +196,7 @@ def builddep(styfiles):
             file     = onestyfile,
             encoding = "utf-8"
         ) as filetoupdate:
+            # print(">>>", onestyfile)
             _, packages, definitions = between(
                 text = filetoupdate.read(),
                 seps = [

@@ -1,8 +1,15 @@
 ==========
+2020-08-23
+==========
+
+????? **Backstage machinery:** ¨tnscom has renamed ``\tns@multi@args`` to ``\tns@multi@wrap``.
+
+
+==========
 2020-08-10
 ==========
 
-**New minor version version::``0.8.0-beta`` of ¨tnsproba:** there is a little big chnage. See below.
+**New minor version version::``0.8.0-beta`` of ¨tnsproba:** there is a little big change. See below.
 
 
 **Probabilistic tree:** the mathematical mode is activated by default for all the nodes and weights : this is not longer necessary to use `$...$`.
@@ -17,11 +24,11 @@
 
 **Probabilistic tree:** here are some useful changes.
 
-    1) All decorating macros use the option ``col=...`` to indicate the color.
+    1) The new environment ``probatree**`` forces the printing of all the weights.
 
     1) ``\ptreeComment``, ``\ptreeComment*``, ``\aptreeComment`` and ``\aptreeComment*`` have two optional keys ``dx`` et ``dy`` to give a relative shift.
 
-    1) The new environment ``probatree**`` forces the printing of all the weights.
+    1) All decorating macros use the option ``col=...`` to indicate the color (some additional keys will be added later).
 
     1) The same width of `1.5pt` is used for frames and focused edges.
 
