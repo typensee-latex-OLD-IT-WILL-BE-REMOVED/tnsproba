@@ -3,7 +3,7 @@
     % -- Code de l'arbre seul non reproduit ici -- %
     % -------------------------------------------- %
     % Valeurs de X
-    \ptreeComment[col = blue,
+    \ptreeComment[tcol = blue,
                   dx = -.25em, dy = 1cm] {nB}{$X$}
     \foreach \name/\val in {
         nB/$1$,
@@ -11,10 +11,10 @@
         nE/$3$,
         nF/$5$
     }{
-        \ptreeComment[col=blue]{\name}{\val}
+        \ptreeComment[tcol = blue]{\name}{\val}
     }
     % Valeurs de Y
-    \ptreeComment[col = orange,
+    \ptreeComment[tcol = orange,
                   dx = 2em+.5em, dy = 1cm]{nB}{$Y$}
     \foreach \name/\val in {
         nB/$-5$,
@@ -22,6 +22,7 @@
         nE/$-1$,
         nF/$\phantom{-}0$
     }{
-        \ptreeComment[col = orange, dx = 2em]{\name}{\val}
+        \ptreeComment[tcol = orange,
+                      dx = 2em]{\name}{\val}
     }
 \end{probatree}

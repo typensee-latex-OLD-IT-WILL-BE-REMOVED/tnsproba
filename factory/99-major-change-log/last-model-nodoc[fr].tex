@@ -1,11 +1,56 @@
-Nouvelle version mineure \verb+0.6.0-beta+.
+Nouvelle version mineure \verb+0.9.0-beta+.
 
 \begin{itemize}[itemsep=.5em]
+    \item \topic{Calculs de l'espérance et de la variable dans le cas discret fini}
+    \begin{itemize}[itemsep=.5em]
+    	\item ????
+    \end{itemize}
+
+
+% ---------------------- %
+
+
     \item \topic{Arbre de probabilités}
     \begin{itemize}[itemsep=.5em]
-        \item \macro{aptreeFocus}, \macro{aptreeFocus*} et \macro{aptreeFocus**} permettent d'utiliser le système de nommage automatique des noeuds proposé par \verb#forest#.
-        
-        \item Il en va de même pour \macro{aptreeComment} et \macro{aptreeFrame}.
+        \item \verb#\begin{probatree}<hideall># \verb#...# \verb#\end{probatree}#  remplace l'usage de l'environnement \env{probatree*}.
+
+
+        \item \verb#\begin{probatree}<showall># \verb#...# \verb#\end{probatree}# remplace l'usage de l'environnement \env{probatree**}.
+
+
+        \item De nouvelles macros permettent d'agir sur le texte des noeuds.
+
+        \begin{enumerate}
+        	\item \macro{ptreeTextOf} renvoie le texte d'un noeud.
+
+        	\item \macro{ptreeNodeColor} change les couleurs du texte et/ou du fond d'un noeud.
+
+        	\item \macro{ptreeNodeNewText} change le texte en plus éventuellement  les couleurs du texte et/ou du fond d'un noeud.
+        \end{enumerate}
+
+
+        \item \macro{ptreeFocus} a évolué
+              \footnote{
+              		Ces changements n'ont pas pu être faits pour \macro{aptreeFocus}.
+			  }.
+
+        \begin{enumerate}
+        	\item \macro{ptreeFocus[frame = start]} remplace l'ancien \macro{ptreeFocus}.
+
+        	\item \macro{ptreeFocus[frame = none]} remplace \macro{ptreeFocus**} qui n'existe plus.
+
+        	\item \macro{ptreeFocus[frame = nostart]} est utilisé par défaut et remplace \macro{ptreeFocus*} qui n'existe plus. On obtient dans ce cas une mise en valeur encadrant tous les noeuds sauf le tout 1\ier{}.
+
+        	\item Les clés optionnelles \verb#lcol#, \verb#tcol# et \verb#bcol# permettent de choisir la couleur des arrêtes et des cadres, celle du texte et enfin celle du fond.
+        \end{enumerate}
+
+
+        \item \verb#tcol# remplace l'ancien \verb#col# de \macro{ptreeComment} et \macro{aptreeComment}.
+
+		\item \verb#lcol# remplace l'ancien \verb#col# de \macro{ptreeFrame}, \macro{aptreeFrame} et \macro{aptreeFocus}.
+
+
+
     \end{itemize}
 \end{itemize}
 

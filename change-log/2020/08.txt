@@ -1,25 +1,127 @@
 ==========
-2020-08-23
+2020-08-30   ????
 ==========
 
-????? **Backstage machinery:** ¨tnscom has renamed ``\tns@multi@args`` to ``\tns@multi@wrap``.
+**New minor version version::``0.9.0-beta``:** see the new important features below.
+
+
+
+?????? eperance cas fini via un tableau
+
+	+ mode de base : tableau seul puis option
+	 	---> exp calc
+		---> deco decore
+		---> cycle des couleurs
+
+
+	+ donner accès via macro juste à sigma et somme développé pour inserion où l'on veut !!!
+
+	+ mef du taleau : pour variance on passe just par ajout des carrés des écarts (car à la main c'est le plus simple)
+
+	+ même code peut aussi juste produit la formule de calcul initial
+
+	+ les deux effets en mpeme temps avec déco pédagogique (on entoure les celulles utilis pour calculer esp ou bien var)
+
+
+calcexpval
+
+	---> macro pas env car plus pratuique
+
+	---> options
+
+		+ par défaut disp = table (déf avec juste tab)
+
+		+ disp = none : def pour usage après
+
+		+ disp = all : détails avec les cadres (tab + formules)
+
+		+ disp = nosigma : tout sauf écriture via sigma
+
+		+ disp = exp : détails des calculs msi sans tableau décorés
+
+		+ disp = form : juste la somme sigam seul pour usage où l'on veut
+
+		+ disp = prod : juste somme des prod pour usage où l'on veut
+
+		+ name = ... : nom pour usage ultérieur
+
+		+ reuse = ... : utiliser un truc déf avant
+
+		+ choix de x , p et aussi de l'indice k possible via val = , proba = , ind =
+
+		+ cycle des couelurs
+
+		+ arg optionnel : texte entre tableau et les calculs qui sera vide par défaut
+
+		+ choix cdot ou time possible
+
+
+
+
+
+
+
+
+
+==========
+2020-08-28
+==========
+
+**Probabilistic tree:** here are some interesting new fetures and changes.
+
+	1) The environments ``probatree*`` and ``probatree**`` have been removed.
+	Instead use ``\begin{probatree}<hideall> ... \end{probatree}`` and ``\begin{probatree}<showall> ... \end{probatree}`` respectively.
+
+	1) New macros have been added to act on the text of the nodes.
+
+		a) ``\ptreeTextOf`` gives the text of one node.
+
+        a) ``\ptreeNodeColor`` changes the colors of the text and/or the background of a node.
+
+        a) ``\ptreeNodeNewText`` changes the text of a node and eventually the colors of the text and/or the background of a node.
+
+	1) ``\ptreeFocus`` has evolved
+	((
+		The same changes cannot have been done for ``\aptreeFocus`` which features remain unchanged.
+	)).
+
+		a) ``\ptreeFocus[frame = start]`` replaces the old ``\ptreeFocus``.
+
+		a) ``\ptreeFocus[frame = none]`` replaces ``\ptreeFocus**`` that has been removed.
+
+		a) ``\ptreeFocus[frame = nostart]`` is used by default and replaces ``\ptreeFocus*`` that has been removed.
+		This produces focusing without puting the first node in a frame (this is the most current use for focusing on a path).
+
+	    a) Thanks to the new macros acting on the text of a node, it is now possible to change also the colors of the text and the background of the nodes by using the following keys.
+
+			* For the lines and the frames,``lcol`` replaces the old ``col``.
+
+			* For the text, use ``tcol``.
+
+			* For the background, use ``bcol``.
+
+	1) For sake of consistency, the key ``col`` is no longer proposed.
+
+	 	a) Use ``tcol`` with ``\ptreeComment`` and ``\aptreeComment``.
+
+		a) Use ``lcol`` with  ``\ptreeFrame``, ``\aptreeFrame`` and ``\aptreeFocus``.
 
 
 ==========
 2020-08-10
 ==========
 
-**New minor version version::``0.8.0-beta`` of ¨tnsproba:** there is a little big change. See below.
+**New minor version version::``0.8.0-beta``:** there is a little big change. See below.
 
 
-**Probabilistic tree:** the mathematical mode is activated by default for all the nodes and weights : this is not longer necessary to use `$...$`.
+**Probabilistic tree:** the mathematical mode is activated by default for the text of every nodes and weights. This is no more necessary to use a lot of `$...$`.
 
 
 ==========
 2020-08-09
 ==========
 
-**New minor version version::``0.7.0-beta`` of ¨tnsproba:** see the new features below.
+**New minor version version::``0.7.0-beta``:** see the new features below.
 
 
 **Probabilistic tree:** here are some useful changes.
@@ -46,7 +148,7 @@
 2020-08-08
 ==========
 
-**New minor version version::``0.6.0-beta`` of ¨tnsproba:** see the new features below.
+**New minor version version::``0.6.0-beta``:** see the new features below.
 
 
 **New way to work with automatic names::** dedicated macros have been added.
@@ -65,7 +167,7 @@
 2020-08-05
 ==========
 
-**New minor version version::``0.5.0-beta`` of ¨tnsproba:** see the new features below.
+**New minor version version::``0.5.0-beta``:** see the new features below.
 
 
 **Probabilistic trees:** two new features.

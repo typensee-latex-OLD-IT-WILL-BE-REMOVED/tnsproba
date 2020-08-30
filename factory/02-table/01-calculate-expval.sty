@@ -1,0 +1,224 @@
+% == PACKAGES USED == %
+
+\RequirePackage{simplekv}
+\RequirePackage{xstring}
+
+\RequirePackage{nicematrix}
+
+\RequirePackage{tikz}
+\usetikzlibrary{fit}
+
+\RequirePackage{tcolorbox}
+
+
+% == DEFINITIONS == %
+
+\tcbuselibrary{theorems}
+
+% Sources
+%	* https://tex.stackexchange.com/a/475291/6880
+%	* https://tex.stackexchange.com/a/558343/6880
+%	* https://tex.stackexchange.com/a/558185/6880
+
+
+% -- DECORATIONS -- %
+
+% Public macros allows very specific use for "advanced" users.
+
+\newcommand\frameCells[3]{
+	\begin{tikzpicture}[remember picture, overlay]
+    \node[rounded corners,
+          draw       = #1,
+          line width = 1pt,
+          fit        = (#2.north west) (#2.north east) 
+                       (#3.south west) (#3.south east)] {};
+    \end{tikzpicture}
+}
+
+
+\newcommand\frameText[2][blue]{
+	\tcboxmath[colframe = #1,
+               boxsep   = 1mm, boxrule = 1pt,
+               left     = 0mm, right   = 0mm, 
+               top      = 0mm, bottom  = 0mm]{#2}
+}
+
+
+
+% -- EXPECTED VALUE (ALONE) -- %
+
+\setKVdefault[tnsproba@calcexpval@keys]{%
+	disp   = table,
+    colors = red-blue-orange-green!70!black,
+    %
+    label = lastone,
+    ref   = @,
+    %
+    X = X,
+    E = E,
+    %
+    ind = k,
+    xk  = x,
+    pk  = p,
+    %
+    ope = \cdot,
+    %
+    com = @,
+}
+
+
+\newcommand\tnsproba@frame@nodeco[3]{}
+
+
+\ExplSyntaxOn
+% Global variables used.
+    \seq_new:N \l__tnsproba_colors_seq
+    \tl_new:N  \l__tnsproba_actual_color_temp_tl
+
+    \seq_new:N \l__tnsproba_calcexpval_seq
+    \seq_new:N \l__tnsproba_subseq_seq
+    \tl_new:N  \l__tnsproba_xline_temp_tl
+    \tl_new:N  \l__tnsproba_pline_temp_tl
+
+    \int_new:N \l__tnsproba_nbline_int
+    \int_new:N \l__tnsproba_numcol_int
+    \int_new:N \l__tnsproba_numcol_deco_int
+    \int_new:N \l__tnsproba_numcol_decotwo_int
+
+% #1 : line separator
+% #2 : cell separator
+% #3 : content
+    \NewDocumentCommand{\calcexpval}{O{} +m} {
+    	% Keys
+	    \useKVdefault[tnsproba@calcexpval@keys]%
+    	\setKV[tnsproba@calcexpval@keys]{#1}%
+		%
+		\gdef\tnsproba@disp{\useKV[tnsproba@calcexpval@keys]{disp}}%
+		\edef\tnsproba@colors{\useKV[tnsproba@calcexpval@keys]{colors}}% <--- KEEP IT RGIS AS AN ARGUMENT!
+		%
+		\gdef\tnsproba@label{\useKV[tnsproba@calcexpval@keys]{label}}%
+		\gdef\tnsproba@ref{\useKV[tnsproba@calcexpval@keys]{ref}}%
+		%
+		\gdef\tnsproba@X{\useKV[tnsproba@calcexpval@keys]{X}}%
+		\gdef\tnsproba@E{\useKV[tnsproba@calcexpval@keys]{E}}%
+		%
+		\gdef\tnsproba@ind{\useKV[tnsproba@calcexpval@keys]{ind}}%
+		\gdef\tnsproba@xk{\useKV[tnsproba@calcexpval@keys]{xk}}%
+		\gdef\tnsproba@pk{\useKV[tnsproba@calcexpval@keys]{pk}}%
+		%
+		\gdef\tnsproba@ope{\useKV[tnsproba@calcexpval@keys]{ope}}%
+		%
+		\edef\tnsproba@comment{\useKV[tnsproba@calcexpval@keys]{com}}%
+		% Store content fo late use
+    	\gdef\tnsproba@calc@expval@last@content{#2}
+    	%
+		\tnsproba_calcexpval:nnnn{\tnsproba@colors}{\\}{&}{#2}
+    }
+
+% The internal version of the general purpose macro
+	\cs_new_protected:Nn \tnsproba_calcexpval:nnnn {
+% #1 (option) : colors
+% #2 : line separator
+% #3 : cell separator
+% #4 : content
+  
+% Colors.
+		\seq_set_split:NnV \l__tnsproba_colors_seq { - } { #1 }
+		
+% Split into lines
+        \seq_set_split:Nnn \l__tnsproba_calcexpval_seq { #2 } { #4 }
+        \int_set:Nn \l__tnsproba_nbline_int { \seq_count:N \l__tnsproba_calcexpval_seq }
+
+% Split each line into cells.
+        \seq_pop_left:NN \l__tnsproba_calcexpval_seq \l__tnsproba_xline_temp_tl
+        \seq_set_split:NnV \l__tnsproba_x_seq { #3 } \l__tnsproba_xline_temp_tl
+        
+        \seq_pop_left:NN \l__tnsproba_calcexpval_seq \l__tnsproba_pline_temp_tl
+        \seq_set_split:NnV \l__tnsproba_p_seq { #3 } \l__tnsproba_pline_temp_tl
+
+% Number of columns (offensive programming)
+		\int_set:Nn \l__tnsproba_numcol_int { \seq_count:N \l__tnsproba_x_seq }
+		\int_set:Nn \l__tnsproba_numcol_deco_int { 2 }
+
+% The table of values
+		\IfEqCase{\tnsproba@disp}{%
+			{all}{\let\decoframe\frameCells}%
+			{nosigma}{\let\decoframe\frameCells}%
+		}[%
+			\let\decoframe\tnsproba@frame@nodeco
+		]
+      
+		\[
+		\setlength\arraycolsep{.75em}
+		\begin{NiceArray}{r*{\l__tnsproba_numcol_int}{|c}}
+			\tnsproba@xk{}\sb{\tnsproba@ind{}}
+				& \l__tnsproba_xline_temp_tl \\
+			\hline
+			\tnsproba@pk{}\sb{\tnsproba@ind{}}
+				& \l__tnsproba_pline_temp_tl
+			\CodeAfter	
+			\int_add:Nn \l__tnsproba_numcol_int {2}
+			\bool_while_do:nn 
+				{ \int_compare_p:nNn { \l__tnsproba_numcol_deco_int } < { \l__tnsproba_numcol_int } }{
+				\seq_pop_left:NN \l__tnsproba_colors_seq \l__tnsproba_actual_color_temp_tl
+				\seq_put_right:NV \l__tnsproba_colors_seq {\l__tnsproba_actual_color_temp_tl}
+				
+				\decoframe%
+					{\l__tnsproba_actual_color_temp_tl}%
+					{1-\int_use:N \l__tnsproba_numcol_deco_int}%
+					{2-\int_use:N \l__tnsproba_numcol_deco_int}
+    
+    			\int_add:Nn \l__tnsproba_numcol_deco_int {2}
+			}
+		\end{NiceArray}
+		\]
+
+% One comment.
+		\IfStrEq{\tnsproba@comment}{@}{}{
+			\par\medskip
+			\tnsproba@comment
+			\par\medskip
+		}
+
+% Explain the calculus of the expected value.
+		\int_incr:N \l__tnsproba_numcol_deco_int
+ 
+        $\tnsproba@E{}(\tnsproba@X{})%
+         =%
+         \sum\limits%
+         	\sb{\tnsproba@ind{} = 1}%
+			^{\int_use:N \l__tnsproba_numcol_int}%
+         \tnsproba@pk{}\sb{\tnsproba@ind{}}%
+         \tnsproba@ope{}%
+         \tnsproba@xk{}\sb{\tnsproba@ind{}}$
+        
+        \par
+        
+        $\tnsproba@E{}(\tnsproba@X{})%
+         =%
+         \seq_map_indexed_inline:Nn \l__tnsproba_x_seq {
+    		\seq_pop_left:NN \l__tnsproba_p_seq \l__tnsproba_pval_tl
+    		\int_if_odd:nTF
+				{ \l__tnsproba_numcol_deco_int }
+     			{ 
+        			\seq_pop_left:NN \l__tnsproba_colors_seq \l__tnsproba_actual_color_temp_tl
+        			\seq_put_right:NV \l__tnsproba_colors_seq {\l__tnsproba_actual_color_temp_tl}
+        	
+        			\frameText[\l__tnsproba_actual_color_temp_tl]{%
+						##2%
+						\tnsproba@ope{}%
+						\l__tnsproba_pval_tl%
+					}
+				}
+     			{ ##2 \cdot \l__tnsproba_pval_tl }
+    
+		    \int_compare:nNnT { ##1 } < { \seq_count:N \l__tnsproba_x_seq } { + }
+    		\int_incr:N \l__tnsproba_numcol_deco_int
+   		}
+        $
+    } 
+\ExplSyntaxOff
+
+\newcommand\justredo{
+    \expandafter\calcexpval\expandafter{\tnsproba@calc@expval@last@content}
+}

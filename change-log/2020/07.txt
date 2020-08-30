@@ -2,7 +2,7 @@
 2020-07-31
 ==========
 
-**New minor version version::``0.4.0-beta`` of ¨tnsproba:** see the new feature below.
+**New minor version version::``0.4.0-beta``:** see the new feature below.
 
 
 **Probabilistic tree :** the macros ``\ptreeFocus``, ``\ptreeFocus*`` and ``\ptreeFocus**`` ease to highlight paths of the tree.
@@ -26,7 +26,7 @@
 2020-07-25
 ==========
 
-**New minor version version::``0.3.0-beta`` of ¨tnsproba:** see the changes below.
+**New minor version version::``0.3.0-beta``:** see the changes below.
 
 
 **Probabilistic tree :** one new feature and a renaming.
@@ -40,7 +40,7 @@
 2020-07-23
 ==========
 
-**New minor version version::``0.2.0-beta`` of ¨tnsproba:** see the changes below.
+**New minor version version::``0.2.0-beta``:** see the changes below.
 
 
 **Probabilistic tree :** the macro ``\ptreeFrame`` simplifies the draw of a frame around a non final subtree.
@@ -53,7 +53,7 @@
 2020-07-22
 ==========
 
-**New minor version version::``0.1.0-beta`` of ¨tnsproba:** see the new feature below.
+**New minor version version::``0.1.0-beta``:** see the new feature below.
 
 
 **Change of ¨api:**  ``\probacondexp`` has been renamed  ``\eprobacond``.
