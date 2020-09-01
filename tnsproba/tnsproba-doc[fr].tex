@@ -290,10 +290,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.8.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.9.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-08-10}
+\date{2020-09-02}
 
 \maketitle
 
@@ -432,8 +432,11 @@ $\expval{X}$
 
 \newparaexample{Choisir le nom de l'espérance}
 
+Notez l'utilisation de \macro{mathrm} pour obtenir une lettre droite comme cela est l'usage.
+
 \begin{latexex}
-$\expval[E_1]{X}$
+$\expval[E_1]{X}$ ou
+$\expval[\mathrm{E}_1]{X}$
 \end{latexex}
 
 
@@ -444,7 +447,8 @@ $\expval[E_1]{X}$
 
 \begin{latexex}
 $\var   {X}$ ou
-$\var[v]{X}$
+$\var[v]{X}$ ou
+$\var[\mathrm{v}]{X}$
 \end{latexex}
 
 
@@ -454,108 +458,259 @@ $\var[v]{X}$
 \newparaexample{Écart-type}
 
 \macro{stddev} vient de \whyprefix{st}{andar-}\prefix{d} \whyprefix{dev}{iation} soit \inenglish{écart-type}.
+
 \begin{latexex}
 $\stddev   {X}$ ou
-$\stddev[s]{X}$
+$\stddev[s]{X}$ ou
+$\stddev[\mathrm{s}]{X}$
 \end{latexex}
 
 
 % ---------------------- %
-%\section{Calculer l'espérance et la variance -- Cas fini}
-%
-%\subsection{Espérance}
-
 \section{Calculer l'espérance -- Cas fini}
 
-\newparaexample{???}
+Il est possible de définir facilement les valeurs d'une variable aléatoire finie (v.a.f.) et d'obtenir si souhaiter le calcul détaillé de son espérance
+\footnote{
+    Pour l'affichage une limitation importante est que le tableau et les calculs doivent tenir sur la largeur de la ligne.
+    Concrètement pour un usage pédagogique cette limitation ne devrait jamais poser de problème.
+}.
 
-%\begin{latexex-flat}
-%\calcexpval{
-%    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-%    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-%}
-%\end{latexex-flat}
-%
-%\begin{latexex-flat}
-%\calcexpval[disp = none]{
-%    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-%    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-%}
-%\end{latexex-flat}
-%
-%\begin{latexex-flat}
-%\calcexpval[disp = all]{
-%    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-%    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-%}
-%\end{latexex-flat}
-%
-%
-%\begin{latexex-flat}
-%\calcexpval[disp = exp]{
-%    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-%    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-%}
-%\end{latexex-flat}
-%
-%
-%\begin{latexex-flat}
-%\calcexpval[disp = formal]{
-%    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-%    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-%}
-%\end{latexex-flat}
-%
-%
-%\begin{latexex-flat}
-%\calcexpval[disp = sumprod]{
-%    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-%    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-%}
-%\end{latexex-flat}
-%
-%
-%\newparaexample{Choisir ses couleurs}
-%
+
+% ---------------------- %
+
+
+\subsection{Pour un usage direct -- Notations par défaut}
+
+Dans la section \ref{tnsproba-calclexpval-name-n-reuse} page \pageref{tnsproba-calclexpval-name-n-reuse} nous verrons qu'il est possible de définir une loi à un endroit puis de la réutiliser à d'autres
+\footnote{
+    La réutilisation se fera avec un argument vide de \macro{calcexpval}. C'est pour cela qu'une macro est proposée et non un environnement.
+}.
+Nous verrons aussi dans la section \ref{tnsproba-calclexpval-notations} page \pageref{tnsproba-calclexpval-notations} que certaines notations sont modifiables.
+
+\medskip
+
+Dans la présente section nous reproduirons à chaque fois les paramètres de la v.a.f. même si ceci produit des exemples un peu lourds à lire.
+
+
+% ---------------------- %
+
+
+\newparaexample{Loi d'une v.a.f.}
+
+La définition de la loi d'une v.a.f. avec la macro \macro{calcexpval} se fait avec une syntaxe semblable à celle d'un tableau.
+Notez dans l'exemple suivant que par défaut un tableau centré est affiché ce qui correspond à l'option par  défaut \verb#disp = table#.
+Ce n'est pas le seul comportement possible comme vont le montrer les autres exemples à venir.
+
 \begin{latexex-flat}
-\calcexpval[disp   = all,
-            E      = Esp, X  = Y,
-            k      = i,   xk = y, pk = q,
-            ope    = \times,
-            com    = Le tableau précédent donne les calculs suivants.,
-            colors = blue-orange]{
+\calcexpval{
     0      & 1   & 2   & 3    & 4    & 5   & 6   \\
     0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
 }
 \end{latexex-flat}
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%\begin{latexex-flat}
-%\justredo{}
-%\end{latexex-flat}
-%
-%
-%%\begin{latexex-flat}
-%%\calcexpval[colors = gray - blue!30!yellow]{
-%%    0      & 1   & 2   & 3       \\
-%%    0.2000 & 0.1 & 0.2 & 0.05 
-%%}
-%%\end{latexex-flat}
-%%
-%%
-%%\begin{latexex-flat}
-%%\justredo{}
-%%\end{latexex-flat}
-%%
+
+
+\begin{remark}
+    Il est possible de ne rien afficher comme ci-dessous où \prefix{disp} est pour \whyprefix{disp}{lay} soit \inenglish{afficher}.
+    Cette option sera utile pour définir une loi à un endroit et l'utiliser à d'autres.
+
+\begin{latexex-flat}
+\calcexpval[disp = none]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+\end{remark}
+
+
+% ---------------------- %
+
+
+\newparaexample{Calculs expliqués et décorés de l'espérance d'une v.a.f.}
+
+La macro \macro{calcexpval} propose un système de clé valeur pour des réglages personnalisé. L'exemple ci-dessous montre comment obtenir un calcul détaillé et décoré de l'espérance.
+
+\begin{latexex-flat}
+\calcexpval[disp = all]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+L'exemple suivant montre qu'il est facile de changer le couleurs qui sont utilisées de façon cyclique \emph{(on peut indiquer une seule couleur)}.
+
+\begin{latexex-flat}
+\calcexpval[disp   = all,
+            colors = orange - olive]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{Juste détailler les calculs de l'espérance d'une v.a.f.}
+
+Ci-dessous \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développer}. Cette option sera très utile de la réutilisation d'une loi définie précédemment.
+
+\begin{latexex-flat}
+\calcexpval[disp = exp]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{Des bouts du calcul}
+
+Lors de la réutilisation d'une loi définie précédemment les deux options \prefix{formal} et \prefix{eval} peuvent rendre service.
+
+\begin{latexex-flat}
+Somme formelle :
+\calcexpval[disp = formal]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+Somme développée :
+\calcexpval[disp = eval]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{Calculs expliqués sans $\Sigma$}
+
+L'option \verb#nosigma# permet de ne pas afficher le symbole $\Sigma$ pour des raisons pédagogiques ou d'efficacité.
+
+\begin{latexex-flat}
+\calcexpval[disp = all,
+            nosigma]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+\medskip
+
+Juste les calculs :
+\calcexpval[disp = exp,
+            nosigma]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+} .
+\end{latexex-flat}
+%\section{Calculer l'espérance -- Cas fini}
+
+\subsection{Pour un usage différé -- Notations par défaut} \label{tnsproba-calclexpval-name-n-reuse}
+
+Rien de bien compliqué à utiliser comme le montre l'exemple suivant. Notez bien qu'il faut indiquer un argument vide à la macro \macro{calcexpval} lors de la réutilisation.
+
+\begin{latexex-flat}
+Voici ma loi de dingue.
+
+\calcexpval[name = maloidedingue]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+Je dis des choses, bla, bla...
+
+Et puis finalement j'indique le calcul de l'espérance.
+
+\calcexpval[disp  = exp,
+            reuse = maloidedingue]{}
+\end{latexex-flat}
+
+
+\begin{remark}
+	Si cela vous convient, il est possible d'utiliser des noms de type \og chemin de fichiers \fg{} comme ci-après
+	\footnote{
+		Ceci permet d'utiliser des espaces de noms très pratiques à l'usage.
+	}.
+	
+\begin{latexex-flat}
+Définissons de façon cachée la loi... %
+\calcexpval[disp = none,
+            name = ma/loi/de/dingue]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}%
+Bla, bla... Affichons la loi.
+
+\calcexpval[disp  = table,
+            reuse = ma/loi/de/dingue]{}
+\end{latexex-flat}
+\end{remark}
+%\section{Calculer l'espérance -- Cas fini}
+
+\subsection{Notations personnalisées} \label{tnsproba-calclexpval-notations}
+
+\newparaexample{Toutes les options}
+
+L'exemple ci-après utilise toutes les options liées à l'affichage textuel.
+Il faut noter que la clé \verb#com# sert juste à ajouter un court texte sur une seule ligne
+\footnote{
+	Si besoin utiliser séparément l'affichage par défaut avec \texttt{name = maloi} suivi d'un long texte puis enfin employer \texttt{disp = exp, reuse = maloi}.
+}.
+
+\begin{latexex-flat}
+\calcexpval[disp = all,
+            E    = Esp, X  = Y,
+            k    = i  , xk = y, pk = q,
+            com  = Le tableau précédent aboutit aux calculs suivants.,
+            ope  = \times]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{En réutilisant une loi définie précédemment}
+
+Lors de la création d'une loi nommée via la clé \verb#name# les options textuelles, autre que le commentaire court, sont mémorisées.
+Ceci est très utile comme le montre le 1\ier{} affichage de l'exemple suivant tout en étant modifiable à tout moment comme dans le dernier affichage ci-après.
+
+\begin{latexex-flat}
+DÉFINITION CACHÉE.
+\calcexpval[name = option/texte/loi,
+            disp = none,
+            E    = Esp, X  = Y,
+            k    = i  , xk = y, pk = q,
+            ope  = \times]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+\bigskip
+
+RÉUTILISATION DIRECTE.
+\calcexpval[reuse = option/texte/loi,
+            disp  = all]{}
+
+\bigskip
+
+RÉUTILISATION AVEC DES OPTIONS MODIFIÉES (E, k et ope = .).
+\calcexpval[reuse = option/texte/loi,
+            disp  = all,
+            E     = E,
+            k     = k,
+            com   = Le tableau précédent aboutit aux calculs suivants.,
+            ope   = \cdot]{}
+\end{latexex-flat}
+%\section{Arbres pondérés}
 \section{Arbres pondérés}
 
 \subsection{Au commencement était la forêt...}
@@ -1026,6 +1181,68 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-09-02] Nouvelle version mineure \verb+0.9.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Calculs de l'espérance dans le cas fini}
+        	  \macro{calcexpval} rend facile la définition d'une variable aléatoire finie avec la possibilité de détailler le calcul de son espérance.
+    
+    
+    % ---------------------- %
+    
+    
+        \item \topic*{Arbre de probabilités}
+        	  pas mal de changements dans l'API et quelques nouveautés.
+    
+        \begin{itemize}[itemsep=.5em]
+            \item \verb#\begin{probatree}<hideall># \verb#...# \verb#\end{probatree}#  remplace l'usage de l'environnement \env{probatree*}.
+    
+    
+            \item \verb#\begin{probatree}<showall># \verb#...# \verb#\end{probatree}# remplace l'usage de l'environnement \env{probatree**}.
+    
+    
+            \item De nouvelles macros permettent d'agir sur le texte des noeuds.
+    
+            \begin{enumerate}
+            	\item \macro{ptreeTextOf} renvoie le texte d'un noeud.
+    
+            	\item \macro{ptreeNodeColor} change les couleurs du texte et/ou du fond d'un noeud.
+    
+            	\item \macro{ptreeNodeNewText} change le texte en plus éventuellement  les couleurs du texte et/ou du fond d'un noeud.
+            \end{enumerate}
+    
+    
+            \item \macro{ptreeFocus} a évolué
+                  \footnote{
+                  		Malheureusement ces changements n'ont pas pu être faits pour \macro{aptreeFocus} principalement car l'équivalent automatique de \macro{ptreeTextOf} n'a pu être implémenté.
+    			  }.
+    
+            \begin{enumerate}
+            	\item \macro{ptreeFocus[frame = start]} remplace l'ancien \macro{ptreeFocus}.
+    
+            	\item \macro{ptreeFocus[frame = none]} remplace \macro{ptreeFocus**} qui n'existe plus.
+    
+            	\item \macro{ptreeFocus[frame = nostart]} est utilisé par défaut et remplace \macro{ptreeFocus*} qui n'existe plus. On obtient dans ce cas une mise en valeur encadrant tous les noeuds sauf le tout 1\ier{}.
+    
+            	\item Les clés optionnelles \verb#lcol#, \verb#tcol# et \verb#bcol# permettent de choisir la couleur des arrêtes et des cadres, celle du texte et enfin celle du fond.
+            \end{enumerate}
+    
+    
+            \item \verb#tcol# remplace l'ancien \verb#col# de \macro{ptreeComment} et \macro{aptreeComment}.
+    
+    		\item \verb#lcol# remplace l'ancien \verb#col# de \macro{ptreeFrame}, \macro{aptreeFrame} et \macro{aptreeFocus}.
+    
+    
+    
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \separation
+
+% ------------------------ %
+
+    \medskip
     \item[2020-08-10] Nouvelle version mineure \verb+0.8.0-beta+.
     
     \begin{itemize}[itemsep=.5em]
@@ -1246,6 +1463,102 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
+
+
+
+
+
+\subsection{Calculer l'espérance -- Cas fini}
+
+
+
+\IDmacro{calcexpval}{1}{1} \hfill \mwhyprefix{calc}{ulate}
+
+                           \hfill \prefix{expval = exp-ected val-ue}
+
+\IDoption{} un système de type \texttt{clé = valeur}.
+
+\begin{enumerate}
+    \item \verb#disp# indique ce qu'il faut afficher. La valeur par défaut est \verb#table#. Voici toutes les valeurs possibles.
+	\begin{enumerate}
+    	\item \verb#table # : un tableau donnant la loi est affiché seul.
+
+    	\item \verb#all   # : un tableau donnant la loi est affiché suivi du début du calcul de l'espérance.
+
+    	\item \verb#none  # : rien n'est affiché.
+	
+		\extraspace
+
+    	\item \verb#exp   # : le début du calcul de l'espérance sans le tableau donnant la loi.
+
+    	\item \verb#formal# : la formule avec $\Sigma$ .
+
+    	\item \verb#eval  # : la somme des produits du type $p_k \cdot x_k$ .
+	\end{enumerate}
+
+
+    \medskip
+
+    \item \verb#nosigma# : utilisée seule cette option demande de ne pas afficher la formule avec $\Sigma$ .
+
+
+    \medskip
+
+    \item \verb#E # : le nom de l'espérance.
+		  \hfill
+		  Par défaut \verb# E = E# .
+
+    \item \verb#X # : le nom de la variable aléatoire.
+		  \hfill
+		  Par défaut \verb# X = X# .
+
+    \item \verb#k # : l'indice.
+		  \hfill
+		  Par défaut \verb# k = k# .
+
+    \item \verb#xk# : la lettre à indicer pour les valeurs de la variable aléatoire.
+		  \hfill
+		  Par défaut \verb#xk = x# .
+
+    \item \verb#pk# : la lettre à indicer pour les valeurs des probabilités.
+		  \hfill
+		  Par défaut \verb#pk = p# .
+
+
+    \medskip
+
+    \item \verb#com# : un texte court éventuel à ajouter entre le tableau donnant la loi et le début du calcul de l'espérance.
+
+
+    \medskip
+
+    \item \verb#ope# : le symbole de multiplication.
+		  \hfill
+		  Par défaut \verb#ope = \cdot# .
+
+
+    \medskip
+
+    \item \verb#name # : un nom éventuel de la loi pour une utilisation ultérieure.
+
+    \item \verb#reuse# : un nom indiquant ce qui doit être réutilisé.
+
+
+    \medskip
+
+    \item \verb#colors# : le cycle des couleurs au format TikZ séparées par des tirets.
+		  
+		  \smallskip
+		  
+		  \hfill
+		  Par défaut \verb#colors = red - blue - orange - green!70!black# .
+\end{enumerate}
+%
+%
+\IDarg{} définition de la loi de la variable aléatoire finie avec une syntaxe semblable à celle d'un tableau.
 
 
 

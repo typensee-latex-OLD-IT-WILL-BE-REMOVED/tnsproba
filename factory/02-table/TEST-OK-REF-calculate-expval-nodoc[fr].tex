@@ -8,8 +8,8 @@
 \makeatother
 
 
-\usepackage{titlesec}
-\newcommand{\sectionbreak}{\clearpage}
+%\usepackage{titlesec}
+%\newcommand{\sectionbreak}{\clearpage}
 
 
 % == EXTRAS == %
@@ -19,19 +19,31 @@
 
 \section{Les références}
 
-%\begin{latexex-alone}
-\calcexpval[disp = none,
-            name = testone]{
+\subsection{name = testone}
+
+\calcexpval[name = testone,
+            X = Y, k = i, xk = y, pk = q]{
     0      & 1   & 2   & 3    & 4    & 5   & 6   \\
     0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
 }
 
-\calcexpval[disp = none,
-            name = test/one/path]{
+
+\subsection{name = test/one/path}
+
+\calcexpval[name = test/one/path,
+            X = Y, k = i, xk = y, pk = q]{
     0      & 1   & 2   & 3    \\
     0.2000 & 0.1 & 0.2 & 0.05
 }
-%\end{latexex-alone}
+
+
+\subsection{name = basic}
+
+\calcexpval[name = basic,
+            X = Y, k = i, xk = y, pk = q]{
+    0      & 1   \\
+    0.2000 & 0.8
+}
 
 
 % ---------------------- %
@@ -39,8 +51,23 @@
 
 \section{Réutilisation}
 
-%\begin{latexex-flat}
-\justredo{}
-%\end{latexex-flat}
+\subsection{reuse = testone (all)}
+
+\calcexpval[disp  = all,
+            reuse = testone]{}
+
+
+\subsection{reuse = test/one/path (exp, k = k, pk = p, ope = \macro{times})}
+
+\calcexpval[disp  = exp,
+            reuse = test/one/path,
+            k = k, pk = p,
+            ope = \times]{}
+
+
+\subsection{reuse = basic (eval)}
+
+\calcexpval[disp  = eval,
+            reuse = basic]{}
 
 \end{document}

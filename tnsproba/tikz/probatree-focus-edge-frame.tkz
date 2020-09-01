@@ -11,7 +11,7 @@
         ]
     ]
     %
-    \ptreeFocus{nA | nB}
+    \ptreeFocus               {nA | nB}
     \ptreeFocus[frame = start]{nC | nD}
-    \ptreeFocus[frame = none]{nE | nF}
+    \ptreeFocus[frame = none] {nE | nF}
 \end{probatree}

@@ -11,10 +11,12 @@
     dy   = 0cm
 }
 
-% #1 : color
+
+%    #1 : color
 %
-% #2 : node
-% #3 : comment
+%    #2 : node
+%    #3 : comment
+
 \newcommand\ptreeComment{\@ifstar{\ptree@comment@star}{\ptree@comment@no@star}}
 
 \newcommand\ptree@comment@no@star[3][]{
@@ -29,7 +31,6 @@
 	      yshift = \dy]
 	at (#2.mid -| ptreecomment coord) {\textcolor{\tcol}{#3}};
 }
-
 
 
 \newcommand\ptree@comment@star[3][]{

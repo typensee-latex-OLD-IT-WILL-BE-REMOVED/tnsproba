@@ -5,6 +5,7 @@
     % Valeurs de X
     \ptreeComment[tcol = blue,
                   dx = -.25em, dy = 1cm] {nB}{$X$}
+    %
     \foreach \name/\val in {
         nB/$1$,
         nC/$3$,
@@ -15,7 +16,9 @@
     }
     % Valeurs de Y
     \ptreeComment[tcol = orange,
-                  dx = 2em+.5em, dy = 1cm]{nB}{$Y$}
+                  dx   = 2em+.5em,
+                  dy   = 1cm]{nB}{$Y$}
+    %
     \foreach \name/\val in {
         nB/$-5$,
         nC/$-2$,
@@ -23,6 +26,6 @@
         nF/$\phantom{-}0$
     }{
         \ptreeComment[tcol = orange,
-                      dx = 2em]{\name}{\val}
+                      dx   = 2em]{\name}{\val}
     }
 \end{probatree}

@@ -21,7 +21,7 @@
     \ptreeComment[tcol = blue]%
                  {nA}{$\leftarrow$ Un sous-arbre \og conditionnel \fg}
     %
-    \ptreeFocus[lcol = red]{nU | nD | nE}
+    \ptreeFocus  [lcol = red]{nU | nD | nE}
     \ptreeComment[tcol = red]%
                  {nE}{$\leftarrow \proba{D \cap E} = d \cdot e$}
 \end{probatree}

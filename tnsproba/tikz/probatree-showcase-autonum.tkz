@@ -17,7 +17,7 @@
     \aptreeComment[tcol = blue]%
                   {1}{$\leftarrow$ Un sous-arbre \og conditionnel \fg}
     %
-    \aptreeFocus[lcol = red]{ | 2 | 21}
+    \aptreeFocus  [lcol = red]{ | 2 | 21}
     \aptreeComment[tcol = red]%
                   {21}{$\leftarrow \proba{D \cap E} = d \cdot e$}
 \end{probatree}

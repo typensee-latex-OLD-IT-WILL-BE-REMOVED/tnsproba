@@ -11,17 +11,25 @@
     ]
     % Valeurs de X
     \ptreeComment[tcol = blue,
-                  dx = -.25em, dy = 1cm]{nB}{$X$}
-    \ptreeComment[tcol = blue]          {nB}{$1$}
-    \ptreeComment[tcol = blue]          {nC}{$3$}
-    \ptreeComment[tcol = blue]          {nE}{$3$}
-    \ptreeComment[tcol = blue]          {nF}{$5$}
+                  dx   = -.25em,
+                  dy   = 1cm]{nB}{$X$}
+    %
+    \ptreeComment[tcol = blue]{nB}{$1$}
+    \ptreeComment[tcol = blue]{nC}{$3$}
+    \ptreeComment[tcol = blue]{nE}{$3$}
+    \ptreeComment[tcol = blue]{nF}{$5$}
     %
     % Valeurs de Y
     \ptreeComment[tcol = orange,
-                  dx = 2em+.5em, dy = 1cm]{nB}{$Y$}
-    \ptreeComment[tcol = orange, dx = 2em]{nB}{$-5$}
-    \ptreeComment[tcol = orange, dx = 2em]{nC}{$-2$}
-    \ptreeComment[tcol = orange, dx = 2em]{nE}{$-1$}
-    \ptreeComment[tcol = orange, dx = 2em]{nF}{$\phantom{-}0$}
+                  dx   = 2em+.5em,
+                  dy   = 1cm]{nB}{$Y$}
+    %
+    \ptreeComment[tcol = orange,
+                  dx   = 2em]{nB}{$-5$}
+    \ptreeComment[tcol = orange,
+                  dx   = 2em]{nC}{$-2$}
+    \ptreeComment[tcol = orange,
+                  dx   = 2em]{nE}{$-1$}
+    \ptreeComment[tcol = orange,
+                  dx   = 2em]{nF}{$\phantom{-}0$}
 \end{probatree}
