@@ -1,0 +1,177 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+    \input{../01-general/01-general.sty}
+
+    \usepackage{01-calculate-expval}
+\makeatother
+
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+
+% == EXTRAS == %
+
+
+\begin{document}
+
+% ---------------------- %
+% ---------------------- %
+% ---------------------- %
+
+
+\section{Cas minimal - all}
+
+\begin{latexex-flat}
+\calcexpval[disp = all]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+
+% ---------------------- %
+% ---------------------- %
+% ---------------------- %
+
+
+
+\section{Avec tout -- table (défaut)}
+
+\begin{latexex-flat}
+\calcexpval[%disp   = table,
+            E      = Esp, X  = Y,
+            k      = i,   xk = y, pk = q,
+            ope    = \times,
+            com    = Le tableau précédent donne les calculs suivants.,
+            colors = blue-orange]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\section{Avec tout -- none}
+
+\begin{latexex-flat}
+\calcexpval[disp   = none,
+            E      = Esp, X  = Y,
+            k      = i,   xk = y, pk = q,
+            ope    = \times,
+            com    = Le tableau précédent donne les calculs suivants.,
+            colors = blue-orange]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\section{Avec tout -- all}
+
+\begin{latexex-flat}
+\calcexpval[disp   = all,
+            E      = Esp, X  = Y,
+            k      = i,   xk = y, pk = q,
+            ope    = \times,
+            com    = Le tableau précédent donne les calculs suivants.,
+            colors = blue-orange]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\section{Avec tout -- exp}
+
+\begin{latexex-flat}
+\calcexpval[disp   = exp,
+            E      = Esp, X  = Y,
+            k      = i,   xk = y, pk = q,
+            ope    = \times,
+            com    = Le tableau précédent donne les calculs suivants.,
+            colors = blue-orange]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\section{Avec tout -- formal}
+
+\begin{latexex-flat}
+\calcexpval[disp   = formal,
+            E      = Esp, X  = Y,
+            k      = i,   xk = y, pk = q,
+            ope    = \times,
+            com    = Le tableau précédent donne les calculs suivants.,
+            colors = blue-orange]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\section{Avec tout -- eval}
+
+\begin{latexex-flat}
+\calcexpval[disp   = eval,
+            E      = Esp, X  = Y,
+            k      = i,   xk = y, pk = q,
+            ope    = \times,
+            com    = Le tableau précédent donne les calculs suivants.,
+            colors = blue-orange]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+
+% ---------------------- %
+% ---------------------- %
+% ---------------------- %
+
+
+
+\section{Sans $\Sigma$ -- all}
+
+\begin{latexex-flat}
+\calcexpval[disp = all,
+            nosigma]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\section{Sans $\Sigma$ -- exp}
+
+\begin{latexex-flat}
+\calcexpval[disp = exp,
+            nosigma]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+\end{document}

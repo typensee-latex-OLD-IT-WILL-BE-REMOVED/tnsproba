@@ -1,0 +1,8 @@
+==========
+2020-09-02
+==========
+
+**New minor version version::``0.9.0-beta``:** see the new important features below and before.
+
+
+**Finite random variable:** the macro ``\calcexpval`` makes it easy to define a finite random variable and to display how to calculate uits expected value.

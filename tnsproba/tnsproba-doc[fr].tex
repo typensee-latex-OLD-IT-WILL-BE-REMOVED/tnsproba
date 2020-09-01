@@ -290,10 +290,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.8.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.9.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-08-10}
+\date{2020-09-02}
 
 \maketitle
 
@@ -327,9 +327,10 @@ La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les 
 
 \begin{multicols}{4}
     \begin{itemize}
-        \item \verb#amsmath#
         \item \verb#forest#
+        \item \verb#nicematrix#
         \item \verb#simplekv#
+        \item \verb#tcolorbox#
         \item \verb#xstring#
     \end{itemize}
 \end{multicols}
@@ -338,7 +339,7 @@ La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les 
 
 Le package \verb+tnssets+ propose la macro \macro{setproba} pour indiquer des ensembles de type probabiliste.
 Se rendre sur \url{https://github.com/typensee-latex/tnssets.git} si cela vous intéresse.
-\section{Généralités}
+\section{Juste pour rédiger}
 
 \subsection{Probabilité \og simple \fg}
 
@@ -431,8 +432,11 @@ $\expval{X}$
 
 \newparaexample{Choisir le nom de l'espérance}
 
+Notez l'utilisation de \macro{mathrm} pour obtenir une lettre droite comme cela est l'usage.
+
 \begin{latexex}
-$\expval[E_1]{X}$
+$\expval[E_1]{X}$ ou
+$\expval[\mathrm{E}_1]{X}$
 \end{latexex}
 
 
@@ -443,7 +447,8 @@ $\expval[E_1]{X}$
 
 \begin{latexex}
 $\var   {X}$ ou
-$\var[v]{X}$
+$\var[v]{X}$ ou
+$\var[\mathrm{v}]{X}$
 \end{latexex}
 
 
@@ -453,13 +458,259 @@ $\var[v]{X}$
 \newparaexample{Écart-type}
 
 \macro{stddev} vient de \whyprefix{st}{andar-}\prefix{d} \whyprefix{dev}{iation} soit \inenglish{écart-type}.
+
 \begin{latexex}
 $\stddev   {X}$ ou
-$\stddev[s]{X}$
+$\stddev[s]{X}$ ou
+$\stddev[\mathrm{s}]{X}$
 \end{latexex}
 
 
 % ---------------------- %
+\section{Calculer l'espérance -- Cas fini}
+
+Il est possible de définir facilement les valeurs d'une variable aléatoire finie (v.a.f.) et d'obtenir si souhaiter le calcul détaillé de son espérance
+\footnote{
+    Pour l'affichage une limitation importante est que le tableau et les calculs doivent tenir sur la largeur de la ligne.
+    Concrètement pour un usage pédagogique cette limitation ne devrait jamais poser de problème.
+}.
+
+
+% ---------------------- %
+
+
+\subsection{Pour un usage direct -- Notations par défaut}
+
+Dans la section \ref{tnsproba-calclexpval-name-n-reuse} page \pageref{tnsproba-calclexpval-name-n-reuse} nous verrons qu'il est possible de définir une loi à un endroit puis de la réutiliser à d'autres
+\footnote{
+    La réutilisation se fera avec un argument vide de \macro{calcexpval}. C'est pour cela qu'une macro est proposée et non un environnement.
+}.
+Nous verrons aussi dans la section \ref{tnsproba-calclexpval-notations} page \pageref{tnsproba-calclexpval-notations} que certaines notations sont modifiables.
+
+\medskip
+
+Dans la présente section nous reproduirons à chaque fois les paramètres de la v.a.f. même si ceci produit des exemples un peu lourds à lire.
+
+
+% ---------------------- %
+
+
+\newparaexample{Loi d'une v.a.f.}
+
+La définition de la loi d'une v.a.f. avec la macro \macro{calcexpval} se fait avec une syntaxe semblable à celle d'un tableau.
+Notez dans l'exemple suivant que par défaut un tableau centré est affiché ce qui correspond à l'option par  défaut \verb#disp = table#.
+Ce n'est pas le seul comportement possible comme vont le montrer les autres exemples à venir.
+
+\begin{latexex-flat}
+\calcexpval{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+\begin{remark}
+    Il est possible de ne rien afficher comme ci-dessous où \prefix{disp} est pour \whyprefix{disp}{lay} soit \inenglish{afficher}.
+    Cette option sera utile pour définir une loi à un endroit et l'utiliser à d'autres.
+
+\begin{latexex-flat}
+\calcexpval[disp = none]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+\end{remark}
+
+
+% ---------------------- %
+
+
+\newparaexample{Calculs expliqués et décorés de l'espérance d'une v.a.f.}
+
+La macro \macro{calcexpval} propose un système de clé valeur pour des réglages personnalisé. L'exemple ci-dessous montre comment obtenir un calcul détaillé et décoré de l'espérance.
+
+\begin{latexex-flat}
+\calcexpval[disp = all]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+L'exemple suivant montre qu'il est facile de changer le couleurs qui sont utilisées de façon cyclique \emph{(on peut indiquer une seule couleur)}.
+
+\begin{latexex-flat}
+\calcexpval[disp   = all,
+            colors = orange - olive]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{Juste détailler les calculs de l'espérance d'une v.a.f.}
+
+Ci-dessous \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développer}. Cette option sera très utile de la réutilisation d'une loi définie précédemment.
+
+\begin{latexex-flat}
+\calcexpval[disp = exp]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{Des bouts du calcul}
+
+Lors de la réutilisation d'une loi définie précédemment les deux options \prefix{formal} et \prefix{eval} peuvent rendre service.
+
+\begin{latexex-flat}
+Somme formelle :
+\calcexpval[disp = formal]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+Somme développée :
+\calcexpval[disp = eval]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{Calculs expliqués sans $\Sigma$}
+
+L'option \verb#nosigma# permet de ne pas afficher le symbole $\Sigma$ pour des raisons pédagogiques ou d'efficacité.
+
+\begin{latexex-flat}
+\calcexpval[disp = all,
+            nosigma]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+\medskip
+
+Juste les calculs :
+\calcexpval[disp = exp,
+            nosigma]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+} .
+\end{latexex-flat}
+%\section{Calculer l'espérance -- Cas fini}
+
+\subsection{Pour un usage différé -- Notations par défaut} \label{tnsproba-calclexpval-name-n-reuse}
+
+Rien de bien compliqué à utiliser comme le montre l'exemple suivant. Notez bien qu'il faut indiquer un argument vide à la macro \macro{calcexpval} lors de la réutilisation.
+
+\begin{latexex-flat}
+Voici ma loi de dingue.
+
+\calcexpval[name = maloidedingue]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+Je dis des choses, bla, bla...
+
+Et puis finalement j'indique le calcul de l'espérance.
+
+\calcexpval[disp  = exp,
+            reuse = maloidedingue]{}
+\end{latexex-flat}
+
+
+\begin{remark}
+	Si cela vous convient, il est possible d'utiliser des noms de type \og chemin de fichiers \fg{} comme ci-après
+	\footnote{
+		Ceci permet d'utiliser des espaces de noms très pratiques à l'usage.
+	}.
+	
+\begin{latexex-flat}
+Définissons de façon cachée la loi... %
+\calcexpval[disp = none,
+            name = ma/loi/de/dingue]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}%
+Bla, bla... Affichons la loi.
+
+\calcexpval[disp  = table,
+            reuse = ma/loi/de/dingue]{}
+\end{latexex-flat}
+\end{remark}
+%\section{Calculer l'espérance -- Cas fini}
+
+\subsection{Notations personnalisées} \label{tnsproba-calclexpval-notations}
+
+\newparaexample{Toutes les options}
+
+L'exemple ci-après utilise toutes les options liées à l'affichage textuel.
+Il faut noter que la clé \verb#com# sert juste à ajouter un court texte sur une seule ligne
+\footnote{
+	Si besoin utiliser séparément l'affichage par défaut avec \texttt{name = maloi} suivi d'un long texte puis enfin employer \texttt{disp = exp, reuse = maloi}.
+}.
+
+\begin{latexex-flat}
+\calcexpval[disp = all,
+            E    = Esp, X  = Y,
+            k    = i  , xk = y, pk = q,
+            com  = Le tableau précédent aboutit aux calculs suivants.,
+            ope  = \times]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+\end{latexex-flat}
+
+
+% ---------------------- %
+
+
+\newparaexample{En réutilisant une loi définie précédemment}
+
+Lors de la création d'une loi nommée via la clé \verb#name# les options textuelles, autre que le commentaire court, sont mémorisées.
+Ceci est très utile comme le montre le 1\ier{} affichage de l'exemple suivant tout en étant modifiable à tout moment comme dans le dernier affichage ci-après.
+
+\begin{latexex-flat}
+DÉFINITION CACHÉE.
+\calcexpval[name = option/texte/loi,
+            disp = none,
+            E    = Esp, X  = Y,
+            k    = i  , xk = y, pk = q,
+            ope  = \times]{
+    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
+    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
+}
+
+\bigskip
+
+RÉUTILISATION DIRECTE.
+\calcexpval[reuse = option/texte/loi,
+            disp  = all]{}
+
+\bigskip
+
+RÉUTILISATION AVEC DES OPTIONS MODIFIÉES (E, k et ope = .).
+\calcexpval[reuse = option/texte/loi,
+            disp  = all,
+            E     = E,
+            k     = k,
+            com   = Le tableau précédent aboutit aux calculs suivants.,
+            ope   = \cdot]{}
+\end{latexex-flat}
+%\section{Arbres pondérés}
 \section{Arbres pondérés}
 
 \subsection{Au commencement était la forêt...}
@@ -482,7 +733,7 @@ Le gros du travail est fait par le package \verb+forest+ qui s'appuie \verb+TikZ
 Commençons par un arbre nu pour voir comment utiliser l'environnement \verb+probatree+ qui s'appuie en coulisse sur celui nommé \verb+forest+ du package éponyme.
 L'exemple qui suit utilise juste les réglages spécifiques de mise en forme de l'arbre qui sont propres à \verb+probatree+.
 
-\inputlatexex{TikZ/probatree-undecorated.tkz}
+\inputlatexex{tikz/probatree-undecorated.tkz}
 
 
 % ---------------------- %
@@ -498,7 +749,7 @@ Dans le code suivant, ce sont les clés
 Indiquons que \prefix{pweight} vient de \whyprefix{p}{robability} et \prefix{weight} soit \inenglish*{probabilité} et \inenglish{poids}.
 Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{bpweight} respectivement, ils viennent de \whyprefix{a}{bove} et \whyprefix{b}{elow} soit \inenglish*{dessus} et \inenglish{dessous}.
 
-\inputlatexex{TikZ/probatree-weight-placement.tkz}
+\inputlatexex{tikz/probatree-weight-placement.tkz}
 
 
 \begin{remark}
@@ -508,7 +759,7 @@ Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{b
 	}
 	ci-dessous.
 
-	\inputlatexex{TikZ/probatree-math-mode.tkz}
+	\inputlatexex{tikz/probatree-math-mode.tkz}
 \end{remark}
 
 
@@ -517,9 +768,14 @@ Quant au \prefix{a} et au \prefix{b} au début de \prefix{apweight} et \prefix{b
 
 \newparaexample{Des poids cachés partout}
 
-On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ sans avoir à les effacer partout dans le code \LaTeX{} \emph{(ceci peut être utile lors de la rédaction d'exercices)}.
+On peut cacher tous les poids sans avoir à les effacer partout dans le code \LaTeX{} \emph{(ceci peut être utile lors de la rédaction d'exercices)}.
+Il suffit pour cela d'utiliser une option \verb#hideall# de l'environnement \verb+probatree+. Comme les codes des arbres utilisent des crochets, l'option s'indique via \verb#<hideall># et non le traditionnel \verb#[hideall]#
+\footnote{
+	Ceci a été rendu possible grâce à un code proposé dans l'excellent livre \emph{\og Apprendre à programmer en \TeX \fg} de Christian Tellechea.
+}.
+L'option utilisée par défaut est \verb#asit# qui demande de respecter les indications données pour les poids dans le code de l'arbre.
 
-\inputlatexex{TikZ/probatree-weight-hide-all.tkz}
+\inputlatexex{tikz/probatree-weight-hide-all.tkz}
 
 
 % ---------------------- %
@@ -529,7 +785,7 @@ On peut cacher tous les poids via l'environnement étoilé \verb+probatree*+ san
 
 Pour ne cacher que certains poids afin de produire par exemple un arbre à compléter, il faudra utiliser localement le style \verb+pweight*+ comme dans l'exemple ci-dessous.
 
-\inputlatexex{TikZ/probatree-weight-hide-locally.tkz}
+\inputlatexex{tikz/probatree-weight-hide-locally.tkz}
 
 
 % ---------------------- %
@@ -537,10 +793,10 @@ Pour ne cacher que certains poids afin de produire par exemple un arbre à compl
 
 \newparaexample{Forcer l'affichage des poids cachés localement}
 
-Imaginons que nous voulions donner l'arbre précédent avec tous ses poids.
-Il suffit dans ce cas de passer via l'environnement doublement étoilé \verb+probatree**+ qui affichera absolument tous les poids \emph{(on tape une fois et on réutilise le même code dans deux contextes différents)}.
+Imaginons que nous voulions donner l'arbre précédent avec tous ses poids visibles pour une correction par exemple.
+Il suffit dans ce cas de passer via l'option \verb#showall# de l'environnement \verb+probatree+ qui affichera absolument tous les poids \emph{(on tape une fois et on réutilise le même code dans deux contextes différents)}.
 
-\inputlatexex{TikZ/probatree-weight-show-all.tkz}
+\inputlatexex{tikz/probatree-weight-show-all.tkz}
 
 
 % ---------------------- %
@@ -554,7 +810,7 @@ Vous ne pouvez pas utiliser directement un signe $=$ ou une virgule dans les ét
 }.
 Pour contourner cette limitation, il suffit de mettre le contenu de l'étiquette entre des accolades.
 
-\inputlatexex{TikZ/probatree-weight-coma-equal.tkz}
+\inputlatexex{tikz/probatree-weight-coma-equal.tkz}
 %\section{Arbres pondérés}
 
 \subsection{Commenter les feuilles}
@@ -567,8 +823,8 @@ Que ce soit pour expliquer un arbre de probabilité, ou bien pour raisonner sur 
 	L'auteur du présent package trouve bien plus efficace à l'usage de ne pas toucher au code minimal d'un arbre.
 	Ceci explique donc le choix retenu de donner les décorations supplémentaires après le code de l'arbre.
 }.
-Noter l'utilisation possible de la clé \verb#col# pour \whyprefix{col}{or} afin d'indiquer une couleur au format TikZ.
-La couleur oar défaut est le noir. 
+Noter l'utilisation possible de la clé \verb#tcol# pour \whyprefix{t}{ext} et \whyprefix{col}{or} afin d'indiquer la couleur du texte au format TikZ.
+La couleur par défaut est le noir. 
 
 
 \inputlatexexflat{tikz/probatree-comment.tkz}
@@ -628,8 +884,73 @@ Voici les pièges à éviter.
 \begin{enumerate}
 	\item \macro{foreach} ignore les espace initiaux mais pas les finaux. Si vous utilisez \verb#nB /$1$# au lieu de  \verb#nB/$1$# alors la macro croira que le nom se finit par un espace et \verb#forest# ne pourra rien faire. 
 
-	\item Les noms \macro{color}, \macro{col}, \macro{dx} et \macro{dy} sont utilisés en coulisse donc vous ne pourrez pas les utiliser dans votre boucle.
+	\item Comme les noms \macro{color}, \macro{tcol}, \macro{dx} et \macro{dy} sont utilisés en coulisse, il n'est pas possible de les utiliser dans les boucles.
 \end{enumerate}
+%\section{Arbres pondérés}
+
+\subsection{Textes des noeuds}
+
+\newparaexample{Changer les couleurs}
+
+On peut a posteriori changer les couleurs du texte et du fond d'un noeud via \macro{ptreeNodeColor} présentée ci-dessous.
+
+\inputlatexexflat{tikz/probatree-txtnode-color.tkz}
+
+
+Voici ce qu'il faut retenir du code précédent.
+
+\begin{enumerate}
+	\item Par défaut le blanc sert de couleur de fond. Ceci se voit dans la mise en forme du noeud $A$ pour lequel \verb#tcol# change juste la couleur du texte qui par défaut sera le noir.
+	
+	\item Pour changer la couleur de fond, on passe via \verb#bcol#. Ceci permet d'avoir le rendu souhaité pour la mise en forme du noeud $B$
+	      \footnote{
+	      	Ainsi le fond du noeud et celui du cadre ont la même couleur.
+		   }.
+	
+	\item Les préfixes \prefix{t} et \prefix{b} de \verb#bcol# et \verb#tcol# sont pour \whyprefix{t}{exte} et \whyprefix{b}{ackground}, ce dernier mot signifiant \inenglish{fond}.
+	      Quant à \verb#col# c'est pour \whyprefix{col}{or} soit \inenglish{couleur}.
+\end{enumerate}
+
+
+
+\begin{remark}
+	Techniquement toutes les macros présentées dans cette section cachent l'ancien texte d'un noeud par superposition de ce texte en utilisant une couleur identique pour le texte et le fond.  
+\end{remark}
+
+
+% ---------------------- %
+
+
+\newparaexample{Changer le texte}
+
+On peut a posteriori changer le texte d'un noeud, avec un choix des couleurs, via \macro{ptreeNodeNewText} présentée ci-après.
+Noter que les couleurs par défaut du texte et du fond restent le noir et le blanc respectivement.
+
+\inputlatexexflat{tikz/probatree-txtnode-changetxt.tkz}
+
+
+
+% ---------------------- %
+
+
+\newparaexample{Récupérer le texte d'un noeud}
+
+Considérons l'arbre un peu plat suivant.
+
+\inputlatexexflat{tikz/probatree-txtnode-txtafter.tkz}
+
+Une fois ce code inséré il est possible de récupérer \ptreeTextOf{nA} juste en tapant \verb#\ptreeTextOf{nA}#. Voici un exemple concret
+\footnote{
+	Mais pas forcément pertinent... L'exemple peut être intéressant dans le cadre de contenus produits de façon automatisée.
+}
+d'utilisation.
+
+\inputlatexexflat{tikz/probatree-txtnode-txtafter-comment.tkz}
+
+
+\begin{remark}
+	Comme la macro \macro{ptreeNodeNewText} utilise le dernier noeud rencontré, il faudra veiller à ne pas vouloir utiliser les textes de noeuds présents dans deux arbres différents et qui ont en même temps le même nom. 
+\end{remark}
 %\section{Arbres pondérés}
 
 \subsection{Avec des cadres}
@@ -671,32 +992,51 @@ Voici un exemple où la macro \macro{ptreeFrame} attend les noms de la racine et
 
 \subsection{Mettre en valeur des chemins}
 
-\newparaexample{Juste avec deux noeuds}
+\newparaexample{Avec deux noeuds -- Choix des couleurs}
 
-Il est relativement aisé de mettre en valeur un chemin particulier comme dans l'exemple ci-après qui est une simple démo. montrant les différences entre \macro{ptreeFocus},  \macro{ptreeFocus*} et \macro{ptreeFocus**}.
+La macro \macro{ptreeFocus} rend facile la mise en valeur d'un chemin particulier comme le montre l'exemple ci-après qui est une simple démo.
 Notez que les noms des noeuds sont séparés par des barres verticales \verb#|# et  qu'il est possible d'utiliser des espaces pour améliorer la lisibilité du code. 
 
-\inputlatexex{tikz/probatree-focus-edge.tkz}
+\inputlatexex{tikz/probatree-focus-edge-color.tkz}
 
-Voici ce qu'il faut retenir.
+
+Voici ce qu'il faut retenir pour les couleurs qui doivent être du type TikZ.
 
 \begin{enumerate}
-	\item \macro{ptreeFocus} encadre tous les noeuds.
+	\item \verb#lcol# sert à indiquer la couleur des arêtes et des cadres éventuels.
+	      Par défaut \verb#lcol = blue#.
+	      Indiquons que le préfixe \prefix{l} est pour \whyprefix{l}{igne}.
 
-	\item \macro{ptreeFocus*} n'encadre pas le tout premier noeud \emph{(typiquement cela est utile pour un chemin partant de la racine de l'arbre si celle-ci n'est pas nommée comme on le fait très souvent)}.
+	\item \verb#tcol# sert à indiquer la couleur du texte.
+	      Par défaut \verb#lcol = black#.
+	      Indiquons que le préfixe \prefix{t} est pour \whyprefix{t}{exte}.
 
-	\item \macro{ptreeFocus**} n'encadre aucun des noeuds.
-	
-	\item La couleur peut être changée via l'argument optionnel en utilisant les couleurs de type TikZ. Par défaut le bleu est utilisé.
+	\item \verb#bcol# sert à indiquer la couleur du fond.
+	      Par défaut \verb#lcol = white#.
+	      Indiquons que le préfixe \prefix{b} est pour \whyprefix{b}{ackground} soit \inenglish{fond}. 
 \end{enumerate}
 
 
-\begin{remark}
-	Le fonctionnement interne de \verb#forest# empêche une coloration automatique des noeuds.
-	Si vous souhaitez obtenir cet effet il faudra ajouter les couleurs à la main pour chaque noeud comme dans l'exemple qui suit.
+% ---------------------- %
 
-	\inputlatexex{tikz/probatree-focus-edge-color-nodes.tkz}
-\end{remark}
+
+\newparaexample{Avec deux noeuds -- Choix des cadres}
+
+Par défaut le 1\ier{} noeud n'est pas encadré car il est courant de vouloir indiquer un noeud partant de la racine qui traditionnellement ne contient aucun texte.
+Il est possible d'obtenir deux autres mises en forme comme ci-après.
+
+\inputlatexex{tikz/probatree-focus-edge-frame.tkz}
+
+Voici ce qu'il faut retenir à propos des encadrements.
+
+\begin{enumerate}
+	\item \verb#frame = nostart#, le réglage par défaut, demande d'encadrer tous les noeuds sauf le 1\ier{}.
+	
+	\item \verb#frame = start# demande d'encadrer tous les noeuds.
+
+	\item \verb#frame = none# demande de n'encadrer aucun noeud.
+\end{enumerate}
+
 
 
 % ---------------------- %
@@ -706,21 +1046,21 @@ Voici ce qu'il faut retenir.
 
 Rien de bien compliqué à condition de bien respecter l'ordre de saisie des noeuds.
 
-\inputlatexexflat{tikz/probatree-focus-edge-long-star.tkz}
+\inputlatexexflat{tikz/probatree-focus-edge-long-nostart.tkz}
 
 
-Avec \macro{ptreeFocus} on obtient l'arbre suivant où le mini disque initial
+Avec \verb#frame = start# on obtient l'arbre suivant où le mini disque initial
 \footnote{
 	Ce disque est en fait un carré aux coins arrondis autour d'un texte vide.
 }
 n'est pas forcément souhaité.
 
-\input{tikz/probatree-focus-edge-long-no-star.tkz}
+\input{tikz/probatree-focus-edge-long-start.tkz}
 
 
-Avec \macro{ptreeFocus**} on obtient l'arbre ci-dessous.
+Avec \verb#frame = none# on obtient l'arbre ci-dessous.
 
-\input{tikz/probatree-focus-edge-long-star-star.tkz}
+\input{tikz/probatree-focus-edge-long-none.tkz}
 
 
 % ---------------------- %
@@ -752,17 +1092,36 @@ Voyons comment obtenir le résultat suivant en indiquant tous les noeuds via les
 %	Le même rendu peut se taper bien plus efficacement via la macro à un argument \macro{ptreeFocusAll*} comme cela est expliqué dans la section précédente.
 %}.
 
-\inputlatexexcodeafter{tikz/probatree-autonum.tkz}
+\inputlatexexcodeafter{tikz/probatree-autonum-default.tkz}
+
+% -- DEBUG - TO KEEP ! - START -- %
+%\input{tikz/probatree-autonum-start.tkz}
+%
+%\input{tikz/probatree-autonum-none.tkz}
+% -- DEBUG - TO KEEP ! - END -- %
+
 
 
 Voici comment s'y prendre.
 
 \begin{enumerate}
 	\item On utilise \macro{aptreeFocus} au lieu de \macro{ptreeFocus} où le préfixe \prefix{a} est pour \whyprefix{a}{uto}.
-	      De façon similaire il existe les macros  \macro{aptreeComment} et  \macro{aptreeFrame}.
 
+		  \medskip
+		  
+		  {\itshape
+		  		\textbf{ATTENTION !}
+		  		Il n'est pas possible de modifier les couleurs du texte et du fond des noeuds car \macro{aptreeTextOf}, \macro{aptreeNodeColor} et \macro{aptreeNodeNewText} n'ont pas pu être implémentées.
+		  		Par contre les macros \macro{aptreeComment} et \macro{aptreeFrame} existent sans limitation.
+		  }
 
-	\item Chaque nom automatique fabriqué par \verb#forest# commence par \texttt{!} . Ce caractère spécial n'est pas à indiquer car il sera ajouté automatiquement en coulisse.
+		  \medskip
+
+	\item Chaque nom automatique
+	      \footnote{
+	      		Ce sont en fait des noms relativement à la racine de l'arbre.
+	      }
+	      fabriqué par \verb#forest# commence par \texttt{!} . Ce caractère spécial n'est pas à indiquer car il sera ajouté automatiquement en coulisse.
 
 	
 	\item La racine est nommée \texttt{!} par \verb#forest# d'où le \verb#|# seul au début de l'argument de \macro{aptreeFocus*} ci-dessus afin d'indiquer un texte vide comme tout premier noeud.
@@ -770,22 +1129,40 @@ Voici comment s'y prendre.
 	
 	\item Pour voir ce qu'il faut faire pour un noeud autre que la racine, considérons par exemple \texttt{1321}. On indique en fait le chemin à suivre après la racine pour arriver au noeud voulu.
 	\begin{itemize}
-		\item Aller d'abord au \fbox{1}\,\ier{} noeud du niveau 1 qui ici est $A$.
-
-		\item Aller ensuite au \fbox{3}\,\ieme{} noeud du niveau 2 qui ici est $D$.
-
-		\item Aller après au \fbox{2}\,\ieme{} noeud du niveau 3 qui ici est $F$.
+		\medskip
 		
-		\item Aller enfin au \fbox{1}\,\ier{} noeud du niveau 4 qui ici est $G$. C'est notre noeud nommé \fbox{\texttt{1321}}.
+		\item Aller d'abord au
+		      \kern.25em\fbox{1}\,\ier{}
+		      \kern.15em
+		      noeud du niveau 1 qui ici est $A$.
+
+		\item Aller ensuite au
+		      \kern.55em\fbox{3}\,\ieme{}
+		      \kern.4em
+		      noeud du niveau 2 qui ici est $D$.
+
+		\item Aller après au
+		      \kern1.35em\fbox{2}\,\ieme{}
+		      \kern.4em
+		      noeud du niveau 3 qui ici est $F$.
+		
+		\item Aller enfin au
+		      \kern1.55em\fbox{1}\,\ier{}
+		      \kern.15em
+		      noeud du niveau 4 qui ici est $G$.
+		      
+		\medskip
+		
+		\item On obtient finalement notre noeud nommé \fbox{\texttt{1321}}.
 	\end{itemize}
 \end{enumerate}
 
 
 \begin{remark}
-	Utilisez de préférence les noms automatiques car cela facilitera la maintenance de vos arbres sur le long terme.
+	Dans la mesure du possible, utiliser les noms automatiques facilite la maintenance des arbres sur le long terme.
 	Si on reprend le tout premier exemple d'arbre décoré, il est bien plus simple de faire comme suit car on ne touche pas à la structure minimale du code de l'arbre.
-	A titre illustratif on a utilisé \macro{ptreeFrame} au lieu de la clé \verb#pframe# directement dans l'arbre.
-	
+	On a même utilisé \macro{ptreeFrame} au lieu de la clé \verb#pframe# dans l'arbre.
+
 	\inputlatexexflat{tikz/probatree-showcase-autonum.tkz}
 \end{remark}
 %\section{Arbres pondérés}
@@ -802,6 +1179,68 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-09-02] Nouvelle version mineure \verb+0.9.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Calculs de l'espérance dans le cas fini}
+        	  \macro{calcexpval} rend facile la définition d'une variable aléatoire finie avec la possibilité de détailler le calcul de son espérance.
+    
+    
+    % ---------------------- %
+    
+    
+        \item \topic*{Arbre de probabilités}
+        	  pas mal de changements dans l'API et quelques nouveautés.
+    
+        \begin{itemize}[itemsep=.5em]
+            \item \verb#\begin{probatree}<hideall># \verb#...# \verb#\end{probatree}#  remplace l'usage de l'environnement \env{probatree*}.
+    
+    
+            \item \verb#\begin{probatree}<showall># \verb#...# \verb#\end{probatree}# remplace l'usage de l'environnement \env{probatree**}.
+    
+    
+            \item De nouvelles macros permettent d'agir sur le texte des noeuds.
+    
+            \begin{enumerate}
+            	\item \macro{ptreeTextOf} renvoie le texte d'un noeud.
+    
+            	\item \macro{ptreeNodeColor} change les couleurs du texte et/ou du fond d'un noeud.
+    
+            	\item \macro{ptreeNodeNewText} change le texte en plus éventuellement  les couleurs du texte et/ou du fond d'un noeud.
+            \end{enumerate}
+    
+    
+            \item \macro{ptreeFocus} a évolué
+                  \footnote{
+                  		Malheureusement ces changements n'ont pas pu être faits pour \macro{aptreeFocus} principalement car l'équivalent automatique de \macro{ptreeTextOf} n'a pu être implémenté.
+    			  }.
+    
+            \begin{enumerate}
+            	\item \macro{ptreeFocus[frame = start]} remplace l'ancien \macro{ptreeFocus}.
+    
+            	\item \macro{ptreeFocus[frame = none]} remplace \macro{ptreeFocus**} qui n'existe plus.
+    
+            	\item \macro{ptreeFocus[frame = nostart]} est utilisé par défaut et remplace \macro{ptreeFocus*} qui n'existe plus. On obtient dans ce cas une mise en valeur encadrant tous les noeuds sauf le tout 1\ier{}.
+    
+            	\item Les clés optionnelles \verb#lcol#, \verb#tcol# et \verb#bcol# permettent de choisir la couleur des arrêtes et des cadres, celle du texte et enfin celle du fond.
+            \end{enumerate}
+    
+    
+            \item \verb#tcol# remplace l'ancien \verb#col# de \macro{ptreeComment} et \macro{aptreeComment}.
+    
+    		\item \verb#lcol# remplace l'ancien \verb#col# de \macro{ptreeFrame}, \macro{aptreeFrame} et \macro{aptreeFocus}.
+    
+    
+    
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \separation
+
+% ------------------------ %
 
     \medskip
     \item[2020-08-10] Nouvelle version mineure \verb+0.8.0-beta+.
@@ -945,7 +1384,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-\subsection{Généralités}
+\subsection{Juste pour rédiger}
 
 \subsubsection{Probabilité \og simple \fg}
 
@@ -1032,6 +1471,108 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+\subsection{Calculer l'espérance -- Cas fini}
+
+
+
+\IDmacro{calcexpval}{1}{1} \hfill \mwhyprefix{calc}{ulate}
+
+                           \hfill \prefix{expval = exp-ected val-ue}
+
+\IDoption{} un système de type \texttt{clé = valeur}.
+
+\begin{enumerate}
+    \item \verb#disp# indique ce qu'il faut afficher. La valeur par défaut est \verb#table#. Voici toutes les valeurs possibles.
+	\begin{enumerate}
+    	\item \verb#table # : un tableau donnant la loi est affiché seul.
+
+    	\item \verb#all   # : un tableau donnant la loi est affiché suivi du début du calcul de l'espérance.
+
+    	\item \verb#none  # : rien n'est affiché.
+	
+		\extraspace
+
+    	\item \verb#exp   # : le début du calcul de l'espérance sans le tableau donnant la loi.
+
+    	\item \verb#formal# : la formule avec $\Sigma$ .
+
+    	\item \verb#eval  # : la somme des produits du type $p_k \cdot x_k$ .
+	\end{enumerate}
+
+
+    \medskip
+
+    \item \verb#nosigma# : utilisée seule cette option demande de ne pas afficher la formule avec $\Sigma$ .
+
+
+    \medskip
+
+    \item \verb#E # : le nom de l'espérance.
+		  \hfill
+		  Par défaut \verb# E = E# .
+
+    \item \verb#X # : le nom de la variable aléatoire.
+		  \hfill
+		  Par défaut \verb# X = X# .
+
+    \item \verb#k # : l'indice.
+		  \hfill
+		  Par défaut \verb# k = k# .
+
+    \item \verb#xk# : la lettre à indicer pour les valeurs de la variable aléatoire.
+		  \hfill
+		  Par défaut \verb#xk = x# .
+
+    \item \verb#pk# : la lettre à indicer pour les valeurs des probabilités.
+		  \hfill
+		  Par défaut \verb#pk = p# .
+
+
+    \medskip
+
+    \item \verb#com# : un texte court éventuel à ajouter entre le tableau donnant la loi et le début du calcul de l'espérance.
+
+
+    \medskip
+
+    \item \verb#ope# : le symbole de multiplication.
+		  \hfill
+		  Par défaut \verb#ope = \cdot# .
+
+
+    \medskip
+
+    \item \verb#name # : un nom éventuel de la loi pour une utilisation ultérieure.
+
+    \item \verb#reuse# : un nom indiquant ce qui doit être réutilisé.
+
+
+    \medskip
+
+    \item \verb#colors# : le cycle des couleurs au format TikZ séparées par des tirets.
+		  
+		  \smallskip
+		  
+		  \hfill
+		  Par défaut \verb#colors = red - blue - orange - green!70!black# .
+\end{enumerate}
+%
+%
+\IDarg{} définition de la loi de la variable aléatoire finie avec une syntaxe semblable à celle d'un tableau.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1045,11 +1586,18 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-\IDenv[n]{probatree}
+\IDenv[o]{probatree}{1}
 
-\IDenv[n]{probatree*}
+\IDoption{} la valeur par défaut étant \verb#asit#.
+            \emph{\textbf{ATTENTION !} L'option s'indique via \texttt{<...>} et non le traditionnel \texttt{[...]}.}
 
-\IDenv[n]{probatree**}
+\begin{enumerate}
+    \item \verb#asit# : pour les poids, on suit les indications données dans le code.
+
+    \item \verb#hideall# : on cache tous les poids quelque soient les indications données dans le code.
+
+    \item \verb#showall# : on montre tous les poids quelque soient les indications données dans le code.
+\end{enumerate}
 
 \Content{} un arbre codé en utilisant la syntaxe supportée par le package \verb#forest#.
 
@@ -1064,17 +1612,20 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \extraspace
 
 \IDkey{pweight*} pour indiquer un poids sans l'imprimer.
-Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait utilisé \verb#pweight#.
+Avec l'option \verb#showall# le poids sera affiché comme si on avait utilisé \verb#pweight#.
 
 \IDkey{apweight*} pour indiquer un poids sans l'imprimer.
-Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait utilisé \verb#apweight#.
+Avec l'option \verb#showall# le poids sera affiché comme si on avait utilisé \verb#apweight#.
 
 \IDkey{bpweight*} pour indiquer un poids sans l'imprimer.
-Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait utilisé \verb#bpweight#.
+Avec l'option \verb#showall# le poids sera affiché comme si on avait utilisé \verb#bpweight#.
 
 \extraspace
 
 \IDkey{pframe} pour encadrer un sous-arbre depuis un noeud vers toutes les feuilles de celui-ci.
+
+
+% ---------------------- %
 
 
 \separation
@@ -1082,17 +1633,17 @@ Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait
 
 \IDmacro{ptreeFrame}{1}{3} \hfill \mwhyprefix{p}{robabilty}
 
-\IDoption{} un système de type \texttt{clé=valeur}.
+\IDoption{} un système de type \texttt{clé = valeur}.
 
 \begin{enumerate}
-	\item \verb#col# : une couleur au format TikZ. La valeur par défaut est \verb#blue#.
+    \item \verb#lcol# : la couleur au format TikZ du cadre. La valeur par défaut est \verb#blue#.
 \end{enumerate}
 
 
 \IDargs{1..3} les noms de la sous-racine (à gauche), du noeud final en haut (à droite) et du noeud final en bas (à droite) tous indiqués via \verb#name = ...# \emph{(en fait l'ordre n'est pas important ici)}.
 
 
-\separation
+\bigskip
 
 
 \IDmacro{aptreeFrame}{1}{3} \hfill \mwhyprefix{a}{auto}
@@ -1103,19 +1654,22 @@ Dans l'environnement \env{probatree**}, le poids sera affiché comme si on avait
 Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
 
 
+% ---------------------- %
+
+
 \separation
 
 
 \IDmacro{ptreeComment}{1}{2}
 
-\IDoption{} un système de type \texttt{clé=valeur}.
+\IDoption{} un système de type \texttt{clé = valeur}.
 
 \begin{enumerate}
-	\item \verb#col# : une couleur au format TikZ. La valeur par défaut est \verb#black#.
+    \item \verb#tcol# : la couleur au format TikZ du texte. La valeur par défaut est \verb#black#.
 
-	\item \verb#dx# : une distance horizontale relative de décalage. La valeur par défaut est \verb#0cm#.
+    \item \verb#dx# : une distance horizontale relative de décalage. La valeur par défaut est \verb#0cm#.
 
-	\item \verb#dy# : une distance verticale relative de décalage. La valeur par défaut est \verb#0cm#.
+    \item \verb#dy# : une distance verticale relative de décalage. La valeur par défaut est \verb#0cm#.
 \end{enumerate}
 
 \IDarg{1} le nom de la feuille.
@@ -1123,7 +1677,7 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 \IDarg{2} le texte du commentaire.
 
 
-\separation
+\bigskip
 
 
 \IDmacro{aptreeComment}{1}{2}
@@ -1134,37 +1688,139 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
 
 
+% ---------------------- %
+
+
 \separation
 
 
-\IDmacro{ptreeFocus  }{1}{1}
+\IDmacro[a]{ptreeTextOf}{1}
 
-\IDmacro{ptreeFocus* }{1}{1}
+\IDarg{} le nom du noeud.
 
-\IDmacro{ptreeFocus**}{1}{1}
 
-\IDoption{} un système de type \texttt{clé=valeur}.
+%\bigskip
+%
+%
+%\IDmacro[a]{aptreeTextOf}{1}
+%
+%\extraspace
+%\extraspace
+%
+%Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+
+
+% ---------------------- %
+
+
+\separation
+
+
+\IDmacro[a]{ptreeNodeColor}{2}
+
+\IDarg{1} le nom du noeud.
+
+\IDarg{2} chacun des paramètres présentés ci-dessous est optionnel et par défaut la macro utilise \verb#tcol = black# et \verb#bcol = white#.
 
 \begin{enumerate}
-	\item \verb#col# : une couleur au format TikZ. La valeur par défaut est \verb#blue#.
+	\item \verb#tcol = ...# sert à indiquer la couleur du texte.
+
+	\item \verb#bcol = ...# pour à indiquer la couleur du fond \emph{(\mwhyprefix{b}{ackground})}.
 \end{enumerate}
 
-\IDarg{} les noms des noeuds indiqués via \verb#name = ...# à fournir dans le bon ordre et à séparer par des barres verticales \verb#|#.
+
+
+%\bigskip
+%
+%
+%\IDmacro[a]{aptreeNodeColor}{2}
+%
+%\extraspace
+%\extraspace
+%
+%Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+
+
+% ---------------------- %
 
 
 \separation
 
 
-\IDmacro{aptreeFocus  }{1}{1}
+\IDmacro{ptreeNodeNewText}{1}{2}
 
-\IDmacro{aptreeFocus* }{1}{1}
+\IDoption{} chacun des paramètres présentés ci-dessous est optionnel et par défaut la macro utilise \verb#tcol = black# et \verb#bcol = white#.
 
-\IDmacro{aptreeFocus**}{1}{1}
+\begin{enumerate}
+	\item \verb#tcol = ...# sert à indiquer la nouvelle couleur du texte.
 
-\extraspace
-\extraspace
+	\item \verb#bcol = ...# pour à indiquer la nouvelle couleur du fond \emph{(\mwhyprefix{b}{ackground})}.
+\end{enumerate}
 
-Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+\IDarg{1} le nom du noeud.
+
+\IDarg{2} le nouveau texte.
+
+%
+%\bigskip
+%
+%
+%\IDmacro{aptreeNodeNewText}{1}{2}
+%
+%\extraspace
+%\extraspace
+%
+%Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+
+
+% ---------------------- %
+
+
+\separation
+
+
+\IDmacro{ptreeFocus}{1}{1}
+
+\IDoption{} un système de type \texttt{clé = valeur}.
+
+\begin{enumerate}    
+    \item \verb#lcol# : la couleur au format TikZ des lignes des arrêtes et des cadres éventuels. La valeur par défaut est \verb#blue#.
+
+    \item \verb#tcol# : la couleur au format TikZ du texte. La valeur par défaut est \verb#black#.
+
+    \item \verb#bcol# : la couleur au format TikZ du fond. La valeur par défaut est \verb#white#.
+    
+    \extraspace
+    
+    \item \verb#frame# : le type d'encadrement souhaité. La valeur par défaut est \verb#nostart#. Voici les valeurs disponibles.
+    \begin{enumerate}
+    	\item \verb#nostart# : le 1\ier{} noeud n'est pas encadré mais les autres le sont.
+
+    	\item \verb#start  # : tous les noeuds sont encadrés. 
+
+    	\item \verb#none   # : aucun des noeuds n'est encadré.
+    \end{enumerate}
+\end{enumerate}
+
+\IDarg{} les noms des noeuds indiqués via \verb#name = ...# à fournir dans le bon ordre et à séparer par des barres verticales \verb#|# .
+
+
+\bigskip
+
+
+\IDmacro{aptreeFocus}{1}{1}
+
+\IDoption{} un système de type \texttt{clé = valeur}.
+
+\begin{enumerate}    
+    \item \verb#lcol# : la couleur au format TikZ des lignes des arrêtes et des cadres éventuels. La valeur par défaut est \verb#blue#.
+
+    \extraspace
+    
+    \item \verb#frame# : voir les indications précédentes.
+\end{enumerate}
+
+\IDarg{} : voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
 
 
 
