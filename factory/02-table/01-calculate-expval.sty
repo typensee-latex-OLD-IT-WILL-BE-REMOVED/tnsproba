@@ -466,7 +466,7 @@
         \iftnsproba@expval@key@Expval@show@formal
             $%
                 \iftnsproba@expval@key@Expval@show@exp
-                    \tnsproba@expval@key@E{}(\tnsproba@expval@key@X{}) = 
+                    \expval[\tnsproba@expval@key@E{}]{\tnsproba@expval@key@X{}} = 
                 \fi
                 %
                 \sum\limits%
@@ -492,7 +492,7 @@
 
             $%
                 \iftnsproba@expval@key@Expval@show@exp
-                    \tnsproba@expval@key@E{}(\tnsproba@expval@key@X{}) = 
+                    \expval[\tnsproba@expval@key@E{}]{\tnsproba@expval@key@X{}} = 
                 \fi
                 %
                  \seq_map_indexed_inline:Nn \l__tnsproba_x_seq {
@@ -506,14 +506,14 @@
                                               \l__tnsproba_actual_color_temp_tl
                     
                             \decotext[\l__tnsproba_actual_color_temp_tl]{%
-                                ##2%
-                                \tnsproba@expval@key@ope{}%
                                 \l__tnsproba_pval_tl%
+                                \tnsproba@expval@key@ope{}%
+                                ##2%
                             }
                         }{ % The num. of the col. is even.
-                            ##2
-                            \tnsproba@expval@key@ope{}%
                             \l__tnsproba_pval_tl
+                            \tnsproba@expval@key@ope{}%
+                            ##2
                         }
             
                     \int_compare:nNnT { ##1 } < { \seq_count:N \l__tnsproba_x_seq }
