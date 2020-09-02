@@ -1,4 +1,25 @@
 ==========
+2020-09-03
+==========
+
+**New minor version version::``0.10.0-beta``:** see the new important features below and before.
+
+
+**Generalities:** two changes have been done.
+
+    1) The default name for probabilities is `P` instead of `p`.
+
+    1) The names of probabilities, expected values, variances and standard derivations all use ``\mathrm`` by default.
+
+
+**Finite random variable:** two enhancements have been done.
+
+    1) The macro ``\expval`` is used in backstage to print the expected values in the calculations.
+
+    1) In the eval step of the calculations, the products all start with the probailites before the values as in the formal sum.
+
+
+==========
 2020-09-02
 ==========
 

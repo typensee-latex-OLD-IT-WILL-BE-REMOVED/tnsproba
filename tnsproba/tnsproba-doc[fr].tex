@@ -290,10 +290,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.9.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.10.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-09-02}
+\date{2020-09-03}
 
 \maketitle
 
@@ -356,7 +356,7 @@ $\proba{A}$
 \newparaexample{Choisir le nom de la probabilité}
 
 \begin{latexex}
-$\proba[P]{A}$
+$\proba[p]{A}$
 \end{latexex}
 
 
@@ -396,10 +396,10 @@ Le préfixe \prefix{e} est pour \whyprefix{e}{xpand} soit \inenglish{développer
 \newparaexample{Choisir le nom de la probabilité}
 
 \begin{latexex}
- $\probacond  [P]{B}{A}
-= \probacond* [P]{B}{A}
-= \eprobacond*[P]{B}{A}
-= \eprobacond [P]{B}{A}$
+ $\probacond  [p]{B}{A}
+= \probacond* [p]{B}{A}
+= \eprobacond*[p]{B}{A}
+= \eprobacond [p]{B}{A}$
 \end{latexex}
 
 
@@ -432,11 +432,8 @@ $\expval{X}$
 
 \newparaexample{Choisir le nom de l'espérance}
 
-Notez l'utilisation de \macro{mathrm} pour obtenir une lettre droite comme cela est l'usage.
-
 \begin{latexex}
-$\expval[E_1]{X}$ ou
-$\expval[\mathrm{E}_1]{X}$
+$\expval[E_1]{X}$
 \end{latexex}
 
 
@@ -445,10 +442,12 @@ $\expval[\mathrm{E}_1]{X}$
 
 \newparaexample{Variance}
 
+Notez la possibilité d'utiliser \macro{mathit} pour obtenir des lettres en italique.
+
 \begin{latexex}
 $\var   {X}$ ou
 $\var[v]{X}$ ou
-$\var[\mathrm{v}]{X}$
+$\var[\mathit{v}]{X}$
 \end{latexex}
 
 
@@ -462,7 +461,7 @@ $\var[\mathrm{v}]{X}$
 \begin{latexex}
 $\stddev   {X}$ ou
 $\stddev[s]{X}$ ou
-$\stddev[\mathrm{s}]{X}$
+$\stddev[\mathit{s}]{X}$
 \end{latexex}
 
 
@@ -1181,6 +1180,37 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-09-03] Nouvelle version mineure \verb+0.10.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic{Généralités}
+    
+        \begin{itemize}[itemsep=.5em]
+            \item $\mathrm{P}$ est le nom par défaut d'une probabilité.
+    
+    		\item Les noms des probabilités, des espérances, des variances et des écarts-types utilisent tous une police droite via \macro{mathrm} en coulisse.
+        \end{itemize}
+    
+    
+    % ---------------------- %
+    
+    
+        \item \topic{Espérance d'une variable aléatoire finie}
+    
+        \begin{itemize}[itemsep=.5em]
+            \item \macro{expval} est utilisée en coulisse pour rédiger les espérances dans les détails des calculs.
+            
+    		\item L'ordre des produits dans le calcul numérique est le même que celui dans la somme formelle.
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \separation
+    
+
+% ------------------------ %
+
+    \medskip
     \item[2020-09-02] Nouvelle version mineure \verb+0.9.0-beta+.
     
     \begin{itemize}[itemsep=.5em]
@@ -1392,7 +1422,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDmacro{proba}{1}{1}
 
-\IDoption{} le nom de la probabilité. La valeur par défaut est $p$.
+\IDoption{} le nom de la probabilité. La valeur par défaut est \verb#P#.
 
 \IDarg{} l'ensemble dont on veut calculer la probabilité.
 
@@ -1415,7 +1445,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDmacro{eprobacond*}{1}{2}
 
 
-\IDoption{} le nom de la probabilité. La valeur par défaut est $p$.
+\IDoption{} le nom de la probabilité. La valeur par défaut est \verb#P#.
 
 \IDarg{1} l'ensemble qui donne la condition.
 
@@ -1437,7 +1467,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDmacro{expval}{1}{1}
 
-\IDoption{} le nom de la fonction espérance. La valeur par défaut est $\mathrm{E}$ obtenue via \verb#\mathrm{E}#.
+\IDoption{} le nom de la fonction espérance. valeur par défaut est \verb#E#.
 
 \IDarg{} la variable aléatoire dont on veut calculer l'espérance.
 
@@ -1447,7 +1477,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDmacro{var}{1}{1}
 
-\IDoption{} le nom de la fonction variance. La valeur par défaut est $\mathrm{V}$ obtenue via \verb#\mathrm{V}#.
+\IDoption{} le nom de la fonction variance. valeur par défaut est \verb#V#.
 
 \IDarg{} la variable aléatoire dont on veut calculer la variance.
 
@@ -1457,7 +1487,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDmacro{stddev}{1}{1}
 
-\IDoption{} le nom de la fonction écart-type. La valeur par défaut est $\sigma$ obtenue via \verb#\sigma#.
+\IDoption{} le nom de la fonction écart-type. La valeur par défaut est \verb#\sigma#.
 
 \IDarg{} la variable aléatoire dont on veut calculer l'écart-type.
 
@@ -1507,25 +1537,25 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
     \medskip
 
-    \item \verb#E # : le nom de l'espérance.
+    \item \verb#E # : la macro utilisée pour écrire l'espérance.
 		  \hfill
-		  Par défaut \verb# E = E# .
+		  Par défaut \verb# E = \expval# .
 
     \item \verb#X # : le nom de la variable aléatoire.
 		  \hfill
-		  Par défaut \verb# X = X# .
+		  Par défaut \verb# X = X# .\verb#      #
 
     \item \verb#k # : l'indice.
 		  \hfill
-		  Par défaut \verb# k = k# .
+		  Par défaut \verb# k = k# .\verb#      #
 
     \item \verb#xk# : la lettre à indicer pour les valeurs de la variable aléatoire.
 		  \hfill
-		  Par défaut \verb#xk = x# .
+		  Par défaut \verb#xk = x# .\verb#      #
 
     \item \verb#pk# : la lettre à indicer pour les valeurs des probabilités.
 		  \hfill
-		  Par défaut \verb#pk = p# .
+		  Par défaut \verb#pk = p# .\verb#      #
 
 
     \medskip
