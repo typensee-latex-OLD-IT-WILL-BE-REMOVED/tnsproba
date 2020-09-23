@@ -10,6 +10,11 @@
         ]
     ]
     %
+    \aptreeTag[tcol = green!50!black,
+               dy   = .75mm]{1}{Choix 1}
+    \aptreeTag[tcol = green!50!black,
+               dy   = .75mm]{11}{Choix 2}
+    %
     \aptreeFocus[lcol  = gray,
                  frame = start]{1 | 11}
     %

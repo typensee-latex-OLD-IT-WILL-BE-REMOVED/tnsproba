@@ -15,6 +15,11 @@
         ]
     ]
     %
+    \ptreeTag[tcol = green!50!black,
+              dy   = .75mm]{nA}{Choix 1}
+    \ptreeTag[tcol = green!50!black,
+              dy   = .75mm]{nB}{Choix 2}
+    %
     \ptreeFocus[lcol  = gray,
                 frame = start]{nA | nB}
     %

@@ -1,0 +1,16 @@
+\begin{probatree}
+    [
+        [A, name = nA]
+        [B
+            [C, name = nC]
+            [D, blue]
+        ]
+    ]
+    %
+    \ptreeTag[tcol = purple,
+              dx   = 3em,
+              dy   = 1.75em]{nA}{Niveaux}
+    %
+    \ptreeTag{nA}{Niv.1}
+    \ptreeTag{nC}{Niv.2}
+\end{probatree}

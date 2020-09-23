@@ -16,6 +16,7 @@
 
 \IDenv[o]{probatree}{1}
 
+
 \IDoption{} la valeur par défaut étant \verb#asit#.
             \emph{\textbf{ATTENTION !} L'option s'indique via \texttt{<...>} et non le traditionnel \texttt{[...]}.}
 
@@ -88,7 +89,9 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 \separation
 
 
-\IDmacro{ptreeComment}{1}{2}
+\IDmacro{ptreeComment }{1}{2}
+
+\IDmacro{ptreeComment*}{1}{2}
 
 \IDoption{} un système de type \texttt{clé = valeur}.
 
@@ -108,7 +111,47 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 \bigskip
 
 
-\IDmacro{aptreeComment}{1}{2}
+\IDmacro{aptreeComment }{1}{2}
+
+\IDmacro{aptreeComment*}{1}{2}
+
+\extraspace
+\extraspace
+
+Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+
+
+% ---------------------- %
+
+
+\separation
+
+
+\IDmacro{ptreeTag }{1}{2}
+
+\IDmacro{ptreeTag*}{1}{2}
+
+\IDoption{} un système de type \texttt{clé = valeur}.
+
+\begin{enumerate}
+    \item \verb#tcol# : la couleur au format TikZ du texte. La valeur par défaut est \verb#black#.
+
+    \item \verb#dx# : une distance horizontale relative de décalage. La valeur par défaut est \verb#0cm#.
+
+    \item \verb#dy# : une distance verticale relative de décalage. La valeur par défaut est \verb#0cm#.
+\end{enumerate}
+
+\IDarg{1} le nom d'un noeud du niveau souhaité.
+
+\IDarg{2} le texte décrivant le niveau.
+
+
+\bigskip
+
+
+\IDmacro{aptreeTag }{1}{2}
+
+\IDmacro{aptreeTag*}{1}{2}
 
 \extraspace
 \extraspace
