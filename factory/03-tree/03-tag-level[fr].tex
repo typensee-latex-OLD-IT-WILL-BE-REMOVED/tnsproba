@@ -1,0 +1,46 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+    \input{../01-general/01-general.sty}
+
+    \usepackage{01-basic}
+    \usepackage{03-tag-level}
+\makeatother
+
+
+% == EXTRAS == %
+
+
+\begin{document}
+
+%\section{Arbres pondérés}
+
+\subsection{Expliquer les niveaux}
+
+Les clés étant similaires à celles vues pour les commentaires, les exemples devraient donc se suffire à eux-mêmes.
+
+
+\newparaexample{Expliquer au-dessus}
+
+\inputlatexexflat{tikz/probatree-tag-up.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Expliquer en dessous}
+
+\inputlatexexflat{tikz/probatree-tag-down.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Décalages horizontal et vertical}
+
+\inputlatexexflat{tikz/probatree-tag-dx-dy.tkz}
+
+\end{document}
+
+

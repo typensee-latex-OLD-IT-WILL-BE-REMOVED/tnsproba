@@ -33,6 +33,7 @@
 
 \usepackage{enumitem}
 \usepackage{multicol}
+\usepackage{longtable}
 \usepackage{makecell}
 
 \setlength{\parindent}{0cm}
@@ -290,10 +291,10 @@
 	Le package \texttt{tnsproba}:\\%
 	parler des probabilités facilement\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnsproba.git}.}\\%
-{\footnotesize Version \texttt{0.10.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.11.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-09-03}
+\date{2020-09-23}
 
 \maketitle
 
@@ -323,7 +324,7 @@ Le package \verb+tnsproba+ propose des macros utiles quand l'on parle de probabi
 % List of packages - START
 \section{Packages utilisés}
 
-La roue ayant déjà été inventée, le package \verb#tnsproba# réutilise les packages suivants sans aucun scrupule.
+La roue ayant déjà été inventée, le package \verb#tnsproba# utilise les packages suivants sans aucun scrupule.
 
 \begin{multicols}{4}
     \begin{itemize}
@@ -500,24 +501,14 @@ La définition de la loi d'une v.a.f. avec la macro \macro{calcexpval} se fait a
 Notez dans l'exemple suivant que par défaut un tableau centré est affiché ce qui correspond à l'option par  défaut \verb#disp = table#.
 Ce n'est pas le seul comportement possible comme vont le montrer les autres exemples à venir.
 
-\begin{latexex-flat}
-\calcexpval{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-basic-default.extra.tex}
 
 
 \begin{remark}
     Il est possible de ne rien afficher comme ci-dessous où \prefix{disp} est pour \whyprefix{disp}{lay} soit \inenglish{afficher}.
     Cette option sera utile pour définir une loi à un endroit et l'utiliser à d'autres.
 
-\begin{latexex-flat}
-\calcexpval[disp = none]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-\end{latexex-flat}
+	\inputlatexexflat{examples/expval-basic-disp-none.extra.tex}
 \end{remark}
 
 
@@ -528,23 +519,12 @@ Ce n'est pas le seul comportement possible comme vont le montrer les autres exem
 
 La macro \macro{calcexpval} propose un système de clé valeur pour des réglages personnalisé. L'exemple ci-dessous montre comment obtenir un calcul détaillé et décoré de l'espérance.
 
-\begin{latexex-flat}
-\calcexpval[disp = all]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-basic-disp-all.extra.tex}
 
 
 L'exemple suivant montre qu'il est facile de changer le couleurs qui sont utilisées de façon cyclique \emph{(on peut indiquer une seule couleur)}.
 
-\begin{latexex-flat}
-\calcexpval[disp   = all,
-            colors = orange - olive]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-basic-disp-all-colors.extra.tex}
 
 
 % ---------------------- %
@@ -552,14 +532,9 @@ L'exemple suivant montre qu'il est facile de changer le couleurs qui sont utilis
 
 \newparaexample{Juste détailler les calculs de l'espérance d'une v.a.f.}
 
-Ci-dessous \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développer}. Cette option sera très utile de la réutilisation d'une loi définie précédemment.
+Ci-dessous \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développer}. Cette option sera très utile lors de la réutilisation d'une loi définie précédemment.
 
-\begin{latexex-flat}
-\calcexpval[disp = exp]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-basic-disp-exp.extra.tex}
 
 
 % ---------------------- %
@@ -569,20 +544,7 @@ Ci-dessous \prefix{exp} est pour \whyprefix{exp}{and} soit \inenglish{développe
 
 Lors de la réutilisation d'une loi définie précédemment les deux options \prefix{formal} et \prefix{eval} peuvent rendre service.
 
-\begin{latexex-flat}
-Somme formelle :
-\calcexpval[disp = formal]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-
-Somme développée :
-\calcexpval[disp = eval]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-basic-disp-pieces.extra.tex}
 
 
 % ---------------------- %
@@ -592,43 +554,14 @@ Somme développée :
 
 L'option \verb#nosigma# permet de ne pas afficher le symbole $\Sigma$ pour des raisons pédagogiques ou d'efficacité.
 
-\begin{latexex-flat}
-\calcexpval[disp = all,
-            nosigma]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-
-\medskip
-
-Juste les calculs :
-\calcexpval[disp = exp,
-            nosigma]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-} .
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-basic-disp-no-sigma.extra.tex}
 %\section{Calculer l'espérance -- Cas fini}
 
 \subsection{Pour un usage différé -- Notations par défaut} \label{tnsproba-calclexpval-name-n-reuse}
 
 Rien de bien compliqué à utiliser comme le montre l'exemple suivant. Notez bien qu'il faut indiquer un argument vide à la macro \macro{calcexpval} lors de la réutilisation.
 
-\begin{latexex-flat}
-Voici ma loi de dingue.
-
-\calcexpval[name = maloidedingue]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-
-Je dis des choses, bla, bla...
-
-Et puis finalement j'indique le calcul de l'espérance.
-
-\calcexpval[disp  = exp,
-            reuse = maloidedingue]{}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-use-later-case-1.extra.tex}
 
 
 \begin{remark}
@@ -637,18 +570,7 @@ Et puis finalement j'indique le calcul de l'espérance.
 		Ceci permet d'utiliser des espaces de noms très pratiques à l'usage.
 	}.
 	
-\begin{latexex-flat}
-Définissons de façon cachée la loi... %
-\calcexpval[disp = none,
-            name = ma/loi/de/dingue]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}%
-Bla, bla... Affichons la loi.
-
-\calcexpval[disp  = table,
-            reuse = ma/loi/de/dingue]{}
-\end{latexex-flat}
+	\inputlatexexflat{examples/expval-use-later-case-2.extra.tex}
 \end{remark}
 %\section{Calculer l'espérance -- Cas fini}
 
@@ -662,16 +584,7 @@ Il faut noter que la clé \verb#com# sert juste à ajouter un court texte sur un
 	Si besoin utiliser séparément l'affichage par défaut avec \texttt{name = maloi} suivi d'un long texte puis enfin employer \texttt{disp = exp, reuse = maloi}.
 }.
 
-\begin{latexex-flat}
-\calcexpval[disp = all,
-            E    = Esp, X  = Y,
-            k    = i  , xk = y, pk = q,
-            com  = Le tableau précédent aboutit aux calculs suivants.,
-            ope  = \times]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-use-notation-basic.extra.tex}
 
 
 % ---------------------- %
@@ -682,33 +595,7 @@ Il faut noter que la clé \verb#com# sert juste à ajouter un court texte sur un
 Lors de la création d'une loi nommée via la clé \verb#name# les options textuelles, autre que le commentaire court, sont mémorisées.
 Ceci est très utile comme le montre le 1\ier{} affichage de l'exemple suivant tout en étant modifiable à tout moment comme dans le dernier affichage ci-après.
 
-\begin{latexex-flat}
-DÉFINITION CACHÉE.
-\calcexpval[name = option/texte/loi,
-            disp = none,
-            E    = Esp, X  = Y,
-            k    = i  , xk = y, pk = q,
-            ope  = \times]{
-    0      & 1   & 2   & 3    & 4    & 5   & 6   \\
-    0.2000 & 0.1 & 0.2 & 0.05 & 0.15 & 0.1 & 0.2
-}
-
-\bigskip
-
-RÉUTILISATION DIRECTE.
-\calcexpval[reuse = option/texte/loi,
-            disp  = all]{}
-
-\bigskip
-
-RÉUTILISATION AVEC DES OPTIONS MODIFIÉES (E, k et ope = .).
-\calcexpval[reuse = option/texte/loi,
-            disp  = all,
-            E     = E,
-            k     = k,
-            com   = Le tableau précédent aboutit aux calculs suivants.,
-            ope   = \cdot]{}
-\end{latexex-flat}
+\inputlatexexflat{examples/expval-use-notation-reuse.extra.tex}
 %\section{Arbres pondérés}
 \section{Arbres pondérés}
 
@@ -885,6 +772,32 @@ Voici les pièges à éviter.
 
 	\item Comme les noms \macro{color}, \macro{tcol}, \macro{dx} et \macro{dy} sont utilisés en coulisse, il n'est pas possible de les utiliser dans les boucles.
 \end{enumerate}
+%\section{Arbres pondérés}
+
+\subsection{Expliquer les niveaux}
+
+Les clés étant similaires à celles vues pour les commentaires, les exemples devraient donc se suffire à eux-mêmes.
+
+
+\newparaexample{Expliquer au-dessus}
+
+\inputlatexexflat{tikz/probatree-tag-up.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Expliquer en dessous}
+
+\inputlatexexflat{tikz/probatree-tag-down.tkz}
+
+
+% ---------------------- %
+
+
+\newparaexample{Décalages horizontal et vertical}
+
+\inputlatexexflat{tikz/probatree-tag-dx-dy.tkz}
 %\section{Arbres pondérés}
 
 \subsection{Textes des noeuds}
@@ -1131,22 +1044,22 @@ Voici comment s'y prendre.
 		\medskip
 		
 		\item Aller d'abord au
-		      \kern.25em\fbox{1}\,\ier{}
+		      \kern.25em\fbox{1}\kern.4ex\ier{}
 		      \kern.15em
 		      noeud du niveau 1 qui ici est $A$.
 
 		\item Aller ensuite au
-		      \kern.55em\fbox{3}\,\ieme{}
+		      \kern.55em\fbox{3}\kern.4ex\ieme{}
 		      \kern.4em
 		      noeud du niveau 2 qui ici est $D$.
 
 		\item Aller après au
-		      \kern1.35em\fbox{2}\,\ieme{}
+		      \kern1.35em\fbox{2}\kern.4ex\ieme{}
 		      \kern.4em
 		      noeud du niveau 3 qui ici est $F$.
 		
 		\item Aller enfin au
-		      \kern1.55em\fbox{1}\,\ier{}
+		      \kern1.55em\fbox{1}\kern.4ex\ier{}
 		      \kern.15em
 		      noeud du niveau 4 qui ici est $G$.
 		      
@@ -1178,6 +1091,19 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-09-23] Nouvelle version mineure \verb+0.11.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Arbre de probabilités}
+        	  ajout de \macro{ptreeTag}, \macro{ptreeTag*}, \macro{aptreeTag} et \macro{aptreeTag*} pour décrire individuellement les niveaux de l'arbre.
+    \end{itemize}
+    
+    
+    \separation
+
+% ------------------------ %
 
     \medskip
     \item[2020-09-03] Nouvelle version mineure \verb+0.10.0-beta+.
@@ -1612,11 +1538,15 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
+
+
+
 \subsection{Arbres pondérés}
 
 
 
 \IDenv[o]{probatree}{1}
+
 
 \IDoption{} la valeur par défaut étant \verb#asit#.
             \emph{\textbf{ATTENTION !} L'option s'indique via \texttt{<...>} et non le traditionnel \texttt{[...]}.}
@@ -1690,7 +1620,9 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 \separation
 
 
-\IDmacro{ptreeComment}{1}{2}
+\IDmacro{ptreeComment }{1}{2}
+
+\IDmacro{ptreeComment*}{1}{2}
 
 \IDoption{} un système de type \texttt{clé = valeur}.
 
@@ -1710,7 +1642,47 @@ Voir les indications précédentes excepté qu'ici on utilise le système de nom
 \bigskip
 
 
-\IDmacro{aptreeComment}{1}{2}
+\IDmacro{aptreeComment }{1}{2}
+
+\IDmacro{aptreeComment*}{1}{2}
+
+\extraspace
+\extraspace
+
+Voir les indications précédentes excepté qu'ici on utilise le système de nommage automatisé dérivé de celui de \verb#forest#.
+
+
+% ---------------------- %
+
+
+\separation
+
+
+\IDmacro{ptreeTag }{1}{2}
+
+\IDmacro{ptreeTag*}{1}{2}
+
+\IDoption{} un système de type \texttt{clé = valeur}.
+
+\begin{enumerate}
+    \item \verb#tcol# : la couleur au format TikZ du texte. La valeur par défaut est \verb#black#.
+
+    \item \verb#dx# : une distance horizontale relative de décalage. La valeur par défaut est \verb#0cm#.
+
+    \item \verb#dy# : une distance verticale relative de décalage. La valeur par défaut est \verb#0cm#.
+\end{enumerate}
+
+\IDarg{1} le nom d'un noeud du niveau souhaité.
+
+\IDarg{2} le texte décrivant le niveau.
+
+
+\bigskip
+
+
+\IDmacro{aptreeTag }{1}{2}
+
+\IDmacro{aptreeTag*}{1}{2}
 
 \extraspace
 \extraspace

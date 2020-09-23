@@ -16,8 +16,8 @@
 
 % TikZ libraries
 \usetikzlibrary{fit}
-\usetikzlibrary{calc}
 \usetikzlibrary{babel}
+\usetikzlibrary{calc}
 
 
 % ------------- %
@@ -534,7 +534,7 @@
         \fi
     
 
-% Comment between the table and the calculus.
+% Comment between the calculus of the expected value.
         \iftnsproba@expval@key@Expval@show@comment
             \IfStrEq{\tnsproba@expval@key@com}{@}{}{
                 \tnsproba@expval@key@com
@@ -619,8 +619,6 @@
 
 
 \forestset{
-    declare count = {connections}{1},
-    %
     apweight/.style = {
         edge label = {
             node[sloped,
@@ -782,6 +780,8 @@
 %        },
         tikz+={
             \coordinate (ptreecomment coord) at (current bounding box.east);
+            \coordinate (ptreetag coord) at (current bounding box.north);;
+            \coordinate (ptreetag* coord) at (current bounding box.south);
         },
         #2
     \end{forest}
@@ -831,6 +831,53 @@
 	      xshift = .825cm,
 	      yshift = 0cm]
 	at (#2.mid) {\textcolor{\tcol}{#3}};
+}
+
+
+% --------------- %
+% -- TAG LEVEL -- %
+% --------------- %
+
+\setKVdefault[tnsproba@level@tag@keys]{%
+    tcol = black,
+    dx   = 0cm,
+    dy   = 0cm
+}
+
+
+%    #1 : color
+%
+%    #2 : name of a node at the level wanted
+%    #3 : tag
+
+\newcommand\ptreeTag{\@ifstar{\ptree@tag@star}{\ptree@tag@no@star}}
+
+
+\newcommand\ptree@tag@no@star[3][]{
+    \useKVdefault[tnsproba@level@tag@keys]%
+    \setKV[tnsproba@level@tag@keys]{#1}%
+    \edef\tcol{\useKV[tnsproba@level@tag@keys]{tcol}}%
+    \edef\dx{\useKV[tnsproba@level@tag@keys]{dx}}%
+    \edef\dy{\useKV[tnsproba@level@tag@keys]{dy}}%
+	%
+	\node[anchor = north,
+	      xshift = \dx,
+	      yshift = \dy + .75cm]
+	at (#2.mid |- ptreetag coord) {\textcolor{\tcol}{#3}};
+}
+
+
+\newcommand\ptree@tag@star[3][]{
+    \useKVdefault[tnsproba@level@tag@keys]%
+    \setKV[tnsproba@level@tag@keys]{#1}%
+    \edef\tcol{\useKV[tnsproba@level@tag@keys]{tcol}}%
+    \edef\dx{\useKV[tnsproba@level@tag@keys]{dx}}%
+    \edef\dy{\useKV[tnsproba@level@tag@keys]{dy}}%
+	%
+	\node[anchor = south,
+	      xshift = \dx,
+	      yshift = \dy - .75cm]
+	at (#2.mid |- ptreetag* coord) {\textcolor{\tcol}{#3}};
 }
 
 
@@ -1065,6 +1112,7 @@
 %
 % #2 : node
 % #3 : comment
+
 \newcommand\aptreeComment{\@ifstar{\aptree@comment@star}{\aptree@comment@no@star}}
 
 \newcommand\aptree@comment@no@star[3][]{
@@ -1075,6 +1123,23 @@
 
 \newcommand\aptree@comment@star[3][]{
 	\ptree@comment@star[#1]{!#2}{#3}
+}
+
+
+
+% -- LEVEL TAGS WITH AUTO NUMBERING -- %
+
+
+\newcommand\aptreeTag{\@ifstar{\aptree@tag@star}{\aptree@tag@no@star}}
+
+\newcommand\aptree@tag@no@star[3][]{
+	\ptree@tag@no@star[#1]{!#2}{#3}
+}
+
+
+
+\newcommand\aptree@tag@star[3][]{
+	\ptree@tag@star[#1]{!#2}{#3}
 }
 
 

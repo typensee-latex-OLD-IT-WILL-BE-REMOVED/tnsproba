@@ -12,6 +12,7 @@
 %
 % #2 : node
 % #3 : comment
+
 \newcommand\aptreeComment{\@ifstar{\aptree@comment@star}{\aptree@comment@no@star}}
 
 \newcommand\aptree@comment@no@star[3][]{
@@ -22,6 +23,23 @@
 
 \newcommand\aptree@comment@star[3][]{
 	\ptree@comment@star[#1]{!#2}{#3}
+}
+
+
+
+% -- LEVEL TAGS WITH AUTO NUMBERING -- %
+
+
+\newcommand\aptreeTag{\@ifstar{\aptree@tag@star}{\aptree@tag@no@star}}
+
+\newcommand\aptree@tag@no@star[3][]{
+	\ptree@tag@no@star[#1]{!#2}{#3}
+}
+
+
+
+\newcommand\aptree@tag@star[3][]{
+	\ptree@tag@star[#1]{!#2}{#3}
 }
 
 

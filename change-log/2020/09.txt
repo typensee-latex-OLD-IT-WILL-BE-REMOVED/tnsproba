@@ -1,4 +1,17 @@
 ==========
+2020-09-23
+==========
+
+**New minor version version::``0.11.0-beta``:** see the new feature below.
+
+
+**Probabilistic tree:** it is now possible to add tags for each level of the tree suchas to indicate their meaning. See the macros ``\ptreeTag``,  ``\ptreeTag*``,  ``\aptreeTag`` or  ``\aptreeTag*``.
+
+
+**¨Doc:** external files are used for the examples of finite random variables.
+
+
+==========
 2020-09-03
 ==========
 
