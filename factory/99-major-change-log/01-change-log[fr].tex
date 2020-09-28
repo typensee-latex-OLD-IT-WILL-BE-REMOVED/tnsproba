@@ -22,6 +22,24 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-09-28] Nouvelle version mineure \verb+0.12.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic{Arbre de probabilités}
+    
+        \begin{itemize}[itemsep=.5em]
+            \item Les macros \macro{ptreeTag}, \macro{ptreeTag*}, \macro{aptreeTag} et \macro{aptreeTag*} ont été renommées \macro{ptreeTagLevel}, \macro{ptreeTagLevel*}, \macro{aptreeTagLevel} et \macro{aptreeTagLevel*}.
+    
+    		\item \macro{ptreeTagLeaf}, \macro{ptreeTagLeaf*}, \macro{aptreeTagLeaf} et \macro{aptreeTagLeaf*} permettent de décorer des racines avec le même texte.
+        \end{itemize}
+    \end{itemize}
+    
+    
+    \separation
+
+% ------------------------ %
+
+    \medskip
     \item[2020-09-23] Nouvelle version mineure \verb+0.11.0-beta+.
     
     \begin{itemize}[itemsep=.5em]
@@ -97,10 +115,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
             \end{enumerate}
     
     
-            \item \macro{ptreeFocus} a évolué
-                  \footnote{
-                  		Malheureusement ces changements n'ont pas pu être faits pour \macro{aptreeFocus} principalement car l'équivalent automatique de \macro{ptreeTextOf} n'a pu être implémenté.
-    			  }.
+            \item \macro{ptreeFocus} a évolué.
     
             \begin{enumerate}
             	\item \macro{ptreeFocus[frame = start]} remplace l'ancien \macro{ptreeFocus}.
@@ -113,9 +128,12 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
             \end{enumerate}
     
     
+            \item \macro{aptreeFocus} a évolué presque comme \macro{ptreeFocus} car pour la couleur seule \verb#lcol# est disponible.
+    
+    
             \item \verb#tcol# remplace l'ancien \verb#col# de \macro{ptreeComment} et \macro{aptreeComment}.
     
-    		\item \verb#lcol# remplace l'ancien \verb#col# de \macro{ptreeFrame}, \macro{aptreeFrame} et \macro{aptreeFocus}.
+    		\item \verb#lcol# remplace l'ancien \verb#col# de \macro{ptreeFrame} et \macro{aptreeFrame}.
     
     
     

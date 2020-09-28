@@ -1,3 +1,4 @@
+
 \documentclass[12pt,a4paper]{article}
 
 \makeatletter
@@ -5,7 +6,7 @@
     \input{../01-general/01-general.sty}
 
     \usepackage{01-basic}
-    \usepackage{03-tag-level}
+    \usepackage{03-tag}
 \makeatother
 
 
@@ -18,12 +19,12 @@
 
 \subsection{Expliquer les niveaux}
 
-Les clés étant similaires à celles vues pour les commentaires, les exemples devraient donc se suffire à eux-mêmes.
+Grâce aux deux sections précédentes les exemples devraient se suffire à eux-mêmes pour comprendre les fonctionnements de \macro{ptreeTagLevel} et \macro{ptreeTagLevel*}.
 
 
 \newparaexample{Expliquer au-dessus}
 
-\inputlatexexflat{tikz/probatree-tag-up.tkz}
+\inputlatexexflat{tikz/probatree-tag-level-above.tkz}
 
 
 % ---------------------- %
@@ -31,7 +32,7 @@ Les clés étant similaires à celles vues pour les commentaires, les exemples d
 
 \newparaexample{Expliquer en dessous}
 
-\inputlatexexflat{tikz/probatree-tag-down.tkz}
+\inputlatexexflat{tikz/probatree-tag-level-below.tkz}
 
 
 % ---------------------- %
@@ -39,7 +40,7 @@ Les clés étant similaires à celles vues pour les commentaires, les exemples d
 
 \newparaexample{Décalages horizontal et vertical}
 
-\inputlatexexflat{tikz/probatree-tag-dx-dy.tkz}
+\inputlatexexflat{tikz/probatree-tag-level-dx-dy.tkz}
 
 \end{document}
 

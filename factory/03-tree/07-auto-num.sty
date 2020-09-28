@@ -27,31 +27,100 @@
 
 
 
+% -- LEAF TAGS WITH AUTO NUMBERING -- %
+
+
+%    #1 : number of the node
+%    #2 : the node
+
+\newcommand\tnsproba@tag@leaf@abstract@one@node@no@star@auto[2]{
+	\ptreeComment[tcol = \tnsproba@ptree@tag@leaf@text@color,
+	              dx   = \tnsproba@ptree@tag@leaf@dx,
+	              dy   = \tnsproba@ptree@tag@leaf@dy]%
+	             {!#2}%
+	             {\tnsproba@ptree@tag@leaf@text}
+}
+
+
+\newcommand\tnsproba@tag@leaf@abstract@one@node@star@auto[2]{
+	\ptreeComment*[tcol = \tnsproba@ptree@tag@leaf@text@color,
+	               dx   = \tnsproba@ptree@tag@leaf@dx,
+	               dy   = \tnsproba@ptree@tag@leaf@dy]%
+	              {!#2}%
+	              {\tnsproba@ptree@tag@leaf@text}
+}
+
+
+%    #1 : node1 | node2 | ...
+
+\newcommand\tnsproba@ptree@tag@leaf@abstract@multi@nodes@no@star@auto[1]{
+% Note
+%
+%    #1 : macro to apply
+%    #2 : multi-args
+	\tns@multi@apply@each%
+	    {\tnsproba@tag@leaf@abstract@one@node@no@star@auto}%
+	    {#1}
+}
+
+
+\newcommand\tnsproba@ptree@tag@leaf@abstract@multi@nodes@star@auto[1]{
+% Note
+%
+%    #1 : macro to apply
+%    #2 : multi-args
+	\tns@multi@apply@each%
+	    {\tnsproba@tag@leaf@abstract@one@node@star@auto}%
+	    {#1}
+}
+
+%    #1 : color
+%
+%    #2 : names of the nodes separated by |
+%    #3 : tag
+
+\newcommand\aptreeTagLeaf{\@ifstar{\aptree@tag@leaf@star}{\aptree@tag@leaf@no@star}}
+
+
+%    #4 : the macro to print the special comments.
+
+\newcommand\aptree@tag@leaf@star@no@star[4]{
+    \useKVdefault[tnsproba@tag@keys]%
+    \setKV[tnsproba@tag@keys]{#1}%
+    \renewcommand\tnsproba@ptree@tag@leaf@text@color{\useKV[tnsproba@tag@keys]{tcol}}%
+    \renewcommand\tnsproba@ptree@tag@leaf@dx{\useKV[tnsproba@tag@keys]{dx}}%
+    \renewcommand\tnsproba@ptree@tag@leaf@dy{\useKV[tnsproba@tag@keys]{dy}}%
+	%
+	\renewcommand\tnsproba@ptree@tag@leaf@text{#3}%
+	%
+	#4{#2}
+}
+
+
+\newcommand\aptree@tag@leaf@no@star[3][]{
+    \aptree@tag@leaf@star@no@star{#1}{#2}{#3}%
+                                 {\tnsproba@ptree@tag@leaf@abstract@multi@nodes@no@star@auto}
+}
+
+
+\newcommand\aptree@tag@leaf@star[3][]{
+    \aptree@tag@leaf@star@no@star{#1}{#2}{#3}%
+                                 {\tnsproba@ptree@tag@leaf@abstract@multi@nodes@star@auto}
+}
+
+
+
 % -- LEVEL TAGS WITH AUTO NUMBERING -- %
 
 
-\newcommand\aptreeTag{\@ifstar{\aptree@tag@star}{\aptree@tag@no@star}}
+\newcommand\aptreeTagLevel{\@ifstar{\aptree@tag@level@star}{\aptree@tag@level@no@star}}
 
-\newcommand\aptree@tag@no@star[3][]{
-	\ptree@tag@no@star[#1]{!#2}{#3}
+\newcommand\aptree@tag@level@no@star[3][]{
+	\ptree@tag@level@no@star[#1]{!#2}{#3}
 }
 
-
-
-\newcommand\aptree@tag@star[3][]{
-	\ptree@tag@star[#1]{!#2}{#3}
-}
-
-
-
-% -- FRAMES WITH AUTO NUMBERING -- %
-
-% #1 : color
-% #2 : left start corner
-% #3 : right up   corner
-% #4 : right down corner
-\newcommand\aptreeFrame[4][]{%
-    \ptreeFrame[#1]{!#2}{!#3}{!#4}%
+\newcommand\aptree@tag@level@star[3][]{
+	\ptree@tag@level@star[#1]{!#2}{#3}
 }
 
 
@@ -163,4 +232,16 @@
     ]%
 	%
 	\tocall{#2}
+}
+
+
+
+% -- FRAMES WITH AUTO NUMBERING -- %
+
+% #1 : color
+% #2 : left start corner
+% #3 : right up   corner
+% #4 : right down corner
+\newcommand\aptreeFrame[4][]{%
+    \ptreeFrame[#1]{!#2}{!#3}{!#4}%
 }
