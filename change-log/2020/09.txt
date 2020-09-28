@@ -1,4 +1,18 @@
 ==========
+2020-09-28
+==========
+
+**New minor version version::``0.12.0-beta``:** see the new feature below.
+
+
+**Probabilistic tree:** some little big changes have been made.
+
+    1) The ``ptreeTag`` macros have been renamed ``ptreeTagLevel``.
+
+    2) It is now possible to add the same tag to several leafs (this can be useful to explain a reasonning). See the macros ``\ptreeTagLeaf``,  ``\ptreeTagLeaf*``,  ``\aptreeTagLeaf`` or  ``\aptreeTagLeaf*``.
+
+
+==========
 2020-09-23
 ==========
 

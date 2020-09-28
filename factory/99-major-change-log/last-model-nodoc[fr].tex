@@ -1,58 +1,7 @@
-Nouvelle version mineure \verb+0.9.0-beta+.
+Nouvelle version mineure \verb+0.11.0-beta+.
 
+aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa aa 
 \begin{itemize}[itemsep=.5em]
-    \item \topic*{Calculs de l'espérance dans le cas discret fini}
-    	  \macro{calcexpval} rend facile la définition d'une variable aléatoire discrète fini avec en la possibilité de détailler le calcul de son espérance.
-
-
-% ---------------------- %
-
-
     \item \topic*{Arbre de probabilités}
-    	  pas mal de changements dans l'API et quelques nouveautés.
-
-    \begin{itemize}[itemsep=.5em]
-        \item \verb#\begin{probatree}<hideall># \verb#...# \verb#\end{probatree}#  remplace l'usage de l'environnement \env{probatree*}.
-
-
-        \item \verb#\begin{probatree}<showall># \verb#...# \verb#\end{probatree}# remplace l'usage de l'environnement \env{probatree**}.
-
-
-        \item De nouvelles macros permettent d'agir sur le texte des noeuds.
-
-        \begin{enumerate}
-        	\item \macro{ptreeTextOf} renvoie le texte d'un noeud.
-
-        	\item \macro{ptreeNodeColor} change les couleurs du texte et/ou du fond d'un noeud.
-
-        	\item \macro{ptreeNodeNewText} change le texte en plus éventuellement  les couleurs du texte et/ou du fond d'un noeud.
-        \end{enumerate}
-
-
-        \item \macro{ptreeFocus} a évolué
-              \footnote{
-              		Malheureusement ces changements n'ont pas pu être faits pour \macro{aptreeFocus} principalement car l'équivalent automatique de \macro{ptreeTextOf} n'a pu être implémenté.
-			  }.
-
-        \begin{enumerate}
-        	\item \macro{ptreeFocus[frame = start]} remplace l'ancien \macro{ptreeFocus}.
-
-        	\item \macro{ptreeFocus[frame = none]} remplace \macro{ptreeFocus**} qui n'existe plus.
-
-        	\item \macro{ptreeFocus[frame = nostart]} est utilisé par défaut et remplace \macro{ptreeFocus*} qui n'existe plus. On obtient dans ce cas une mise en valeur encadrant tous les noeuds sauf le tout 1\ier{}.
-
-        	\item Les clés optionnelles \verb#lcol#, \verb#tcol# et \verb#bcol# permettent de choisir la couleur des arrêtes et des cadres, celle du texte et enfin celle du fond.
-        \end{enumerate}
-
-
-        \item \verb#tcol# remplace l'ancien \verb#col# de \macro{ptreeComment} et \macro{aptreeComment}.
-
-		\item \verb#lcol# remplace l'ancien \verb#col# de \macro{ptreeFrame}, \macro{aptreeFrame} et \macro{aptreeFocus}.
-
-
-
-    \end{itemize}
+    	  ajout de \macro{ptreeTag}, \macro{ptreeTag*}, \macro{aptreeTag} et \macro{aptreeTag*} pour décrire individuellement les niveaux de l'arbre.
 \end{itemize}
-
-
-\separation
