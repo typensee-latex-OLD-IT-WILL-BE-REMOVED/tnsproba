@@ -15,9 +15,9 @@
 \RequirePackage{xstring}
 
 % TikZ libraries
+\usetikzlibrary{calc}
 \usetikzlibrary{fit}
 \usetikzlibrary{babel}
-\usetikzlibrary{calc}
 
 
 % ------------- %
@@ -131,6 +131,7 @@
 
 \newcommand\frameText[2][blue]{
     \tcboxmath[colframe = #1,
+               colback  = white,
                boxsep   = 1mm, boxrule = 1pt,
                left     = 0mm, right   = 0mm, 
                top      = 0mm, bottom  = 0mm]{#2}

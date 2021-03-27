@@ -1,0 +1,8 @@
+==========
+2021-03-23
+==========
+
+**New minor version version::``0.12.1-beta``:** see the pseudo bug fixed.
+
+
+**Finite random variable:** the color of background of the frames used in the computation of the expected value was not the white (this has been fixed). 
